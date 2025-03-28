@@ -1,9 +1,7 @@
-"use client";
-
-import { useState } from "react";
-import { Dialog, Heading, Modal, ModalOverlay } from "react-aria-components";
-import { motion, PanInfo, useDragControls } from "motion/react";
-import { CloseButton } from "@/general/components/CloseButton";
+import { useState } from 'react';
+import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
+import { motion, type PanInfo, useDragControls } from 'motion/react';
+import { CloseButton } from '@/components/CloseButton';
 
 type ExpandableContainerProps = {
   colapsedManagerParts: React.ReactNode;
@@ -28,7 +26,10 @@ export function ExpandableContainer({
   }
 
   return (
-    <CompactContainer isExpanded={isExpanded} setIsExpanded={setIsExpanded}>
+    <CompactContainer
+      isExpanded={isExpanded}
+      setIsExpanded={setIsExpanded}
+    >
       {colapsedManagerParts}
     </CompactContainer>
   );
@@ -47,7 +48,7 @@ function CompactContainer({
 }: CompactContainerProps) {
   function handleDragUp(
     e: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
+    info: PanInfo
   ) {
     if (info.offset.y < -70) {
       setIsExpanded(true);
@@ -57,9 +58,9 @@ function CompactContainer({
   return (
     <motion.div
       layoutDependency={isExpanded}
-      layoutId="morph"
+      layoutId='morph'
       onClick={() => setIsExpanded(true)}
-      drag="y"
+      drag='y'
       dragTransition={{
         bounceStiffness: 90,
         bounceDamping: 8,
@@ -68,7 +69,7 @@ function CompactContainer({
       dragElastic={{ top: 0.3, bottom: 0 }}
       onDrag={handleDragUp}
       className={`${twClasses.shared} ${twClasses.floater}`}
-      aria-label="Open Income Manager"
+      aria-label='Open Income Manager'
     >
       {children}
     </motion.div>
@@ -90,7 +91,7 @@ function ExpandedModalContainer({
 
   function handleDragDown(
     e: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
+    info: PanInfo
   ) {
     if (info.offset.y > 70) {
       setIsExpanded(false);
@@ -105,8 +106,8 @@ function ExpandedModalContainer({
     >
       <MotionModal
         layoutDependency={isExpanded}
-        layoutId="morph"
-        drag="y"
+        layoutId='morph'
+        drag='y'
         dragListener={false}
         dragControls={dragControls}
         dragTransition={{
@@ -117,14 +118,14 @@ function ExpandedModalContainer({
         dragElastic={{ top: 0, bottom: 0.3 }}
         onDrag={handleDragDown}
         transition={{
-          type: "spring",
+          type: 'spring',
           duration: 0.6,
           bounce: 0.2,
-          ease: "easeIn",
+          ease: 'easeIn',
         }}
         className={`${twClasses.shared} ${twClasses.modal}`}
       >
-        <Dialog className="outline-none">
+        <Dialog className='outline-none'>
           <ModalDraggableHeader
             dragControls={dragControls}
             setIsExpanded={setIsExpanded}
@@ -150,13 +151,16 @@ function ModalDraggableHeader({
   return (
     <motion.div
       onPointerDown={(e) => dragControls.start(e)}
-      className="rounded-t-3xl py-1 pl-3"
+      className='rounded-t-3xl py-1 pl-3'
     >
-      <Heading level={1} className="text-4xl">
+      <Heading
+        level={1}
+        className='text-4xl'
+      >
         Ingresos
       </Heading>
       <CloseButton
-        className="absolute top-3 right-3"
+        className='absolute top-3 right-3'
         onPress={() => setIsExpanded(false)}
       />
     </motion.div>
@@ -164,8 +168,8 @@ function ModalDraggableHeader({
 }
 
 const twClasses = {
-  shared: "border-gray4/50 fixed left-1/2 -translate-x-1/2 border",
-  modal: "bg-background h-[95%] bottom-0 w-full rounded-t-3xl md:h-[47rem]",
+  shared: 'border-gray4/50 fixed left-1/2 -translate-x-1/2 border',
+  modal: 'bg-background h-[95%] bottom-0 w-full rounded-t-3xl md:h-[47rem]',
   floater:
-    "bg-background/60 h-[7rem] w-[21rem] bottom-3 px-4 py-2 cursor-pointer rounded-3xl shadow-lg backdrop-blur-sm transition-[scale] duration-500 ease-in-out hover:scale-105 hover:shadow-xl hover:duration-200 active:scale-95 active:shadow-lg md:w-[28rem]",
+    'bg-background/60 h-[7rem] w-[21rem] bottom-3 px-4 py-2 cursor-pointer rounded-3xl shadow-lg backdrop-blur-sm transition-[scale] duration-500 ease-in-out hover:scale-105 hover:shadow-xl hover:duration-200 active:scale-95 active:shadow-lg md:w-[28rem]',
 };

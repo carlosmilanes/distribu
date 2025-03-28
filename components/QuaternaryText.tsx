@@ -1,4 +1,4 @@
-import { Text, TextProps } from "./Text";
+import { Text, type TextProps } from './Text';
 
 export function QuaternaryText({ children, className, ...props }: TextProps) {
   return (

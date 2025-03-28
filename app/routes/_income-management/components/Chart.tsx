@@ -1,11 +1,11 @@
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { IncomeState } from "@/data/types";
-import { SecondaryText } from "@/general/components/SecondaryText";
-import { QuaternaryText } from "@/general/components/QuaternaryText";
-import { StackedBar } from "./StackedBar";
-import { findBasicPercentage } from "@/general/utils/findBasicPercentage";
-import { Money } from "@/general/components/Money";
-import { ChartState } from "./ChartState";
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import type { IncomeState } from '@/data/types';
+import { SecondaryText } from '@/components/SecondaryText';
+import { QuaternaryText } from '@/components/QuaternaryText';
+import { StackedBar } from './StackedBar';
+import { findBasicPercentage } from '@/utils/findBasicPercentage';
+import { Money } from '@/components/Money';
+import { ChartState } from './ChartState';
 
 type ChartProps = {
   incomeState: IncomeState;
@@ -16,7 +16,10 @@ export function Chart({ incomeState }: ChartProps) {
     <ChartState incomeState={incomeState}>
       <TotalHeader total={incomeState.total} />
       <Legend />
-      <StackedBar state={incomeState} className="mx-3" />
+      <StackedBar
+        state={incomeState}
+        className='mx-3'
+      />
     </ChartState>
   );
 }
@@ -28,15 +31,18 @@ type TotalHeaderProps = {
 
 function TotalHeader({ total, collapsed = false }: TotalHeaderProps) {
   return (
-    <div className="relative my-2 flex items-center justify-between pr-4 pl-3">
-      <div className="flex flex-col">
+    <div className='relative my-2 flex items-center justify-between pr-4 pl-3'>
+      <div className='flex flex-col'>
         <QuaternaryText>Total</QuaternaryText>
-        <Money className="text-xl font-semibold" amount={total} />
+        <Money
+          className='text-xl font-semibold'
+          amount={total}
+        />
       </div>
 
       <ChevronDownIcon
         className={`size-6 stroke-2 transition-transform duration-300 ease-in-out ${
-          collapsed ? "rotate-180" : ""
+          collapsed ? 'rotate-180' : ''
         }`}
       />
     </div>
@@ -54,26 +60,26 @@ function Legend({ incomeState, hidden = false }: LegendProps) {
   return (
     <div
       className={`mx-3 overflow-hidden border-income transition-[height,opacity] duration-300 ease-in-out ${
-        hidden ? "h-0 opacity-0" : "h-48 opacity-100"
+        hidden ? 'h-0 opacity-0' : 'h-48 opacity-100'
       }`}
     >
       <LegendItem
-        label="Disponible"
+        label='Disponible'
         amount={incomeState.assignable}
         total={incomeState.total}
-        material="income"
+        material='income'
       />
       <LegendItem
-        label="Asignado"
+        label='Asignado'
         amount={incomeState.assigned}
         total={incomeState.total}
-        material="assigned"
+        material='assigned'
       />
       <LegendItem
-        label="Usado"
+        label='Usado'
         amount={incomeState.used}
         total={incomeState.total}
-        material="expense"
+        material='expense'
       />
     </div>
   );
@@ -88,10 +94,10 @@ type LegendItemProps = {
 
 function LegendItem({ label, amount, total, material }: LegendItemProps) {
   return (
-    <div className="mb-2">
+    <div className='mb-2'>
       <QuaternaryText>{label}</QuaternaryText>
 
-      <div className="flex items-end justify-between">
+      <div className='flex items-end justify-between'>
         <SecondaryText className={`text-xl font-semibold text-${material}`}>
           {amount}
         </SecondaryText>
@@ -109,10 +115,10 @@ function LegendItem({ label, amount, total, material }: LegendItemProps) {
 function DottedDivider() {
   return (
     <div
-      className="h-1 bg-repeat-x"
+      className='h-1 bg-repeat-x'
       style={{
         backgroundImage: `radial-gradient(circle, gray 1px, transparent 1px)`,
-        backgroundSize: "10px 4px",
+        backgroundSize: '10px 4px',
       }}
     />
   );

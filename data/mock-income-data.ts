@@ -1,4 +1,4 @@
-import { IncomeData } from "./types";
+import type { IncomeData } from './types';
 
 export const mockIncomeData: IncomeData = {
   state: {

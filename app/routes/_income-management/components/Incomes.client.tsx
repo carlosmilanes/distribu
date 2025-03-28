@@ -1,21 +1,28 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Income } from "@/data/types";
-import { IndividualIncome } from "./IndividualIncome";
-import { SearchBar } from "@/general/components/SearchBar";
+import { useState } from 'react';
+import type { Income } from '@/data/types';
+import { IndividualIncome } from './IndividualIncome';
+import { SearchBar } from '@/components/SearchBar';
 
 type IncomesProps = {
   incomes: Income[];
 };
 
 export function Incomes({ incomes }: IncomesProps) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   return (
     <>
-      <SearchBar query={query} onQueryChange={setQuery} className="mx-4 my-2" />
-      <IncomeList incomes={incomes} filter={query} />
+      <SearchBar
+        query={query}
+        onQueryChange={setQuery}
+        className='mx-4 my-2'
+      />
+      <IncomeList
+        incomes={incomes}
+        filter={query}
+      />
     </>
   );
 }
@@ -31,16 +38,20 @@ export function IncomeList({ incomes, filter }: IncomeListProps) {
 
   if (filteredIncomes.length === 0) {
     return (
-      <p className="mx-auto my-6 w-min text-2xl whitespace-nowrap text-primary-700">
+      <p className='mx-auto my-6 w-min text-2xl whitespace-nowrap text-primary-700'>
         Aún no hay ingresos
       </p>
     );
   }
 
   return (
-    <div className="mt-4 h-screen overflow-y-auto border-2 border-alert-500">
+    <div className='mt-4 h-screen overflow-y-auto border-2 border-alert-500'>
       {filteredIncomes.map((income) => (
-        <IndividualIncome key={income.id} income={income} onUpdate={() => {}} />
+        <IndividualIncome
+          key={income.id}
+          income={income}
+          onUpdate={() => {}}
+        />
       ))}
     </div>
   );
@@ -52,7 +63,7 @@ function useFilter(incomes: Income[], filter: string) {
   const filteredIncomes = incomes.filter((item) =>
     Object.entries(item).some(([key, value]) => {
       // Exclude 'id', check if value is a string
-      if (key !== "id" && typeof value === "string") {
+      if (key !== 'id' && typeof value === 'string') {
         return value.toLowerCase().includes(lowercasedFilter);
       }
       // Check if value is a Date
@@ -61,7 +72,7 @@ function useFilter(incomes: Income[], filter: string) {
         return day.toString() === lowercasedFilter; // Match the day only
       }
       return false; // Return false for non-matching types
-    }),
+    })
   );
 
   return filteredIncomes;

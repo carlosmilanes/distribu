@@ -1,5 +1,5 @@
-"use client";
-import { useEffect, useRef } from "react";
+'use client';
+import { useEffect, useRef } from 'react';
 
 export function DeletionHelper({
   fn,
@@ -32,7 +32,7 @@ export function DeletionHelper({
     // Detect swipe to the left
     function handleTouchMove(event: TouchEvent) {
       if (ref.current) {
-        const startX = parseFloat(ref.current.dataset.startX || "0");
+        const startX = parseFloat(ref.current.dataset.startX || '0');
         const endX = event.touches[0].clientX;
 
         if (startX - endX > 50) {
@@ -42,20 +42,24 @@ export function DeletionHelper({
     }
 
     // Add event listeners for right-click, swipe, focus, and blur
-    element.addEventListener("contextmenu", handleContextMenu);
-    element.addEventListener("touchstart", handleTouchStart);
-    element.addEventListener("touchmove", handleTouchMove);
+    element.addEventListener('contextmenu', handleContextMenu);
+    element.addEventListener('touchstart', handleTouchStart);
+    element.addEventListener('touchmove', handleTouchMove);
 
     // Clean up event listeners on unmount
     return () => {
-      element.removeEventListener("contextmenu", handleContextMenu);
-      element.removeEventListener("touchstart", handleTouchStart);
-      element.removeEventListener("touchmove", handleTouchMove);
+      element.removeEventListener('contextmenu', handleContextMenu);
+      element.removeEventListener('touchstart', handleTouchStart);
+      element.removeEventListener('touchmove', handleTouchMove);
     };
   }, [fn]);
 
   return (
-    <div ref={ref} tabIndex={0} className={className}>
+    <div
+      ref={ref}
+      tabIndex={0}
+      className={className}
+    >
       {children}
     </div>
   );

@@ -1,6 +1,6 @@
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { SearchField, Input } from "react-aria-components";
-import { Button } from "@/general/components/Button";
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { SearchField, Input } from 'react-aria-components';
+import { Button } from '@/components/Button';
 
 type SearchBarProps = {
   query: string;

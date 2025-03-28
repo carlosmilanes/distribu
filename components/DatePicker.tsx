@@ -1,6 +1,6 @@
-"use client";
-import { twMerge } from "tailwind-merge";
-import { useTouchDevice } from "@/general/hooks/useTouchDevice";
+'use client';
+import { twMerge } from 'tailwind-merge';
+import { useTouchDevice } from '@/hooks/useTouchDevice';
 
 export function DatePicker({
   selectedDate = new Date(),

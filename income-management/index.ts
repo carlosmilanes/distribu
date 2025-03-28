@@ -1,1 +1,0 @@
-export { IncomeManager } from './components/IncomeManager';
