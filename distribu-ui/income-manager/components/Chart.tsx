@@ -1,11 +1,11 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { IncomeState } from '@/data/types';
-import { SecondaryText } from '@/components/SecondaryText';
-import { QuaternaryText } from '@/components/QuaternaryText';
-import { StackedBar } from './StackedBar';
+import { SecondaryText } from '@/components/secondary-text';
+import { QuaternaryText } from '@/components/quaternary-text';
+import { StackedBar } from './stacked-bar';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
-import { Money } from '@/components/Money';
-import { ChartState } from './ChartState';
+import { Money } from '@/components/money';
+import { ChartState } from './chart-state';
 
 type ChartProps = {
   incomeState: IncomeState;

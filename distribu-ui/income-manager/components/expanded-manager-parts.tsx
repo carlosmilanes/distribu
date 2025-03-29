@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import type { IncomeData } from '@/data/types';
-import { Incomes } from './Incomes.client';
-import { Chart } from './Chart';
-import { AddIncomeButton } from './AddIncomeButton.client';
+import { Incomes } from './incomes';
+import { Chart } from './chart';
+import { AddIncomeButton } from './add-income-button';
 
 export function ExpandedManagerParts({
   incomeData,

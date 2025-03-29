@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import type { Income } from '@/data/types';
-import { IndividualIncome } from './IndividualIncome';
-import { SearchBar } from '@/components/SearchBar';
+import { IndividualIncome } from './individual-income';
+import { SearchBar } from '@/components/search-bar';
 
 type IncomesProps = {
   incomes: Income[];

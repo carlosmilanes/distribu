@@ -1,9 +1,9 @@
 import type { IncomeData } from '@/data/types';
-import { TertiaryText } from '@/components/TertiaryText';
-import { StackedBar } from './StackedBar';
-import { AddIncomeButton } from './AddIncomeButton.client';
+import { TertiaryText } from '@/components/tertiary-text';
+import { StackedBar } from './stacked-bar';
+import { AddIncomeButton } from './add-income-button';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { Money } from '@/components/Money';
+import { Money } from '@/components/money';
 
 type CompactManagerPartsProps = {
   incomeState: IncomeData['state'];

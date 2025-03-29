@@ -1,7 +1,6 @@
-import { mockIncomeData } from '@/data/mock-income-data';
-import { ExpandableContainer } from './ExpandableContainer.client';
-import { CompactManagerParts } from './CompactManagerParts';
-import { ExpandedManagerParts } from './ExpandedManagerParts';
+import { ExpandableContainer } from './expandable-container';
+import { CompactManagerParts } from './compact-manager-parts';
+import { ExpandedManagerParts } from './expanded-manager-parts';
 import type { IncomeData } from '@/data/types';
 
 export function IncomeManager({ incomeData }: { incomeData: IncomeData }) {

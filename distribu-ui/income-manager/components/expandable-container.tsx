@@ -1,7 +1,8 @@
+
 import { useState } from 'react';
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { motion, type PanInfo, useDragControls } from 'motion/react';
-import { CloseButton } from '@/components/CloseButton';
+import { CloseButton } from '@/components/close-button';
 
 type ExpandableContainerProps = {
   colapsedManagerParts: React.ReactNode;

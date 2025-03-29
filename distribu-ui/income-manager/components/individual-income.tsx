@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { ArrowPathIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { twMerge } from 'tailwind-merge';
 import type { Income } from '@/data/types';
-import { DeletionHelper } from '@/components/DeletionHelper';
-import { EscapeHelper } from '@/components/EscapeHelper';
-import { Switch } from '@/components/Switch';
-import { DatePicker } from '@/components/DatePicker';
-import { DeleteButton } from '@/components/DeleteButton';
+import { DeletionHelper } from '@/components/deletion-helper';
+import { EscapeHelper } from '@/components/escape-helper';
+import { Switch } from '@/components/switch';
+import { DatePicker } from '@/components/date-picker';
+import { DeleteButton } from '@/components/delete-button';
 import { getDayInSpanish } from '@/utils/getDayInSpanish';
 import { adjustTextareaHeight } from '@/utils/adjustTextareaHeight';
 
