@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router';
-import type { Route } from './+types/_index';
+import type { Route } from './+types/route';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +9,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function DistribuUI() {
-  return <Outlet />;
+  return (
+    <>
+      <div>Hola</div>
+      <Outlet />
+    </>
+  );
 }

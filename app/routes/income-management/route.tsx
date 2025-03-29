@@ -8,11 +8,14 @@ export default function IncomeManager() {
   const incomeData = mockIncomeData;
 
   return (
-    <ExpandableContainer
-      colapsedManagerParts={
-        <CompactManagerParts incomeState={incomeData.state} />
-      }
-      expandedManagerParts={<ExpandedManagerParts incomeData={incomeData} />}
-    />
+    <>
+      <div>Soy IncomeManager</div>
+      <ExpandableContainer
+        colapsedManagerParts={
+          <CompactManagerParts incomeState={incomeData.state} />
+        }
+        expandedManagerParts={<ExpandedManagerParts incomeData={incomeData} />}
+      />
+    </>
   );
 }
