@@ -1,5 +1,6 @@
-import { Outlet } from 'react-router';
 import type { Route } from './+types/route';
+import { mockIncomeData } from '@/data/mock-income-data';
+import { IncomeManager } from '@/distribu-ui/income-manager';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,11 +9,11 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function DistribuUI() {
+// TODO: use "loaderData"
+export default function Distribu() {
   return (
     <>
-      <div>Hola</div>
-      <Outlet />
+      <IncomeManager incomeData={mockIncomeData} />
     </>
   );
 }
