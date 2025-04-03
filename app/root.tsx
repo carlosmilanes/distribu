@@ -9,6 +9,7 @@ import {
 
 import type { Route } from './+types/root';
 import './app.css';
+import 'virtual:stylex.css';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
