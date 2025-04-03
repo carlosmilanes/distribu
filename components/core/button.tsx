@@ -1,4 +1,3 @@
-'use client';
 import { Button as AriaButton, type PressEvent } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
 

@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import type { Income } from '@/data/types';
 import { IndividualIncome } from './individual-income';

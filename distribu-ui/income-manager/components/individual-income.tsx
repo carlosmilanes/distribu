@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { ArrowPathIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { twMerge } from 'tailwind-merge';
