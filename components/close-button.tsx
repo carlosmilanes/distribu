@@ -1,4 +1,4 @@
-import { Button, type ButtonProps } from './Button';
+import { Button, type ButtonProps } from './core/button';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export function CloseButton({ onPress, className }: ButtonProps) {

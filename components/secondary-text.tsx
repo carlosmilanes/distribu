@@ -1,4 +1,4 @@
-import { Text, type TextProps } from './Text';
+import { Text, type TextProps } from './core/text';
 
 export function SecondaryText({ children, className, ...props }: TextProps) {
   return (

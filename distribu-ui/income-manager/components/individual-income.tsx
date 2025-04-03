@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import type { Income } from '@/data/types';
 import { DeletionHelper } from '@/components/deletion-helper';
 import { EscapeHelper } from '@/components/escape-helper';
-import { Switch } from '@/components/switch';
+import { Switch } from '@/components/core/switch';
 import { DatePicker } from '@/components/date-picker';
 import { DeleteButton } from '@/components/delete-button';
 import { getDayInSpanish } from '@/utils/getDayInSpanish';

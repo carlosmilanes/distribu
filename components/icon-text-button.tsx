@@ -1,4 +1,4 @@
-import { Button, type ButtonProps } from './Button';
+import { Button, type ButtonProps } from './core/button';
 
 export function IconTextButton({ children, onPress, className }: ButtonProps) {
   return (

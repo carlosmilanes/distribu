@@ -1,5 +1,5 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { Button, type ButtonProps } from './Button';
+import { Button, type ButtonProps } from './core/button';
 
 export function DeleteButton({ onPress, className }: ButtonProps) {
   return (

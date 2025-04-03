@@ -5,7 +5,7 @@ import { AddIncomeButton } from './add-income-button';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Money } from '@/components/money';
 
-import { create, props } from '@stylexjs/stylex';
+import * as stylex from '@stylexjs/stylex';
 
 type CompactManagerPartsProps = {
   incomeState: IncomeData['state'];
@@ -15,7 +15,7 @@ export function CompactManagerParts({ incomeState }: CompactManagerPartsProps) {
   return (
     <>
       <Money
-        {...props(styles.money)}
+        {...stylex.props(styles.money)}
         amount={parseFloat(incomeState.assignable).toString()}
         // className='block text-3xl font-semibold text-income'
       />
@@ -30,7 +30,7 @@ export function CompactManagerParts({ incomeState }: CompactManagerPartsProps) {
   );
 }
 
-const styles = create({
+const styles = stylex.create({
   money: {
     color: 'red',
   },
