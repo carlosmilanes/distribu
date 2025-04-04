@@ -5,7 +5,7 @@ import { AddIncomeButton } from './add-income-button';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Money } from '@/components/money';
 
-import * as stylex from '@stylexjs/stylex';
+import * as stylex from 'stylex';
 
 type CompactManagerPartsProps = {
   incomeState: IncomeData['state'];
