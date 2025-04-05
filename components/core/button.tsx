@@ -1,34 +1,37 @@
 import { Button as AriaButton, type PressEvent } from 'react-aria-components';
-import { twMerge } from 'tailwind-merge';
-
+import { create, props, type StyleXStyles } from 'stylex';
+import { borderRadius } from 'stylex/vars.stylex';
 // Implementation reference: https://react-spectrum.adobe.com/react-aria/Button.html
 
 export type ButtonProps = {
   children?: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  className?: string;
+  styles?: StyleXStyles;
   onPress: (e: PressEvent) => void;
 };
 
 export function Button({
   children,
   type = 'button',
-  className,
+  styles,
   onPress,
 }: ButtonProps) {
-  const twClasses = twMerge(
-    'flex items-center justify-center rounded-full transition-transform duration-300 hover:scale-105 active:scale-100',
-    'cursor-pointer',
-    className
-  );
-
   return (
     <AriaButton
+      {...props(ButtonStyles.all, styles)}
       onPress={onPress}
       type={type}
-      className={twClasses}
     >
       {children}
     </AriaButton>
   );
 }
+
+const ButtonStyles = create({
+  all: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: borderRadius.medium,
+  },
+});

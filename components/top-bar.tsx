@@ -1,14 +1,14 @@
-import { twMerge } from 'tailwind-merge';
-import { PrimaryText } from './PrimaryText';
+import { PrimaryText } from './primary-text';
+import { create, props } from 'stylex';
+import { colors, borderRadius } from '../stylex/vars.stylex';
 
 export function TopBar({
   title,
   children,
-  className,
+  ...otherProps
 }: {
   title: string;
   children?: React.ReactNode;
-  className?: string;
 }) {
   /*
   A top navigation bar component that displays a title and optional elements.
@@ -16,13 +16,33 @@ export function TopBar({
    */
   return (
     <div
-      className={twMerge(
-        'border-gray4/50 bg-background/60 flex h-12 w-full items-center justify-between rounded-t-3xl border border-x-0 border-t-0 px-4 backdrop-blur-xl',
-        className
-      )}
+      {...props(TopBarStyles.base)}
+      {...otherProps}
     >
-      <PrimaryText className='text-3xl'>{title}</PrimaryText>
-      <div className='flex items-center gap-2'>{children}</div>
+      <PrimaryText>{title}</PrimaryText>
+      <div {...props(TopBarStyles.options)}>{children}</div>
     </div>
   );
 }
+
+const TopBarStyles = create({
+  base: {
+    borderBottom: `1px solid ${colors.gray4}80`,
+    backgroundColor: `${colors.background}99`,
+    display: 'flex',
+    height: '48px',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderTopLeftRadius: borderRadius.big,
+    borderTopRightRadius: borderRadius.big,
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    backdropFilter: 'blur(20px)',
+  },
+  options: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+});

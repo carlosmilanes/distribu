@@ -1,12 +1,21 @@
 import { Text, type TextProps } from './core/text';
+import { create, props } from 'stylex';
+import { colors } from '../stylex/vars.stylex';
 
-export function SecondaryText({ children, className, ...props }: TextProps) {
+export function SecondaryText({ children, ...otherProps }: TextProps) {
   return (
     <Text
-      className={`text-label text-2xl ${className}`}
-      {...props}
+      {...props(SecondaryTextStyles.base)}
+      {...otherProps}
     >
       {children}
     </Text>
   );
 }
+
+const SecondaryTextStyles = create({
+  base: {
+    color: colors.text,
+    fontSize: '24px',
+  },
+});

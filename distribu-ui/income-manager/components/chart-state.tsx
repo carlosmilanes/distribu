@@ -1,6 +1,8 @@
 import React, { type ReactNode, useState } from 'react';
 import { useActionOutside } from '@/hooks/useActionOutside';
 import type { IncomeState } from '@/data/types';
+import { create, props } from 'stylex';
+import { colors } from '../../../stylex/vars.stylex';
 
 type ChartStateProps = {
   children: ReactNode;
@@ -22,7 +24,7 @@ export function ChartState({ children, incomeState }: ChartStateProps) {
     <div
       ref={ref}
       onClick={() => setCollapsed(!collapsed)}
-      className='bg-secondaryBackground/10 fixed bottom-0 z-10 w-full border border-x-0 border-b-0 border-gray4/50 bg-background/10 pb-3 backdrop-blur-xl'
+      {...props(ChartStateStyles.base)}
     >
       {/* Clone children and inject props */}
       {React.Children.map(children, (child) => {
@@ -34,3 +36,16 @@ export function ChartState({ children, incomeState }: ChartStateProps) {
     </div>
   );
 }
+
+const ChartStateStyles = create({
+  base: {
+    backgroundColor: `${colors.secondaryBackground}10`,
+    position: 'fixed',
+    bottom: 0,
+    zIndex: 10,
+    width: '100%',
+    borderTop: `1px solid ${colors.gray4}80`,
+    paddingBottom: '12px',
+    backdropFilter: 'blur(20px)',
+  },
+});

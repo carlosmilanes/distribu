@@ -4,6 +4,7 @@ import type { IncomeData } from '@/data/types';
 import { Incomes } from './incomes';
 import { Chart } from './chart';
 import { AddIncomeButton } from './add-income-button';
+import { create, props } from 'stylex';
 
 export function ExpandedManagerParts({
   incomeData,
@@ -14,8 +15,8 @@ export function ExpandedManagerParts({
 
   return (
     <>
-      <AddIncomeButton className='absolute top-2 right-12 flex gap-1 px-3 py-1 text-lg'>
-        <PlusIcon className='size-6 stroke-2' />
+      <AddIncomeButton {...props(ExpandedManagerPartsStyles.addButton)}>
+        <PlusIcon {...props(ExpandedManagerPartsStyles.plusIcon)} />
         Añadir
       </AddIncomeButton>
 
@@ -25,3 +26,23 @@ export function ExpandedManagerParts({
     </>
   );
 }
+
+const ExpandedManagerPartsStyles = create({
+  addButton: {
+    position: 'absolute',
+    top: '8px',
+    right: '48px',
+    display: 'flex',
+    gap: '4px',
+    paddingLeft: '12px',
+    paddingRight: '12px',
+    paddingTop: '4px',
+    paddingBottom: '4px',
+    fontSize: '18px',
+  },
+  plusIcon: {
+    width: '24px',
+    height: '24px',
+    strokeWidth: '2',
+  },
+});

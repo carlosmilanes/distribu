@@ -1,3 +1,5 @@
+import { create, props } from 'stylex';
+
 /**
  * Resources for animating this component:
  * For animating count using CSS only: https://css-tricks.com/animating-number-counters/
@@ -22,9 +24,21 @@
 
 type MoneyProps = {
   amount: string;
-  className?: string;
 };
 
-export function Money({ amount, className }: MoneyProps) {
-  return <span className={className}>{amount}</span>;
+export function Money({ amount, ...otherProps }: MoneyProps) {
+  return (
+    <span
+      {...props(MoneyStyles.base)}
+      {...otherProps}
+    >
+      {amount}
+    </span>
+  );
 }
+
+const MoneyStyles = create({
+  base: {
+    // Base styles can be added here if needed
+  },
+});

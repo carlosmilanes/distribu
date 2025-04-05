@@ -2,6 +2,8 @@ import { useState } from 'react';
 import type { Income } from '@/data/types';
 import { IndividualIncome } from './individual-income';
 import { SearchBar } from '@/components/search-bar';
+import { create, props } from 'stylex';
+import { colors } from '../../../stylex/vars.stylex';
 
 type IncomesProps = {
   incomes: Income[];
@@ -15,7 +17,7 @@ export function Incomes({ incomes }: IncomesProps) {
       <SearchBar
         query={query}
         onQueryChange={setQuery}
-        className='mx-4 my-2'
+        {...props(IncomesStyles.searchBar)}
       />
       <IncomeList
         incomes={incomes}
@@ -35,15 +37,11 @@ export function IncomeList({ incomes, filter }: IncomeListProps) {
   const filteredIncomes = useFilter(incomes, filter);
 
   if (filteredIncomes.length === 0) {
-    return (
-      <p className='mx-auto my-6 w-min text-2xl whitespace-nowrap text-primary-700'>
-        Aún no hay ingresos
-      </p>
-    );
+    return <p {...props(IncomesStyles.emptyMessage)}>Aún no hay ingresos</p>;
   }
 
   return (
-    <div className='mt-4 h-screen overflow-y-auto border-2 border-alert-500'>
+    <div {...props(IncomesStyles.list)}>
       {filteredIncomes.map((income) => (
         <IndividualIncome
           key={income.id}
@@ -75,3 +73,22 @@ function useFilter(incomes: Income[], filter: string) {
 
   return filteredIncomes;
 }
+
+const IncomesStyles = create({
+  searchBar: {
+    margin: '8px 16px',
+  },
+  emptyMessage: {
+    margin: '24px auto',
+    width: 'min-content',
+    fontSize: '24px',
+    whiteSpace: 'nowrap',
+    color: colors.income,
+  },
+  list: {
+    marginTop: '16px',
+    height: '100vh',
+    overflowY: 'auto',
+    border: `2px solid ${colors.alert}`,
+  },
+});

@@ -1,16 +1,19 @@
-import { twMerge } from 'tailwind-merge';
+import { create, props } from 'stylex';
+import { colors, borderRadius } from '../../stylex/vars.stylex';
 
 export function Switch({
   active,
   onChange,
-  className,
 }: {
   active: boolean;
   onChange: (active: boolean) => void;
-  className?: string;
 }) {
   return (
     <button
+      {...props(
+        SwitchStyles.base,
+        active ? SwitchStyles.active : SwitchStyles.inactive
+      )}
       type='button'
       role='switch'
       aria-checked={active}
@@ -18,18 +21,50 @@ export function Switch({
         e.preventDefault();
         onChange(!active);
       }}
-      className={twMerge(
-        'relative h-6 w-10 rounded-full transition-colors duration-200 ease-in-out',
-        active ? 'bg-success-500' : 'bg-primary-200',
-        className
-      )}
     >
       <span
-        className={twMerge(
-          'absolute top-1 block h-4 w-4 rounded-full bg-primary-50 shadow-md transition-transform duration-200 ease-in-out',
-          active ? 'translate-x-5' : 'translate-x-1'
+        {...props(
+          SwitchStyles.thumb,
+          active ? SwitchStyles.thumbActive : SwitchStyles.thumbInactive
         )}
       />
     </button>
   );
 }
+
+const SwitchStyles = create({
+  base: {
+    position: 'relative',
+    height: '24px',
+    width: '40px',
+    borderRadius: borderRadius.full,
+    transitionProperty: 'background-color',
+    transitionDuration: '200ms',
+    transitionTimingFunction: 'ease-in-out',
+  },
+  active: {
+    backgroundColor: colors.income,
+  },
+  inactive: {
+    backgroundColor: colors.gray4,
+  },
+  thumb: {
+    position: 'absolute',
+    top: '4px',
+    display: 'block',
+    height: '16px',
+    width: '16px',
+    borderRadius: borderRadius.full,
+    backgroundColor: colors.background,
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+    transitionProperty: 'transform',
+    transitionDuration: '200ms',
+    transitionTimingFunction: 'ease-in-out',
+  },
+  thumbActive: {
+    transform: 'translateX(20px)',
+  },
+  thumbInactive: {
+    transform: 'translateX(4px)',
+  },
+});

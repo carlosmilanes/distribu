@@ -1,12 +1,32 @@
 import { Button, type ButtonProps } from './core/button';
+import { create, props } from 'stylex';
+import { borderRadius } from '../stylex/vars.stylex';
 
-export function IconTextButton({ children, onPress, className }: ButtonProps) {
+export function IconTextButton({
+  children,
+  onPress,
+  ...otherProps
+}: ButtonProps) {
   return (
     <Button
       onPress={onPress}
-      className={`text-semibold gap-1 rounded-full px-4 py-1 text-lg ${className}`}
+      {...props(IconTextButtonStyles.base)}
+      {...otherProps}
     >
       {children}
     </Button>
   );
 }
+
+const IconTextButtonStyles = create({
+  base: {
+    fontWeight: '600',
+    gap: '4px',
+    borderRadius: borderRadius.full,
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    paddingTop: '4px',
+    paddingBottom: '4px',
+    fontSize: '18px',
+  },
+});

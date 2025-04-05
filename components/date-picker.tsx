@@ -1,14 +1,14 @@
-import { twMerge } from 'tailwind-merge';
 import { useTouchDevice } from '@/hooks/useTouchDevice';
+import { create, props } from 'stylex';
+import { colors, borderRadius } from '../stylex/vars.stylex';
 
 export function DatePicker({
   selectedDate = new Date(),
   onDateSelect,
-  className,
+  ...otherProps
 }: {
   selectedDate: Date;
   onDateSelect: (date: Date) => void;
-  className?: string;
 }) {
   const isTouchDevice = useTouchDevice();
 
@@ -30,37 +30,32 @@ export function DatePicker({
 
   const weekDays = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 
-  const styles = {
-    component: twMerge('bg-primary-50 rounded-3xl p-4 shadow-lg', className),
-    header: 'grid grid-cols-7 gap-1 mb-2',
-    weekDay: 'text-primary-600 text-center text-sm',
-    daysGrid: twMerge('grid grid-cols-7 gap-1', isTouchDevice && 'gap-2'),
-    dayButton: twMerge(
-      'aspect-square flex items-center justify-center rounded-full text-primary-900 hover:bg-primary-200 transition',
-      isTouchDevice ? 'text-lg p-2' : 'text-sm p-1'
-    ),
-    selectedDay: 'ring-2 ring-primary-500 font-bold',
-    emptyCell: 'aspect-square',
-  };
-
   return (
-    <div className={styles.component}>
-      <div className={styles.header}>
+    <div
+      {...props(DatePickerStyles.base)}
+      {...otherProps}
+    >
+      <div {...props(DatePickerStyles.header)}>
         {weekDays.map((day) => (
           <div
             key={day}
-            className={styles.weekDay}
+            {...props(DatePickerStyles.weekDay)}
           >
             {day}
           </div>
         ))}
       </div>
 
-      <div className={styles.daysGrid}>
+      <div
+        {...props(
+          DatePickerStyles.daysGrid,
+          isTouchDevice && DatePickerStyles.touchDevice
+        )}
+      >
         {[...Array(startDay)].map((_, i) => (
           <div
             key={`empty-${i}`}
-            className={styles.emptyCell}
+            {...props(DatePickerStyles.emptyCell)}
           />
         ))}
 
@@ -76,9 +71,10 @@ export function DatePicker({
             <button
               key={i}
               onClick={() => onDateSelect(date)}
-              className={twMerge(
-                styles.dayButton,
-                isSelected && styles.selectedDay
+              {...props(
+                DatePickerStyles.dayButton,
+                isTouchDevice && DatePickerStyles.touchDeviceButton,
+                isSelected && DatePickerStyles.selectedDay
               )}
             >
               {i + 1}
@@ -89,3 +85,59 @@ export function DatePicker({
     </div>
   );
 }
+
+const DatePickerStyles = create({
+  base: {
+    backgroundColor: colors.gray4,
+    borderRadius: borderRadius.big,
+    padding: '16px',
+    boxShadow:
+      '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  },
+  header: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(7, 1fr)',
+    gap: '4px',
+    marginBottom: '8px',
+  },
+  weekDay: {
+    color: colors.gray,
+    textAlign: 'center',
+    fontSize: '14px',
+  },
+  daysGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(7, 1fr)',
+    gap: '4px',
+  },
+  touchDevice: {
+    gap: '8px',
+  },
+  dayButton: {
+    aspectRatio: '1',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: borderRadius.full,
+    color: colors.text,
+    fontSize: '14px',
+    padding: '4px',
+    transitionProperty: 'background-color',
+    transitionDuration: '200ms',
+    transitionTimingFunction: 'ease-in-out',
+    ':hover': {
+      backgroundColor: colors.gray3,
+    },
+  },
+  touchDeviceButton: {
+    fontSize: '18px',
+    padding: '8px',
+  },
+  selectedDay: {
+    outline: `2px solid ${colors.gray}`,
+    fontWeight: 'bold',
+  },
+  emptyCell: {
+    aspectRatio: '1',
+  },
+});

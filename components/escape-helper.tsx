@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
+import { create, props } from 'stylex';
 
 export function EscapeHelper({
   fn,
   children,
-  className,
+  ...otherProps
 }: {
   fn: () => void;
   children: React.ReactNode;
-  className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -42,9 +42,16 @@ export function EscapeHelper({
   return (
     <div
       ref={ref}
-      className={className}
+      {...props(EscapeHelperStyles.base)}
+      {...otherProps}
     >
       {children}
     </div>
   );
 }
+
+const EscapeHelperStyles = create({
+  base: {
+    // Base styles can be added here if needed
+  },
+});

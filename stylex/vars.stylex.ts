@@ -34,3 +34,10 @@ export const colors = defineVars({
   gray3: { default: '#C7C7CC', [DARK]: '#48484A' },
   gray4: { default: '#D1D1D6', [DARK]: '#3A3A3C' },
 });
+
+export const borderRadius = defineVars({
+  small: '8px',
+  medium: '16px',
+  big: '24px',
+  full: 'calc(infinity * 1px)',
+});

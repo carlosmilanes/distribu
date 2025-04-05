@@ -1,12 +1,21 @@
 import { Text, type TextProps } from './core/text';
+import { create, props } from 'stylex';
+import { colors } from '../stylex/vars.stylex';
 
-export function PrimaryText({ children, className, ...props }: TextProps) {
+export function PrimaryText({ children, ...otherProps }: TextProps) {
   return (
     <Text
-      className={`text-label text-3xl ${className}`}
-      {...props}
+      {...props(PrimaryTextStyles.base)}
+      {...otherProps}
     >
       {children}
     </Text>
   );
 }
+
+const PrimaryTextStyles = create({
+  base: {
+    color: colors.text,
+    fontSize: '30px',
+  },
+});

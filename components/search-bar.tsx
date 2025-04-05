@@ -1,33 +1,92 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchField, Input } from 'react-aria-components';
 import { Button } from '@/components/core/button';
+import { create, props } from 'stylex';
+import { colors, borderRadius } from '../stylex/vars.stylex';
 
 type SearchBarProps = {
   query: string;
   onQueryChange: (query: string) => void;
-  className?: string;
 };
 
-export function SearchBar({ query, onQueryChange, className }: SearchBarProps) {
+export function SearchBar({
+  query,
+  onQueryChange,
+  ...otherProps
+}: SearchBarProps) {
   return (
     <SearchField
       value={query}
       onChange={onQueryChange}
-      className={`flex h-9 items-center space-x-2 rounded-lg bg-secondary-background px-2 ${className}`}
+      {...props(SearchBarStyles.base)}
+      {...otherProps}
     >
-      <MagnifyingGlassIcon className='size-5 shrink-0 text-gray' />
+      <MagnifyingGlassIcon {...props(SearchBarStyles.icon)} />
       <Input
         placeholder='Buscar'
-        className='w-full text-lg focus:outline-none [&::-webkit-search-cancel-button]:appearance-none'
+        {...props(SearchBarStyles.input)}
       />
       {query && (
         <Button
           onPress={() => onQueryChange('')}
-          className='flex size-4.5 shrink-0 items-center justify-center rounded-full bg-gray p-0.5 transition-colors hover:bg-gray/40 active:bg-gray/50'
+          {...props(SearchBarStyles.clearButton)}
         >
-          <XMarkIcon className='size-full stroke-2 text-white' />
+          <XMarkIcon {...props(SearchBarStyles.clearIcon)} />
         </Button>
       )}
     </SearchField>
   );
 }
+
+const SearchBarStyles = create({
+  base: {
+    display: 'flex',
+    height: '36px',
+    alignItems: 'center',
+    gap: '8px',
+    borderRadius: borderRadius.medium,
+    backgroundColor: colors.secondaryBackground,
+    paddingLeft: '8px',
+    paddingRight: '8px',
+  },
+  icon: {
+    width: '20px',
+    height: '20px',
+    flexShrink: 0,
+    color: colors.gray,
+  },
+  input: {
+    width: '100%',
+    fontSize: '18px',
+    outline: 'none',
+    '::-webkit-search-cancel-button': {
+      appearance: 'none',
+    },
+  },
+  clearButton: {
+    display: 'flex',
+    width: '18px',
+    height: '18px',
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: borderRadius.full,
+    backgroundColor: colors.gray,
+    padding: '2px',
+    transitionProperty: 'background-color',
+    transitionDuration: '200ms',
+    transitionTimingFunction: 'ease-in-out',
+    ':hover': {
+      backgroundColor: 'rgba(142, 142, 147, 0.4)',
+    },
+    ':active': {
+      backgroundColor: 'rgba(142, 142, 147, 0.5)',
+    },
+  },
+  clearIcon: {
+    width: '100%',
+    height: '100%',
+    strokeWidth: '2',
+    color: colors.background,
+  },
+});

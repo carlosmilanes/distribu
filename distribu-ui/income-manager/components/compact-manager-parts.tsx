@@ -4,10 +4,8 @@ import { StackedBar } from './stacked-bar';
 import { AddIncomeButton } from './add-income-button';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Money } from '@/components/money';
-
 import { create, props } from 'stylex';
-import { colors } from '@/stylex/vars.stylex';
-import { floatAndReact } from '@/stylex/patterns.stylex';
+import { colors } from '../../../stylex/vars.stylex';
 
 type CompactManagerPartsProps = {
   incomeState: IncomeData['state'];
@@ -17,24 +15,39 @@ export function CompactManagerParts({ incomeState }: CompactManagerPartsProps) {
   return (
     <>
       <Money
-        {...props(styles.money, floatAndReact.low)}
+        {...props(CompactManagerPartsStyles.money)}
         amount={parseFloat(incomeState.assignable).toString()}
-        // className='block text-3xl font-semibold text-income'
       />
-      <TertiaryText className='mb-3'>Ingreso disponible</TertiaryText>
+      <TertiaryText {...props(CompactManagerPartsStyles.label)}>
+        Ingreso disponible
+      </TertiaryText>
 
       <StackedBar state={incomeState} />
 
-      <AddIncomeButton className='absolute top-4 right-4'>
-        <PlusIcon className='size-8' />
+      <AddIncomeButton {...props(CompactManagerPartsStyles.addButton)}>
+        <PlusIcon {...props(CompactManagerPartsStyles.plusIcon)} />
       </AddIncomeButton>
     </>
   );
 }
 
-export const styles = create({
+const CompactManagerPartsStyles = create({
   money: {
     color: colors.income,
-    border: `1px solid ${colors.gray3}`,
+    fontSize: '30px',
+    fontWeight: '600',
+    display: 'block',
+  },
+  label: {
+    marginBottom: '12px',
+  },
+  addButton: {
+    position: 'absolute',
+    top: '16px',
+    right: '16px',
+  },
+  plusIcon: {
+    width: '32px',
+    height: '32px',
   },
 });

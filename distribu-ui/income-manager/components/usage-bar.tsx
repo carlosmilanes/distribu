@@ -1,36 +1,67 @@
-import { twMerge } from 'tailwind-merge';
-import { TertiaryText } from '@/components/TertiaryText';
+import { TertiaryText } from '@/components/tertiary-text';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
+import { create, props } from 'stylex';
+import { colors, borderRadius } from '../../../stylex/vars.stylex';
 
 export function UsageBar({
   part,
   total,
-  color = 'primary-400',
+  color = colors.gray,
   label,
-  className,
+  ...otherProps
 }: {
   part: string;
   total: string;
   label: string;
   color: string;
-  className?: string;
 }) {
-  const styles = {
-    component: twMerge('relative h-16 p-2', className),
-    bar: `bg-${color}/80 rounded-e size-full absolute inset-0 z-10`,
-    amount: 'w-min mx-auto text-2xl text-primary-900/80 relative z-20',
-  };
-
   return (
-    <div className={styles.component}>
+    <div
+      {...props(UsageBarStyles.base)}
+      {...otherProps}
+    >
       <div
-        className={styles.bar}
-        style={{ width: `${findBasicPercentage(part, total)}%` }}
+        {...props(UsageBarStyles.bar)}
+        style={{
+          width: `${findBasicPercentage(part, total)}%`,
+          backgroundColor: `${color}80`,
+        }}
       ></div>
-      <div className={styles.amount}>{part}</div>
-      <TertiaryText className='relative z-20'>
+      <div {...props(UsageBarStyles.amount)}>{part}</div>
+      <TertiaryText {...props(UsageBarStyles.label)}>
         {label} ({findBasicPercentage(part, total)}%)
       </TertiaryText>
     </div>
   );
 }
+
+const UsageBarStyles = create({
+  base: {
+    position: 'relative',
+    height: '64px',
+    padding: '8px',
+  },
+  bar: {
+    backgroundColor: 'currentColor',
+    borderTopRightRadius: borderRadius.medium,
+    borderBottomRightRadius: borderRadius.medium,
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    inset: 0,
+    zIndex: 10,
+  },
+  amount: {
+    width: 'min-content',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: '24px',
+    color: `${colors.text}80`,
+    position: 'relative',
+    zIndex: 20,
+  },
+  label: {
+    position: 'relative',
+    zIndex: 20,
+  },
+});

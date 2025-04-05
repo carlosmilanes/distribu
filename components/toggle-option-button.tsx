@@ -1,18 +1,18 @@
 import { cloneElement } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { create, props } from 'stylex';
+import { colors, borderRadius } from '../stylex/vars.stylex';
 
 export function ToggleOptionButton({
   children,
   active,
-  activeColor = 'primary-900',
+  activeColor = colors.gray,
   onClick,
-  className,
+  ...otherProps
 }: {
   children: React.ReactElement;
   active: boolean;
   activeColor?: string;
   onClick: (active: boolean) => void;
-  className?: string;
 }) {
   return (
     <button
@@ -20,19 +20,37 @@ export function ToggleOptionButton({
         e.preventDefault();
         onClick(!active);
       }}
-      className={twMerge(
-        'size-9 rounded-lg p-1 hover:bg-primary-100',
-        active && 'bg-primary-100',
-        className
+      {...props(
+        ToggleOptionButtonStyles.base,
+        active && ToggleOptionButtonStyles.active
       )}
+      {...otherProps}
     >
       {cloneElement(children, {
-        className: twMerge(
-          'text-primary-600 transition duration-200',
-          active && `stroke-${activeColor}`,
-          (children.props as { className?: string }).className
-        ),
-      } as React.HTMLAttributes<HTMLElement>)}
+        ...props(ToggleOptionButtonStyles.icon),
+        style: active ? { stroke: activeColor } : undefined,
+        ...(children.props as React.HTMLAttributes<HTMLElement>),
+      })}
     </button>
   );
 }
+
+const ToggleOptionButtonStyles = create({
+  base: {
+    width: '36px',
+    height: '36px',
+    borderRadius: borderRadius.medium,
+    padding: '4px',
+    ':hover': {
+      backgroundColor: colors.gray4,
+    },
+  },
+  active: {
+    backgroundColor: colors.gray4,
+  },
+  icon: {
+    color: colors.gray,
+    transitionProperty: 'stroke',
+    transitionDuration: '200ms',
+  },
+});

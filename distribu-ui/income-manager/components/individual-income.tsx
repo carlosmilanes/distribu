@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ArrowPathIcon, ClockIcon } from '@heroicons/react/24/outline';
-import { twMerge } from 'tailwind-merge';
 import type { Income } from '@/data/types';
 import { DeletionHelper } from '@/components/deletion-helper';
 import { EscapeHelper } from '@/components/escape-helper';
@@ -9,6 +8,8 @@ import { DatePicker } from '@/components/date-picker';
 import { DeleteButton } from '@/components/delete-button';
 import { getDayInSpanish } from '@/utils/getDayInSpanish';
 import { adjustTextareaHeight } from '@/utils/adjustTextareaHeight';
+import { create, props } from 'stylex';
+import { colors, borderRadius } from '../../../stylex/vars.stylex';
 
 export function IndividualIncome({
   income = {
@@ -20,16 +21,12 @@ export function IndividualIncome({
     recurring: false,
   },
   onUpdate,
-  className,
 }: {
   income?: Income;
   onUpdate: (updatedIncome: Income) => void;
-  className?: string;
 }) {
   const isNew = income.id === 0;
   const [showDeleteOption, setShowDeleteOption] = useState(false);
-
-  // form control
   const [sourceError, setSourceError] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [amount, setAmount] = useState(income.amount);
@@ -40,21 +37,14 @@ export function IndividualIncome({
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-
-    // Remove any non-numeric characters except decimal point
     value = value.replace(/[^\d.]/g, '');
-
-    // Ensure only one decimal point
     const parts = value.split('.');
     if (parts.length > 2) {
       value = parts[0] + '.' + parts.slice(1).join('');
     }
-
-    // Limit to 2 decimal places if decimals exist
     if (parts.length === 2 && parts[1].length > 2) {
       value = parts[0] + '.' + parts[1].substring(0, 2);
     }
-
     setAmount(value);
     onUpdate({ ...income, amount: value });
   };
@@ -84,54 +74,30 @@ export function IndividualIncome({
     onUpdate({ ...income, recurring: newRecurring });
   };
 
-  const styles = {
-    container: twMerge(
-      'relative m-2 mx-auto flex w-[95%] max-w-96 items-center overflow-hidden rounded-3xl shadow-sm',
-      date > new Date() && 'border-primary-500 border-2 border-dashed'
-    ),
-    component: twMerge(
-      'bg-primary-50 text-primary-900 relative rounded-3xl p-3 transition duration-300',
-      date > new Date() && 'text-primary-500',
-      showDeleteOption && 'pointer-events-none -translate-x-20 rounded-none',
-      className
-    ),
-    amount:
-      'text-2xl outline-hidden bg-transparent focus:bg-primary-100/50 rounded-lg px-1 w-[12ch] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
-    source:
-      'text-lg mt-1 outline-hidden bg-transparent focus:bg-primary-100/50 rounded-lg px-1 w-full resize-none overflow-hidden',
-    notes:
-      'text-primary-600 text-sm mt-1 outline-hidden bg-transparent focus:bg-primary-100/50 rounded-lg px-1 w-full resize-none overflow-hidden',
-    dateAndRecurrenceContainer:
-      'p-2 rounded-full hover:bg-primary-200 active:bg-primary-300 transition flex items-center absolute top-2 right-2 cursor-pointer',
-    date: 'text-primary-600 text-sm ml-auto',
-    recurrenceIcon: 'size-3 mr-1 cursor-pointer',
-    clockIcon: 'text-primary-500 absolute bottom-2 right-1 size-6 mr-1',
-    errorText: 'text-alert-500 text-sm mt-1',
-    datePickerContainer: 'flex justify-between items-center mb-2',
-    switchContainer: 'ml-5 font-bold flex items-center space-x-2',
-    switchLabel: 'text-primary-900',
-    doneButton:
-      'mr-5 px-3 py-1 bg-primary-100 text-primary-900 rounded-full hover:bg-primary-200 active:bg-primary-300 font-bold transition',
-    datePicker: 'shadow-none',
-    divider: 'border-primary-500 w-full mb-4',
-  };
-
   return (
-    <div className={styles.container}>
+    <div {...props(IndividualIncomeStyles.container)}>
       <DeletionHelper fn={() => setShowDeleteOption(true)}>
-        <div className={styles.component}>
+        <div
+          {...props(
+            IndividualIncomeStyles.component,
+            date > new Date() && IndividualIncomeStyles.futureDate,
+            showDeleteOption && IndividualIncomeStyles.deleting
+          )}
+        >
           {showDatePicker && (
             <EscapeHelper fn={() => setShowDatePicker(false)}>
-              <div className={styles.datePickerContainer}>
-                <div className={styles.switchContainer}>
+              <div {...props(IndividualIncomeStyles.datePickerContainer)}>
+                <div {...props(IndividualIncomeStyles.switchContainer)}>
                   <Switch
                     active={recurring}
                     onChange={handleRecurringChange}
                   />
-                  <div className={styles.switchLabel}>Recurrente</div>
+                  <div {...props(IndividualIncomeStyles.switchLabel)}>
+                    Recurrente
+                  </div>
                 </div>
                 <button
-                  className={styles.doneButton}
+                  {...props(IndividualIncomeStyles.doneButton)}
                   onClick={() => setShowDatePicker(false)}
                 >
                   Hecho
@@ -140,13 +106,12 @@ export function IndividualIncome({
               <DatePicker
                 selectedDate={date}
                 onDateSelect={handleDateChange}
-                className={styles.datePicker}
               />
-              <hr className={styles.divider} />
+              <hr {...props(IndividualIncomeStyles.divider)} />
             </EscapeHelper>
           )}
           <input
-            className={styles.amount}
+            {...props(IndividualIncomeStyles.amount)}
             autoFocus={isNew}
             placeholder='Monto'
             value={amount}
@@ -174,9 +139,9 @@ export function IndividualIncome({
             }}
           />
           <textarea
-            className={twMerge(
-              styles.source,
-              sourceError && 'border-alert-500 border-2'
+            {...props(
+              IndividualIncomeStyles.source,
+              sourceError && IndividualIncomeStyles.sourceError
             )}
             value={source}
             placeholder='Origen'
@@ -191,10 +156,12 @@ export function IndividualIncome({
             }
           />
           {sourceError && (
-            <p className={styles.errorText}>Especifica el origen del ingreso</p>
+            <p {...props(IndividualIncomeStyles.errorText)}>
+              Especifica el origen del ingreso
+            </p>
           )}
           <textarea
-            className={styles.notes}
+            {...props(IndividualIncomeStyles.notes)}
             value={notes}
             placeholder='Sin notas'
             rows={1}
@@ -208,29 +175,199 @@ export function IndividualIncome({
 
           {!showDatePicker && (
             <div
-              className={styles.dateAndRecurrenceContainer}
+              {...props(IndividualIncomeStyles.dateAndRecurrenceContainer)}
               onClick={() => setShowDatePicker(true)}
             >
               <div>
                 {recurring && (
-                  <ArrowPathIcon className={styles.recurrenceIcon} />
+                  <ArrowPathIcon
+                    {...props(IndividualIncomeStyles.recurrenceIcon)}
+                  />
                 )}
               </div>
-              <div className={styles.date}>{getDayInSpanish(date)}</div>
+              <div {...props(IndividualIncomeStyles.date)}>
+                {getDayInSpanish(date)}
+              </div>
             </div>
           )}
-          {date > new Date() && <ClockIcon className={styles.clockIcon} />}
+          {date > new Date() && (
+            <ClockIcon {...props(IndividualIncomeStyles.clockIcon)} />
+          )}
         </div>
       </DeletionHelper>
 
       {showDeleteOption && (
-        <EscapeHelper
-          fn={() => setShowDeleteOption(false)}
-          className='absolute right-2 shrink-0'
-        >
+        <EscapeHelper fn={() => setShowDeleteOption(false)}>
           <DeleteButton onPress={() => {}} />
         </EscapeHelper>
       )}
     </div>
   );
 }
+
+const IndividualIncomeStyles = create({
+  container: {
+    position: 'relative',
+    margin: '8px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    display: 'flex',
+    width: '95%',
+    maxWidth: '384px',
+    alignItems: 'center',
+    overflow: 'hidden',
+    borderRadius: borderRadius.big,
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+  },
+  component: {
+    backgroundColor: colors.secondaryBackground,
+    color: colors.text,
+    position: 'relative',
+    borderRadius: borderRadius.big,
+    padding: '12px',
+    transitionDuration: '300ms',
+  },
+  futureDate: {
+    border: `2px dashed ${colors.income}`,
+    color: colors.income,
+  },
+  deleting: {
+    pointerEvents: 'none',
+    transform: 'translateX(-80px)',
+    borderRadius: 0,
+  },
+  amount: {
+    fontSize: '24px',
+    outline: 'none',
+    backgroundColor: 'transparent',
+    borderRadius: borderRadius.small,
+    paddingLeft: '4px',
+    paddingRight: '4px',
+    width: '12ch',
+    appearance: 'textfield',
+    '::-webkit-outer-spin-button': {
+      appearance: 'none',
+    },
+    '::-webkit-inner-spin-button': {
+      appearance: 'none',
+    },
+    ':focus': {
+      backgroundColor: `${colors.secondaryBackground}80`,
+    },
+  },
+  source: {
+    fontSize: '18px',
+    marginTop: '4px',
+    outline: 'none',
+    backgroundColor: 'transparent',
+    borderRadius: borderRadius.small,
+    paddingLeft: '4px',
+    paddingRight: '4px',
+    width: '100%',
+    resize: 'none',
+    overflow: 'hidden',
+    ':focus': {
+      backgroundColor: `${colors.secondaryBackground}80`,
+    },
+  },
+  sourceError: {
+    border: `2px solid ${colors.alert}`,
+  },
+  notes: {
+    color: colors.secondaryText,
+    fontSize: '14px',
+    marginTop: '4px',
+    outline: 'none',
+    backgroundColor: 'transparent',
+    borderRadius: borderRadius.small,
+    paddingLeft: '4px',
+    paddingRight: '4px',
+    width: '100%',
+    resize: 'none',
+    overflow: 'hidden',
+    ':focus': {
+      backgroundColor: `${colors.secondaryBackground}80`,
+    },
+  },
+  dateAndRecurrenceContainer: {
+    padding: '8px',
+    borderRadius: borderRadius.full,
+    ':hover': {
+      backgroundColor: colors.gray4,
+    },
+    ':active': {
+      backgroundColor: colors.gray3,
+    },
+    transition: 'background-color 200ms',
+    display: 'flex',
+    alignItems: 'center',
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+    cursor: 'pointer',
+  },
+  date: {
+    color: colors.secondaryText,
+    fontSize: '14px',
+    marginLeft: 'auto',
+  },
+  recurrenceIcon: {
+    width: '12px',
+    height: '12px',
+    marginRight: '4px',
+    cursor: 'pointer',
+  },
+  clockIcon: {
+    color: colors.income,
+    position: 'absolute',
+    bottom: '8px',
+    right: '4px',
+    width: '24px',
+    height: '24px',
+    marginRight: '4px',
+  },
+  errorText: {
+    color: colors.alert,
+    fontSize: '14px',
+    marginTop: '4px',
+  },
+  datePickerContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '8px',
+  },
+  switchContainer: {
+    marginLeft: '20px',
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+  switchLabel: {
+    color: colors.text,
+  },
+  doneButton: {
+    marginRight: '20px',
+    paddingLeft: '12px',
+    paddingRight: '12px',
+    paddingTop: '4px',
+    paddingBottom: '4px',
+    backgroundColor: colors.secondaryBackground,
+    color: colors.text,
+    borderRadius: borderRadius.full,
+    ':hover': {
+      backgroundColor: colors.gray4,
+    },
+    ':active': {
+      backgroundColor: colors.gray3,
+    },
+    fontWeight: 'bold',
+    transition: 'background-color 200ms',
+  },
+  divider: {
+    borderColor: colors.income,
+    width: '100%',
+    marginBottom: '16px',
+  },
+});
