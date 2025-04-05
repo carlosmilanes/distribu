@@ -1,0 +1,36 @@
+import { defineVars } from 'stylex';
+
+const DARK = '@media (prefers-color-scheme: dark)';
+
+export const colors = defineVars({
+  // backgrounds
+  background: { default: '#FFFFFF', [DARK]: '#000000' },
+  secondaryBackground: { default: '#F2F2F7', [DARK]: '#1C1C1E' },
+  tertiaryBackground: { default: '#FFFFFF', [DARK]: '#2C2C2E' },
+
+  // materials
+  income: { default: '#34C759', [DARK]: '#30D158' },
+  assignedIncome: { default: '#FF9500', [DARK]: '#FF9F0A' },
+  usedIncome: { default: '#FF3B30', [DARK]: '#FF453A' },
+
+  // text
+  text: { default: '#000000', [DARK]: '#FFFFFF' },
+  secondaryText: { default: 'rgba(60, 60, 67, 0.6)', [DARK]: 'rgba(235, 235, 245, 0.6)' },
+  tertiaryText: { default: 'rgba(60, 60, 67, 0.3)', [DARK]: 'rgba(235, 235, 245, 0.3)' },
+
+  // alerts
+  alert: { default: '#FF0000', [DARK]: '#FF2D2D' },
+  alertBackground: { default: '#FFE5E5', [DARK]: '#480000' },
+  alertBorder: { default: '#FFB3A7', [DARK]: '#9B0000' },
+
+  // warnings
+  warning: { default: '#FF9F0A', [DARK]: '#FFD60A' },
+  warningBackground: { default: '#FFF4E6', [DARK]: '#3C2A00' },
+  warningBorder: { default: '#FFE5B4', [DARK]: '#9B7500' },
+
+  // grays
+  gray: { default: '#8E8E93', [DARK]: '#8E8E93' },
+  gray2: { default: '#AEAEB2', [DARK]: '#636366' },
+  gray3: { default: '#C7C7CC', [DARK]: '#48484A' },
+  gray4: { default: '#D1D1D6', [DARK]: '#3A3A3C' },
+});
