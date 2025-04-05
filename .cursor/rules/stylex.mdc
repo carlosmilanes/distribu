@@ -1,0 +1,10 @@
+---
+description: 
+globs: **/*.tsx
+alwaysApply: false
+---
+# StyleX styles generation rules
+
+- Use named imports.
+- Apply the styles before any other attribute on the styled element.
+- Put the styles at the end of the file, after everything else.
