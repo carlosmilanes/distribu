@@ -8,6 +8,7 @@ alwaysApply: false
 ## General Principles
 
 - Write concise, readable TypeScript code.
+- Define component props types before the component itself, unless it receives only one prop.
 - Use traditional function declarations instead of arrow functions for components and named functions. Use arrow functions for inline event handlers and callbacks.
 - Structure components logically: exports, subcomponents, helpers, types.
 
