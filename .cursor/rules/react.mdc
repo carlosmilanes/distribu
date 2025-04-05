@@ -1,0 +1,36 @@
+---
+description: 
+globs: **/*.tsx
+alwaysApply: false
+---
+# React code generation rules
+
+## General Principles
+
+- Write concise, readable TypeScript code.
+- Use traditional function declarations instead of arrow functions for components and named functions. Use arrow functions for inline event handlers and callbacks.
+- Structure components logically: exports, subcomponents, helpers, types.
+
+## Naming Conventions
+
+- Prefix event handlers with "handle" (handleClick, handleSubmit).
+- Use kebab-case naming for component files.
+- Favor named exports for components.
+
+### Component Architecture
+
+- Extract component logic into hooks. Separate component logic from presentation. Custom hooks should manage side effects, state, and logic; the component focuses only on rendering.
+- Optimize for performance and Web Vitals.
+   - Implement memoization techniques (use, useMemo, useCallback) where necessary to optimize re-renders.
+   - Implement lazy loading for large components to improve initial load performance.
+
+### Accessibility
+
+- Ensure accessibility compliance.
+- Avoid using <div> and <span> when semantic elements exist.
+- Utilize ARIA landmarks when semantic HTML isn't sufficient.
+- Use `aria-label` for elements without visible text.
+- Implement `aria-expanded` for expandable content.
+- Apply `aria-controls` to establish relationships between elements.
+- Use `aria-live` regions for dynamic content updates.
+- Add `aria-hidden` for decorative elements.
