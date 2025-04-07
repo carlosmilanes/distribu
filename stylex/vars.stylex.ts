@@ -15,8 +15,14 @@ export const colors = defineVars({
 
   // text
   text: { default: '#000000', [DARK]: '#FFFFFF' },
-  secondaryText: { default: 'rgba(60, 60, 67, 0.6)', [DARK]: 'rgba(235, 235, 245, 0.6)' },
-  tertiaryText: { default: 'rgba(60, 60, 67, 0.3)', [DARK]: 'rgba(235, 235, 245, 0.3)' },
+  secondaryText: {
+    default: 'rgba(60, 60, 67, 0.6)',
+    [DARK]: 'rgba(235, 235, 245, 0.6)',
+  },
+  tertiaryText: {
+    default: 'rgba(60, 60, 67, 0.3)',
+    [DARK]: 'rgba(235, 235, 245, 0.3)',
+  },
 
   // alerts
   alert: { default: '#FF0000', [DARK]: '#FF2D2D' },
@@ -40,4 +46,11 @@ export const borderRadius = defineVars({
   medium: '16px',
   big: '24px',
   full: 'calc(infinity * 1px)',
+});
+
+export const shadows = defineVars({
+  small: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+  medium: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+  large: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+  xlarge: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
 });

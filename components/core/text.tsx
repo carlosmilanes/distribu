@@ -5,11 +5,11 @@ export type TextProps = {
 };
 
 export function Text({ children }: TextProps) {
-  return <div {...props(TextStyles.base)}>{children}</div>;
+  return <div {...props(TextStyles.all)}>{children}</div>;
 }
 
 const TextStyles = create({
-  base: {
+  all: {
     display: 'flex',
     width: 'min-content',
     whiteSpace: 'nowrap',

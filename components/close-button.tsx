@@ -6,8 +6,8 @@ import { colors, borderRadius } from '../stylex/vars.stylex';
 export function CloseButton({ onPress, ...otherProps }: ButtonProps) {
   return (
     <Button
-      onPress={onPress}
       {...props(CloseButtonStyles.base)}
+      onPress={onPress}
       aria-label='Close'
       {...otherProps}
     >
