@@ -1,4 +1,4 @@
-import { create, props } from 'stylex';
+import { create, props as style, type StyleXStyles } from 'stylex';
 
 /**
  * Resources for animating this component:
@@ -22,23 +22,11 @@ import { create, props } from 'stylex';
     }
  */
 
-type MoneyProps = {
-  amount: string;
-};
-
-export function Money({ amount, ...otherProps }: MoneyProps) {
-  return (
-    <span
-      {...props(MoneyStyles.base)}
-      {...otherProps}
-    >
-      {amount}
-    </span>
-  );
+export function Money({ amount, styling }: MoneyProps) {
+  return <span {...style(styling)}>{amount}</span>;
 }
 
-const MoneyStyles = create({
-  base: {
-    // Base styles can be added here if needed
-  },
-});
+type MoneyProps = {
+  amount: string;
+  styling?: StyleXStyles;
+};

@@ -1,17 +1,10 @@
-import { create, props } from 'stylex';
+import { props as style, type StyleXStyles } from 'stylex';
+
+export function Text({ children, styling }: TextProps) {
+  return <div {...style(styling)}>{children}</div>;
+}
 
 export type TextProps = {
   children: React.ReactNode;
+  styling?: StyleXStyles;
 };
-
-export function Text({ children }: TextProps) {
-  return <div {...props(TextStyles.all)}>{children}</div>;
-}
-
-const TextStyles = create({
-  all: {
-    display: 'flex',
-    width: 'min-content',
-    whiteSpace: 'nowrap',
-  },
-});

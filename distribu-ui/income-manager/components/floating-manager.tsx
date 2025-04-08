@@ -3,7 +3,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import type { IncomeData } from '@/data/types';
 import { AddIncomeButton } from './add-income-button';
 import { StackedBar } from './stacked-bar';
-import { TertiaryText } from '@/components/tertiary-text';
+import { TertiaryText } from '@/components/text/tertiary-text';
 import { Money } from '@/components/money';
 import { Incomes } from './incomes';
 import { Chart } from './chart';
@@ -39,10 +39,10 @@ export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
       setIsExpanded={setIsExpanded}
     >
       <Money
-        {...props(CompactManagerPartsStyles.money)}
         amount={parseFloat(incomeData.state.assignable).toString()}
+        styling={CompactManagerPartsStyles.money}
       />
-      <TertiaryText {...props(CompactManagerPartsStyles.label)}>
+      <TertiaryText styling={CompactManagerPartsStyles.label}>
         Ingreso disponible
       </TertiaryText>
 

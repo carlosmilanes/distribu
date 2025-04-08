@@ -33,6 +33,10 @@ export const colors = defineVars({
     default: 'rgba(60, 60, 67, 0.3)',
     [DARK]: 'rgba(235, 235, 245, 0.3)',
   },
+  quaternaryText: {
+    default: 'rgba(60, 60, 67, 0.15)',
+    [DARK]: 'rgba(235, 235, 245, 0.15)',
+  },
 
   // alerts
   alert: { default: '#FF0000', [DARK]: '#FF2D2D' },
