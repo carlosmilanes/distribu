@@ -22,6 +22,15 @@ export const reactiveElevation = create({
     boxShadow: shadows.medium,
     transition: 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
 
+    ':hover': {
+      transform: 'scale(1.02)',
+      transition: 'transform 0.2s ease-in-out, opacity 0.5s ease-in-out',
+      '::after': {
+        opacity: 1,
+        transition: 'opacity 0.2s ease-in-out',
+      },
+    },
+
     '::after': {
       opacity: 0,
       content: '',
@@ -31,15 +40,6 @@ export const reactiveElevation = create({
       zIndex: -1,
       transition: 'opacity 0.5s ease-in-out',
       borderRadius: 'inherit',
-    },
-
-    ':hover': {
-      transform: 'scale(1.02)',
-      transition: 'transform 0.2s ease-in-out, opacity 0.5s ease-in-out',
-      '::after': {
-        opacity: 1,
-        transition: 'opacity 0.2s ease-in-out',
-      },
     },
 
     ':active': {

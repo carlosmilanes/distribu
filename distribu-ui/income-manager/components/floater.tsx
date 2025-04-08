@@ -1,8 +1,9 @@
 import { motion, type PanInfo } from 'motion/react';
-import { create, props } from 'stylex';
+import { create, props as style } from 'stylex';
 import { colors, borderRadius } from '@/stylex/vars.stylex';
 import { reactiveElevation } from '@/stylex/elevations.stylex';
-
+import type { Medium } from '@/stylex/breakpoints.stylex';
+import { glass } from '@/stylex/materials.stylex';
 export function Floater({ isExpanded, setIsExpanded, children }: FloaterProps) {
   function handleDragUp(
     e: MouseEvent | TouchEvent | PointerEvent,
@@ -15,7 +16,7 @@ export function Floater({ isExpanded, setIsExpanded, children }: FloaterProps) {
 
   return (
     <motion.div
-      {...props(reactiveElevation.medium, styles.base)}
+      {...style(reactiveElevation.medium, styles.base, glass.standard)}
       layoutDependency={isExpanded}
       layoutId='morph'
       onClick={() => setIsExpanded(true)}
@@ -40,6 +41,10 @@ type FloaterProps = {
   children: React.ReactNode;
 };
 
+// TODO: optimize these styles
+
+const MEDIUM: Medium = '@media (min-width: 48rem)';
+
 const styles = create({
   base: {
     // colors
@@ -48,28 +53,21 @@ const styles = create({
 
     // dimensions
     height: '7rem',
-    width: '21rem',
-    '@media (min-width: 768px)': {
-      width: '28rem',
+    width: {
+      default: '21rem',
+      [MEDIUM]: '28rem',
     },
 
     // positioning
     position: 'fixed',
-    bottom: '12px',
-    left: 0,
-    right: 0,
+    inset: 'auto 0 12px 0',
 
     // spacing
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    paddingLeft: '16px',
-    paddingRight: '16px',
-    paddingTop: '8px',
-    paddingBottom: '8px',
+    margin: 'auto',
+    padding: '8px 16px',
 
     // others
-    cursor: 'pointer',
     borderRadius: borderRadius.big,
-    backdropFilter: 'blur(4px)',
+    cursor: 'pointer',
   },
 });

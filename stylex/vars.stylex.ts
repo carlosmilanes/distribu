@@ -8,6 +8,16 @@ export const colors = defineVars({
   secondaryBackground: { default: '#F2F2F7', [DARK]: '#1C1C1E' },
   tertiaryBackground: { default: '#FFFFFF', [DARK]: '#2C2C2E' },
 
+  glassBackground: {
+    default: 'rgba(255, 255, 255, 0.1)',
+    [DARK]: 'rgba(0, 0, 0, 0.1)',
+  },
+
+  glassBorder: {
+    default: 'rgba(255, 255, 255, 0.2)',
+    [DARK]: 'rgba(0, 0, 0, 0.1)',
+  },
+
   // materials
   income: { default: '#34C759', [DARK]: '#30D158' },
   assignedIncome: { default: '#FF9500', [DARK]: '#FF9F0A' },
