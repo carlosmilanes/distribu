@@ -10,6 +10,7 @@ import {
 import type { Route } from './+types/root';
 import './app.css';
 import 'virtual:stylex.css';
+import { MotionConfig } from 'motion/react';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,7 +34,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <MotionConfig
+      transition={{
+        type: 'spring',
+        duration: 0.5,
+        bounce: 0.2,
+        ease: 'easeOut',
+      }}
+      reducedMotion='user'
+    >
+      <Outlet />
+    </MotionConfig>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

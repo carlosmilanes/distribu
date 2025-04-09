@@ -29,7 +29,13 @@ export function Floater({ isExpanded, setIsExpanded, children }: FloaterProps) {
       dragConstraints={{ top: 0, bottom: 0 }}
       dragElastic={{ top: 0.3, bottom: 0 }}
       onDrag={handleDragUp}
-      aria-label='Expand Income Manager'
+      transition={{
+        type: 'spring',
+        duration: 0.5,
+        bounce: 0.2,
+        ease: 'easeOut',
+      }}
+      aria-label='Open Income Manager'
     >
       {children}
     </motion.div>
@@ -42,15 +48,18 @@ type FloaterProps = {
   children: React.ReactNode;
 };
 
-// TODO: optimize these styles
-
 const MEDIUM: Medium = '@media (min-width: 48rem)';
+
+// ⚠️ The 'transform' property gets affected by the Motion animations
+// I could use the Motion's 'whileHover' property
 
 const styles = create({
   base: {
     // positioning
     position: 'fixed',
-    inset: 'auto 0 12px 0',
+    bottom: '12px',
+    left: '50%',
+    transform: 'translateX(-50%)',
 
     // colors
     backgroundColor: colors.secondaryBackground,
@@ -64,7 +73,6 @@ const styles = create({
     },
 
     // spacing
-    margin: 'auto',
     padding: '2px 16px',
 
     // others
