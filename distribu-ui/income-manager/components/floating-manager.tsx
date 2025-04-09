@@ -67,12 +67,12 @@ const styles = create({
   },
   iconButton: {
     position: 'absolute',
-    top: '16px',
+    top: '10px',
     right: '16px',
   },
   soloIcon: {
-    width: '2.2rem',
-    height: '2.2rem',
+    width: '2.5rem',
+    height: '2.5rem',
     strokeWidth: '2',
   },
   textIconButton: {

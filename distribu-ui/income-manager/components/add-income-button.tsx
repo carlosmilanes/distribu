@@ -6,7 +6,6 @@ import { colors } from '@/stylex/vars.stylex';
 export function AddIncomeButton({
   children,
   styling,
-  ...otherProps
 }: AddIncomeButtonProps) {
   const [isAddingIncome, setIsAddingIncome] = useState(false);
 
@@ -14,7 +13,6 @@ export function AddIncomeButton({
     <Button
       styling={[styles.base, styling]}
       onPress={() => setIsAddingIncome(true)}
-      {...otherProps}
     >
       {children}
     </Button>

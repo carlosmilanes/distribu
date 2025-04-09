@@ -1,19 +1,9 @@
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { motion, type PanInfo, useDragControls } from 'motion/react';
-import { create, props } from 'stylex';
+import { create, props as style } from 'stylex';
 import { colors, borderRadius } from '@/stylex/vars.stylex';
 import { CloseButton } from '@/components/close-button';
-
-type ExpandedFloaterProps = {
-  isExpanded: boolean;
-  setIsExpanded: (expanded: boolean) => void;
-  children: React.ReactNode;
-};
-
-type ModalDraggableHeaderProps = {
-  dragControls: ReturnType<typeof useDragControls>;
-  setIsExpanded: (expanded: boolean) => void;
-};
+import { PrimaryText } from '@/components/text/primary-text';
 
 export function ExpandedFloater({
   isExpanded,
@@ -38,12 +28,9 @@ export function ExpandedFloater({
       onOpenChange={setIsExpanded}
     >
       <MotionModal
-        {...props(
-          ExpandedModalContainerStyles.shared,
-          ExpandedModalContainerStyles.modal
-        )}
+        {...style(styles.modal)}
         layoutDependency={isExpanded}
-        layoutId='morph'
+        layoutId='income-manager-floater'
         drag='y'
         dragListener={false}
         dragControls={dragControls}
@@ -61,8 +48,8 @@ export function ExpandedFloater({
           ease: 'easeIn',
         }}
       >
-        <Dialog {...props(ExpandedModalContainerStyles.dialog)}>
-          <ModalDraggableHeader
+        <Dialog {...style(styles.dialog)}>
+          <DraggableHeader
             dragControls={dragControls}
             setIsExpanded={setIsExpanded}
           />
@@ -75,65 +62,61 @@ export function ExpandedFloater({
 
 const MotionModal = motion.create(Modal);
 
-function ModalDraggableHeader({
+function DraggableHeader({
   dragControls,
   setIsExpanded,
-}: ModalDraggableHeaderProps) {
+}: DraggableHeaderProps) {
   return (
     <motion.div
-      {...props(ModalDraggableHeaderStyles.header)}
+      {...style(styles.header)}
       onPointerDown={(e) => dragControls.start(e)}
     >
-      <Heading
-        {...props(ModalDraggableHeaderStyles.heading)}
-        level={1}
-      >
-        Ingresos
+      <Heading level={1}>
+        <PrimaryText>Ingresos</PrimaryText>
       </Heading>
-      <CloseButton
-        {...props(ModalDraggableHeaderStyles.closeButton)}
-        onPress={() => setIsExpanded(false)}
-      />
+
+      <CloseButton onPress={() => setIsExpanded(false)} />
     </motion.div>
   );
 }
 
-const ExpandedModalContainerStyles = create({
-  shared: {
-    border: `1px solid ${colors.gray4}80`,
-    position: 'fixed',
-    left: '50%',
-    transform: 'translateX(-50%)',
-  },
+type ExpandedFloaterProps = {
+  isExpanded: boolean;
+  setIsExpanded: (expanded: boolean) => void;
+  children: React.ReactNode;
+};
+
+type DraggableHeaderProps = {
+  dragControls: ReturnType<typeof useDragControls>;
+  setIsExpanded: (expanded: boolean) => void;
+};
+
+const styles = create({
   modal: {
-    backgroundColor: colors.background,
-    height: '95%',
+    // positioning
+    position: 'fixed',
     bottom: 0,
+    left: 0,
+    right: 0,
+
+    // dimensions
+    height: '95%',
     width: '100%',
+
+    // colors
+    backgroundColor: colors.background,
+
+    // border
+    border: `1px solid ${colors.gray4}`,
     borderTopLeftRadius: borderRadius.big,
     borderTopRightRadius: borderRadius.big,
-    '@media (min-width: 768px)': {
-      height: '47rem',
-    },
   },
   dialog: {
     outline: 'none',
   },
-});
-
-const ModalDraggableHeaderStyles = create({
   header: {
     borderTopLeftRadius: borderRadius.big,
     borderTopRightRadius: borderRadius.big,
-    paddingTop: '4px',
-    paddingLeft: '12px',
-  },
-  heading: {
-    fontSize: '36px',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: '12px',
-    right: '12px',
+    padding: '4px 12px',
   },
 });

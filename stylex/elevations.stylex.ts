@@ -43,7 +43,7 @@ export const reactiveElevation = create({
     },
 
     ':active': {
-      transform: 'scale(1)',
+      transform: 'scale(0.98)',
       transition: 'transform 0.2s ease-in-out',
       '::after': {
         opacity: 0,

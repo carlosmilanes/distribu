@@ -13,7 +13,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Distribu() {
   return (
     <>
-      <Picture />
+      {/* <Picture /> */}
       <IncomeManager incomeData={mockIncomeData} />
     </>
   );
