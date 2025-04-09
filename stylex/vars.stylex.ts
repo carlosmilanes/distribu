@@ -8,20 +8,20 @@ export const colors = defineVars({
   secondaryBackground: { default: '#F2F2F7', [DARK]: '#1C1C1E' },
   tertiaryBackground: { default: '#FFFFFF', [DARK]: '#2C2C2E' },
 
-  glassBackground: {
-    default: 'rgba(255, 255, 255, 0.1)',
-    [DARK]: 'rgba(0, 0, 0, 0.1)',
-  },
-
-  glassBorder: {
-    default: 'rgba(255, 255, 255, 0.2)',
-    [DARK]: 'rgba(0, 0, 0, 0.1)',
-  },
-
   // materials
   income: { default: '#34C759', [DARK]: '#30D158' },
   assignedIncome: { default: '#FF9500', [DARK]: '#FF9F0A' },
   usedIncome: { default: '#FF3B30', [DARK]: '#FF453A' },
+
+  glassyBackground: {
+    default: 'rgba(255, 255, 255, 0.1)',
+    [DARK]: 'rgba(0, 0, 0, 0.1)',
+  },
+
+  glassyBorder: {
+    default: 'rgba(255, 255, 255, 0.2)',
+    [DARK]: 'rgba(0, 0, 0, 0.1)',
+  },
 
   // text
   text: { default: '#000000', [DARK]: '#FFFFFF' },
@@ -36,6 +36,19 @@ export const colors = defineVars({
   quaternaryText: {
     default: 'rgba(60, 60, 67, 0.15)',
     [DARK]: 'rgba(235, 235, 245, 0.15)',
+  },
+
+  vibrantText: {
+    default: 'rgba(0, 0, 0, 0.9)',
+    [DARK]: 'rgba(255, 255, 255, 0.9)',
+  },
+  secondaryVibrantText: {
+    default: 'rgba(0, 0, 0, 0.6)',
+    [DARK]: 'rgba(255, 255, 255, 0.6)',
+  },
+  tertiaryVibrantText: {
+    default: 'rgba(0, 0, 0, 0.3)',
+    [DARK]: 'rgba(255, 255, 255, 0.3)',
   },
 
   // alerts

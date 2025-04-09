@@ -9,7 +9,7 @@ import { Incomes } from './incomes';
 import { Chart } from './chart';
 import { Floater } from './floater';
 import { ExpandedFloater } from './expanded-floater';
-import { create, props } from 'stylex';
+import { create, props as style } from 'stylex';
 import { colors } from '@/stylex/vars.stylex';
 
 export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
@@ -21,8 +21,8 @@ export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
         isExpanded={isExpanded}
         setIsExpanded={setIsExpanded}
       >
-        <AddIncomeButton {...props(ExpandedManagerPartsStyles.addButton)}>
-          <PlusIcon {...props(ExpandedManagerPartsStyles.plusIcon)} />
+        <AddIncomeButton {...style(styles.textIconButton)}>
+          <PlusIcon {...style(styles.plusIcon)} />
           Añadir
         </AddIncomeButton>
 
@@ -40,44 +40,42 @@ export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
     >
       <Money
         amount={parseFloat(incomeData.state.assignable).toString()}
-        styling={CompactManagerPartsStyles.money}
+        styling={styles.money}
       />
-      <TertiaryText styling={CompactManagerPartsStyles.label}>
-        Ingreso disponible
-      </TertiaryText>
+      <TertiaryText styling={styles.label}>Ingreso disponible</TertiaryText>
 
       <StackedBar state={incomeData.state} />
 
-      <AddIncomeButton styling={CompactManagerPartsStyles.button}>
-        <PlusIcon {...props(CompactManagerPartsStyles.icon)} />
+      <AddIncomeButton styling={styles.iconButton}>
+        <PlusIcon {...style(styles.soloIcon)} />
       </AddIncomeButton>
     </Floater>
   );
 }
 
-const CompactManagerPartsStyles = create({
+const styles = create({
   money: {
+    paddingBottom: '0px',
     color: colors.income,
-    fontSize: '30px',
+    fontSize: '2.1rem',
     fontWeight: '600',
-    display: 'block',
   },
   label: {
-    marginBottom: '12px',
+    marginTop: '-0.5rem',
+    color: colors.vibrantText,
+    marginBottom: '10px',
   },
-  button: {
+  iconButton: {
     position: 'absolute',
     top: '16px',
     right: '16px',
   },
-  icon: {
-    width: '32px',
-    height: '32px',
+  soloIcon: {
+    width: '2.2rem',
+    height: '2.2rem',
+    strokeWidth: '2',
   },
-});
-
-const ExpandedManagerPartsStyles = create({
-  addButton: {
+  textIconButton: {
     position: 'absolute',
     top: '8px',
     right: '48px',
@@ -90,8 +88,8 @@ const ExpandedManagerPartsStyles = create({
     fontSize: '18px',
   },
   plusIcon: {
-    width: '24px',
-    height: '24px',
+    width: '1.5rem',
+    height: '1.5rem',
     strokeWidth: '2',
   },
 });

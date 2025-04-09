@@ -1,7 +1,7 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { IncomeState } from '@/data/types';
-import { SecondaryText } from '@/components/secondary-text';
-import { QuaternaryText } from '@/components/quaternary-text';
+import { SecondaryText } from '@/components/text/secondary-text';
+import { QuaternaryText } from '@/components/text/quaternary-text';
 import { StackedBar } from './stacked-bar';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
 import { Money } from '@/components/money';

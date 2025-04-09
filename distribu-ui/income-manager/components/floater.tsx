@@ -16,7 +16,7 @@ export function Floater({ isExpanded, setIsExpanded, children }: FloaterProps) {
 
   return (
     <motion.div
-      {...style(reactiveElevation.medium, styles.base, glass.standard)}
+      {...style(reactiveElevation.medium, styles.base, glass.regular)}
       layoutDependency={isExpanded}
       layoutId='morph'
       onClick={() => setIsExpanded(true)}
@@ -64,10 +64,11 @@ const styles = create({
 
     // spacing
     margin: 'auto',
-    padding: '8px 16px',
+    padding: '2px 16px',
 
     // others
     borderRadius: borderRadius.big,
     cursor: 'pointer',
+    overflow: 'hidden',
   },
 });
