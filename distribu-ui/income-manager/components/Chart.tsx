@@ -17,7 +17,7 @@ export function Chart({ incomeState }: { incomeState: IncomeState }) {
 
   return (
     <div
-      {...style(styles.base, glass.regular)}
+      {...style(glass.regular, styles.base)}
       ref={ref}
       onClick={() => setCollapsed(!collapsed)}
     >
@@ -142,8 +142,8 @@ type LegendItemProps = {
 
 const styles = create({
   base: {
-    position: 'fixed',
-    bottom: 0,
+    position: 'absolute',
+    bottom: '-1px',
     zIndex: 10,
     width: '100%',
     borderTop: `2px solid ${colors.glassyBorder}`,
