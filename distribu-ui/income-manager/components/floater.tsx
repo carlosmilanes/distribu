@@ -17,7 +17,7 @@ export function Floater({ isExpanded, setIsExpanded, children }: FloaterProps) {
 
   return (
     <motion.div
-      {...style(styles.base, glass.regular)}
+      {...style(reactiveElevation.medium, styles.base, glass.regular)}
       layoutDependency={isExpanded}
       layoutId='income-manager-floater'
       onClick={() => setIsExpanded(true)}
@@ -50,16 +50,13 @@ type FloaterProps = {
 
 const MEDIUM: Medium = '@media (min-width: 48rem)';
 
-// ⚠️ The 'transform' property gets affected by the Motion animations
-// I could use the Motion's 'whileHover' property
-
 const styles = create({
   base: {
     // positioning
     position: 'fixed',
     bottom: '12px',
     left: '50%',
-    transform: 'translateX(-50%)',
+    translate: '-50%',
 
     // colors
     backgroundColor: colors.secondaryBackground,
@@ -78,22 +75,5 @@ const styles = create({
     // others
     borderRadius: borderRadius.big,
     cursor: 'pointer',
-    overflow: 'hidden',
-
-    // elevation
-    boxShadow: shadows.medium,
-    transition: 'transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out',
-
-    ':hover': {
-      transform: 'scale(1.02)',
-      boxShadow: shadows.large,
-      transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-    },
-
-    ':active': {
-      transform: 'scale(0.98)',
-      boxShadow: shadows.small,
-      transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-    },
   },
 });
