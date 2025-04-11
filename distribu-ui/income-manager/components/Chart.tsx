@@ -1,67 +1,68 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { IncomeState } from '@/data/types';
-import { SecondaryText } from '@/components/text/secondary-text';
 import { QuaternaryText } from '@/components/text/quaternary-text';
 import { StackedBar } from './stacked-bar';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
 import { Money } from '@/components/money';
-import { ChartState } from './chart-state';
-import { create, props } from 'stylex';
-import { colors } from '../../../stylex/vars.stylex';
+import { create, props as style } from 'stylex';
+import { colors } from '@/stylex/vars.stylex';
+import { useState } from 'react';
+import { useOutsidePress } from '@/hooks/use-outside-press';
+import { TertiaryText } from '@/components/text/tertiary-text';
+import { glass } from '@/stylex/materials.stylex';
 
-type ChartProps = {
-  incomeState: IncomeState;
-};
+export function Chart({ incomeState }: { incomeState: IncomeState }) {
+  const [collapsed, setCollapsed] = useState(false);
+  const ref = useOutsidePress<HTMLDivElement>(() => setCollapsed(true));
 
-export function Chart({ incomeState }: ChartProps) {
   return (
-    <ChartState incomeState={incomeState}>
-      <TotalHeader total={incomeState.total} />
-      <Legend />
+    <div
+      {...style(styles.base, glass.regular)}
+      ref={ref}
+      onClick={() => setCollapsed(!collapsed)}
+    >
+      <TotalHeader
+        total={incomeState.total}
+        collapsed={collapsed}
+      />
+
+      <Legend
+        incomeState={incomeState}
+        hidden={collapsed}
+      />
+
       <StackedBar
         state={incomeState}
-        {...props(ChartStyles.stackedBar)}
-      />
-    </ChartState>
-  );
-}
-
-type TotalHeaderProps = {
-  total: string;
-  collapsed?: boolean;
-};
-
-function TotalHeader({ total, collapsed = false }: TotalHeaderProps) {
-  return (
-    <div {...props(ChartStyles.totalHeader)}>
-      <div {...props(ChartStyles.totalContent)}>
-        <QuaternaryText>Total</QuaternaryText>
-        <Money
-          {...props(ChartStyles.money)}
-          amount={total}
-        />
-      </div>
-
-      <ChevronDownIcon
-        {...props(
-          ChartStyles.chevron,
-          collapsed && ChartStyles.chevronCollapsed
-        )}
+        styling={styles.stackedBar}
       />
     </div>
   );
 }
 
-type LegendProps = {
-  incomeState?: IncomeState;
-  hidden?: boolean;
-};
+function TotalHeader({ total, collapsed }: TotalHeaderProps) {
+  return (
+    <div {...style(styles.totalHeader)}>
+      <div {...style(styles.totalContent)}>
+        <TertiaryText styling={styles.totalLabel}>Total</TertiaryText>
 
-function Legend({ incomeState, hidden = false }: LegendProps) {
+        <Money
+          styling={styles.totalAmount}
+          amount={total}
+        />
+      </div>
+
+      <ChevronDownIcon
+        {...style(styles.chevron, collapsed && styles.chevronCollapsed)}
+      />
+    </div>
+  );
+}
+
+function Legend({ incomeState, hidden }: LegendProps) {
   if (!incomeState) return null;
 
   return (
-    <div {...props(ChartStyles.legend, hidden && ChartStyles.legendHidden)}>
+    <div {...style(styles.legend, hidden && styles.legendHidden)}>
       <LegendItem
         label='Disponible'
         amount={incomeState.assignable}
@@ -84,33 +85,22 @@ function Legend({ incomeState, hidden = false }: LegendProps) {
   );
 }
 
-type LegendItemProps = {
-  label: string;
-  amount: string;
-  total: string;
-  color: string;
-};
-
 function LegendItem({ label, amount, total, color }: LegendItemProps) {
   return (
-    <div {...props(ChartStyles.legendItem)}>
-      <QuaternaryText>{label}</QuaternaryText>
+    <div {...style(styles.legendItem)}>
+      <QuaternaryText styling={styles.legendLabel}>{label}</QuaternaryText>
 
-      <div {...props(ChartStyles.legendContent)}>
-        <SecondaryText
-          {...props(
-            ChartStyles.legendAmount,
-            ChartStyles.legendAmountColor(color)
-          )}
-        >
-          {amount}
-        </SecondaryText>
+      <div {...style(styles.legendContent)}>
+        <Money
+          styling={[styles.legendAmount, styles.legendAmountColor(color)]}
+          amount={amount}
+        />
 
         <QuaternaryText
-          {...props(
-            ChartStyles.legendPercentage,
-            ChartStyles.legendPercentageColor(color)
-          )}
+          styling={[
+            styles.legendPercentage,
+            styles.legendPercentageColor(color),
+          ]}
         >
           {findBasicPercentage(amount, total)}%
         </QuaternaryText>
@@ -124,7 +114,7 @@ function LegendItem({ label, amount, total, color }: LegendItemProps) {
 function DottedDivider() {
   return (
     <div
-      {...props(ChartStyles.dottedDivider)}
+      {...style(styles.dottedDivider)}
       style={{
         backgroundImage: `radial-gradient(circle, ${colors.gray} 1px, transparent 1px)`,
         backgroundSize: '10px 4px',
@@ -133,48 +123,69 @@ function DottedDivider() {
   );
 }
 
-const ChartStyles = create({
+type TotalHeaderProps = {
+  total: string;
+  collapsed: boolean;
+};
+
+type LegendProps = {
+  incomeState?: IncomeState;
+  hidden: boolean;
+};
+
+type LegendItemProps = {
+  label: string;
+  amount: string;
+  total: string;
+  color: string;
+};
+
+const styles = create({
+  base: {
+    position: 'fixed',
+    bottom: 0,
+    zIndex: 10,
+    width: '100%',
+    borderTop: `2px solid ${colors.glassyBorder}`,
+    paddingBottom: '12px',
+  },
   stackedBar: {
-    marginLeft: '12px',
-    marginRight: '12px',
+    margin: '0 12px',
   },
   totalHeader: {
     position: 'relative',
-    marginTop: '8px',
-    marginBottom: '8px',
+    margin: '8px 0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingRight: '16px',
-    paddingLeft: '12px',
+    padding: '0 16px 0 12px',
   },
   totalContent: {
     display: 'flex',
     flexDirection: 'column',
   },
-  money: {
-    fontSize: '20px',
+  totalLabel: {
+    color: colors.gray,
+    fontWeight: '500',
+  },
+  totalAmount: {
+    fontSize: '1.5rem',
     fontWeight: '600',
   },
   chevron: {
-    width: '24px',
-    height: '24px',
+    width: '1.5rem',
+    height: '1.5rem',
     strokeWidth: '2',
-    transitionProperty: 'transform',
-    transitionDuration: '300ms',
-    transitionTimingFunction: 'ease-in-out',
+    transition: 'transform 300ms ease-in-out',
   },
   chevronCollapsed: {
     transform: 'rotate(180deg)',
   },
   legend: {
-    marginLeft: '12px',
-    marginRight: '12px',
+    height: '12.5rem',
+    margin: '0 12px',
     overflow: 'hidden',
-    borderTop: `1px solid ${colors.income}`,
-    transitionProperty: 'height, opacity',
-    transitionDuration: '300ms',
-    transitionTimingFunction: 'ease-in-out',
+    transition: 'height 300ms ease-in-out, opacity 300ms ease-in-out',
   },
   legendHidden: {
     height: 0,
@@ -188,12 +199,16 @@ const ChartStyles = create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
+  legendLabel: {
+    color: colors.gray,
+    fontSize: '1rem',
+  },
   legendAmount: {
-    fontSize: '20px',
+    fontSize: '1.25rem',
     fontWeight: '600',
   },
   legendPercentage: {
-    fontSize: '14px',
+    fontSize: '1rem',
   },
   dottedDivider: {
     height: '4px',

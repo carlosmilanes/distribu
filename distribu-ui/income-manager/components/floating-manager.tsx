@@ -62,7 +62,6 @@ const styles = create({
   },
   label: {
     marginTop: '-0.5rem',
-    color: colors.vibrantText,
     marginBottom: '10px',
   },
   iconButton: {

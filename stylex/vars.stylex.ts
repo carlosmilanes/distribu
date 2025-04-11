@@ -38,17 +38,21 @@ export const colors = defineVars({
     [DARK]: 'rgba(235, 235, 245, 0.15)',
   },
 
-  vibrantText: {
+  vibrant: {
     default: 'rgba(0, 0, 0, 0.9)',
     [DARK]: 'rgba(255, 255, 255, 0.9)',
   },
-  secondaryVibrantText: {
-    default: 'rgba(0, 0, 0, 0.6)',
-    [DARK]: 'rgba(255, 255, 255, 0.6)',
+  secondaryVibrant: {
+    default: '#8B5E3C',
+    [DARK]: '#D7B0BD',
   },
-  tertiaryVibrantText: {
-    default: 'rgba(0, 0, 0, 0.3)',
-    [DARK]: 'rgba(255, 255, 255, 0.3)',
+  tertiaryVibrant: {
+    default: '#C19A6B',
+    [DARK]: '#B48A99',
+  },
+  quaternaryVibrant: {
+    default: '#DEC8B5',
+    [DARK]: '#967885',
   },
 
   // alerts
