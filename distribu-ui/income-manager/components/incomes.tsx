@@ -2,22 +2,18 @@ import { useState } from 'react';
 import type { Income } from '@/data/types';
 import { IndividualIncome } from './individual-income';
 import { SearchBar } from '@/components/search-bar';
-import { create, props } from 'stylex';
-import { colors } from '../../../stylex/vars.stylex';
+import { create, props as style } from 'stylex';
+import { colors } from '@/stylex/vars.stylex';
 
-type IncomesProps = {
-  incomes: Income[];
-};
-
-export function Incomes({ incomes }: IncomesProps) {
+export function Incomes({ incomes }: { incomes: Income[] }) {
   const [query, setQuery] = useState('');
 
   return (
     <>
       <SearchBar
+        styling={styles.searchBar}
         query={query}
         onQueryChange={setQuery}
-        {...props(IncomesStyles.searchBar)}
       />
       <IncomeList
         incomes={incomes}
@@ -27,21 +23,16 @@ export function Incomes({ incomes }: IncomesProps) {
   );
 }
 
-type IncomeListProps = {
-  incomes: Income[];
-  filter: string;
-};
-
 // TODO: Make the height of the list dynamic, matching the height of the Chart when it's collapsed
 export function IncomeList({ incomes, filter }: IncomeListProps) {
   const filteredIncomes = useFilter(incomes, filter);
 
   if (filteredIncomes.length === 0) {
-    return <p {...props(IncomesStyles.emptyMessage)}>Aún no hay ingresos</p>;
+    return <p {...style(styles.emptyMessage)}>Aún no hay ingresos</p>;
   }
 
   return (
-    <div {...props(IncomesStyles.list)}>
+    <div {...style(styles.list)}>
       {filteredIncomes.map((income) => (
         <IndividualIncome
           key={income.id}
@@ -74,9 +65,14 @@ function useFilter(incomes: Income[], filter: string) {
   return filteredIncomes;
 }
 
-const IncomesStyles = create({
+type IncomeListProps = {
+  incomes: Income[];
+  filter: string;
+};
+
+const styles = create({
   searchBar: {
-    margin: '8px 16px',
+    margin: '4px 8px',
   },
   emptyMessage: {
     margin: '24px auto',
@@ -89,6 +85,5 @@ const IncomesStyles = create({
     marginTop: '16px',
     height: '100vh',
     overflowY: 'auto',
-    border: `2px solid ${colors.alert}`,
   },
 });

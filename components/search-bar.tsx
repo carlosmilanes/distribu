@@ -1,91 +1,76 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchField, Input } from 'react-aria-components';
 import { Button } from '@/components/core/button';
-import { create, props } from 'stylex';
-import { colors, borderRadius } from '../stylex/vars.stylex';
+import { create, props as style, type StyleXStyles } from 'stylex';
+import { colors, borderRadius } from '@/stylex/vars.stylex';
 
-type SearchBarProps = {
-  query: string;
-  onQueryChange: (query: string) => void;
-};
-
-export function SearchBar({
-  query,
-  onQueryChange,
-  ...otherProps
-}: SearchBarProps) {
+export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
   return (
     <SearchField
+      {...style(styles.base, styling)}
       value={query}
       onChange={onQueryChange}
-      {...props(SearchBarStyles.base)}
-      {...otherProps}
     >
-      <MagnifyingGlassIcon {...props(SearchBarStyles.icon)} />
+      <MagnifyingGlassIcon {...style(styles.icon)} />
       <Input
+        {...style(styles.input)}
         placeholder='Buscar'
-        {...props(SearchBarStyles.input)}
       />
       {query && (
         <Button
+          styling={styles.clearButton}
           onPress={() => onQueryChange('')}
-          {...props(SearchBarStyles.clearButton)}
         >
-          <XMarkIcon {...props(SearchBarStyles.clearIcon)} />
+          <XMarkIcon {...style(styles.clearIcon)} />
         </Button>
       )}
     </SearchField>
   );
 }
 
-const SearchBarStyles = create({
+type SearchBarProps = {
+  query: string;
+  onQueryChange: (query: string) => void;
+  styling?: StyleXStyles;
+};
+
+const styles = create({
   base: {
     display: 'flex',
-    height: '36px',
+    height: '2.25rem',
     alignItems: 'center',
-    gap: '8px',
+    gap: '0.5rem',
     borderRadius: borderRadius.medium,
     backgroundColor: colors.secondaryBackground,
-    paddingLeft: '8px',
-    paddingRight: '8px',
+    padding: '0 8px',
   },
   icon: {
-    width: '20px',
-    height: '20px',
+    width: '1.25rem',
+    height: '1.25rem',
     flexShrink: 0,
     color: colors.gray,
   },
   input: {
     width: '100%',
-    fontSize: '18px',
     outline: 'none',
     '::-webkit-search-cancel-button': {
       appearance: 'none',
     },
   },
   clearButton: {
+    width: '1.25rem',
+    height: '1.25rem',
     display: 'flex',
-    width: '18px',
-    height: '18px',
-    flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: borderRadius.full,
     backgroundColor: colors.gray,
-    padding: '2px',
-    transitionProperty: 'background-color',
-    transitionDuration: '200ms',
-    transitionTimingFunction: 'ease-in-out',
-    ':hover': {
-      backgroundColor: 'rgba(142, 142, 147, 0.4)',
-    },
-    ':active': {
-      backgroundColor: 'rgba(142, 142, 147, 0.5)',
-    },
+    padding: 0,
+    flexShrink: 0,
   },
   clearIcon: {
-    width: '100%',
-    height: '100%',
+    width: '0.75rem',
+    height: '0.75rem',
     strokeWidth: '2',
     color: colors.background,
   },

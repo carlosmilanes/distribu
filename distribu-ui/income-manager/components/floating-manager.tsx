@@ -21,7 +21,7 @@ export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
         isExpanded={isExpanded}
         setIsExpanded={setIsExpanded}
       >
-        <AddIncomeButton {...style(styles.textIconButton)}>
+        <AddIncomeButton styling={styles.textIconButton}>
           <PlusIcon {...style(styles.plusIcon)} />
           Añadir
         </AddIncomeButton>
