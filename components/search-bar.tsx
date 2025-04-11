@@ -40,7 +40,7 @@ const styles = create({
     height: '2.25rem',
     alignItems: 'center',
     gap: '0.5rem',
-    borderRadius: borderRadius.medium,
+    borderRadius: borderRadius.small,
     backgroundColor: colors.secondaryBackground,
     padding: '0 8px',
   },

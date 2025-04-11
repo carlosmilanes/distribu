@@ -63,6 +63,7 @@ const styles = create({
   label: {
     marginTop: '-0.5rem',
     marginBottom: '10px',
+    color: colors.text,
   },
   iconButton: {
     position: 'absolute',
