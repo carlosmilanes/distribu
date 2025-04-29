@@ -1,45 +1,38 @@
+export type Money = {
+  total: number;
+  assigned: number;
+  used: number;
+};
+
 export type Income = {
   id: number;
   source: string;
   date: Date;
-  amount: string;
-  recurring: boolean;
+  amount: number;
+  isRecurring: boolean;
   notes?: string;
 };
 
-export type IncomeState = {
-  total: string;
-  assigned: string;
-  assignable: string;
-  used: string;
+export type Reserve = {
+  id: number;
+  name: string;
+  amountAssigned: number;
+  amountUsed: number; // not to include in database schema, only in returned object
+  tags?: Tag[];
+  isMonthly: boolean; // if tags.contains("monthly")
+  notes?: string;
+  uses?: Use[];
 };
 
-export type IncomeData = {
-  state: IncomeState;
-  incomes?: Income[];
+export type Tag = {
+  id: number;
+  name: string;
 };
 
-export type Expense = {
+export type Use = {
   id: number;
   date: Date;
-  amount: string;
-  recurring: boolean;
+  amount: number;
+  isRecurring: boolean; // only if in monthly reserve
   notes?: string;
-};
-
-export type Attribute = {
-  id: number;
-  name: string;
-};
-
-export type Mission = {
-  id: number;
-  name: string;
-  assigned: string;
-  portion: number;
-  used: string; // not to include in database schema, only in returned object
-  deferred: boolean; // if tags.contains("deferred")
-  monthly: boolean; // if tags.contains("monthly")
-  attributes?: Attribute[];
-  expenses?: Expense[];
 };
