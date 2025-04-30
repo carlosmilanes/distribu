@@ -1,1 +1,1 @@
-export { IncomeManager } from './components/income-manager';
+export { FundsManager } from './components/funds-manager';

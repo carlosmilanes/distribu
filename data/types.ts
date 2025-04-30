@@ -1,4 +1,9 @@
-export type Money = {
+export type FundsData = {
+  status: FundsStatus;
+  incomes: Income[];
+};
+
+export type FundsStatus = {
   total: number;
   assigned: number;
   used: number;

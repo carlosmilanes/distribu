@@ -1,4 +1,4 @@
-export const mockAttributes = [
+export const mockTags = [
   {
     id: 4,
     name: "mensual",

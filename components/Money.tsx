@@ -27,6 +27,6 @@ export function Money({ amount, styling }: MoneyProps) {
 }
 
 type MoneyProps = {
-  amount: string;
+  amount: number;
   styling?: StyleXStyles;
 };

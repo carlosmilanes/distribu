@@ -1,7 +1,8 @@
 import type { Route } from './+types/route';
-import { mockIncomeData } from '@/data/mock-income-data';
-import { IncomeManager } from '@/distribu-ui/income-manager';
+import { FundsManager } from '@/distribu-ui/income-manager';
+import { mockFundsData } from '@/data/mock-funds-data';
 import { Picture } from '@/distribu-ui/income-manager/components/picture';
+
 export function meta({}: Route.MetaArgs) {
   return [
     { title: 'Distribu UI' },
@@ -14,7 +15,7 @@ export default function Distribu() {
   return (
     <>
       {/* <Picture /> */}
-      <IncomeManager incomeData={mockIncomeData} />
+      <FundsManager fundsData={mockFundsData} />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import type { IncomeData } from '@/data/types';
+import type { FundsData } from '@/data/types';
 import { AddIncomeButton } from './add-income-button';
 import { StackedBar } from './stacked-bar';
 import { TertiaryText } from '@/components/text/tertiary-text';
@@ -12,7 +12,7 @@ import { ExpandedFloater } from './expanded-floater';
 import { create, props as style } from 'stylex';
 import { colors } from '@/stylex/vars.stylex';
 
-export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
+export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (isExpanded) {
@@ -26,9 +26,9 @@ export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
           Añadir
         </AddIncomeButton>
 
-        <Incomes incomes={incomeData.incomes || []} />
+        <Incomes incomes={fundsData.incomes || []} />
 
-        <Chart incomeState={incomeData.state} />
+        <Chart incomeState={fundsData.status} />
       </ExpandedFloater>
     );
   }
@@ -39,12 +39,14 @@ export function FloatingManager({ incomeData }: { incomeData: IncomeData }) {
       setIsExpanded={setIsExpanded}
     >
       <Money
-        amount={parseFloat(incomeData.state.assignable).toString()}
+        amount={parseFloat(
+          (fundsData.status.total - fundsData.status.assigned).toString()
+        )}
         styling={styles.money}
       />
       <TertiaryText styling={styles.label}>Ingreso disponible</TertiaryText>
 
-      <StackedBar state={incomeData.state} />
+      <StackedBar state={fundsData.status} />
 
       <AddIncomeButton styling={styles.iconButton}>
         <PlusIcon {...style(styles.soloIcon)} />
