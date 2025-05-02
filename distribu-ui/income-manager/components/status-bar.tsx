@@ -1,20 +1,20 @@
-import type { IncomeState } from '@/data/types';
+import type { FundsStatus } from '@/data/types';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
 import { create, props as style, type StyleXStyles } from 'stylex';
 import { colors, borderRadius } from '@/stylex/vars.stylex';
 
-export function StackedBar({ state, styling }: StackedBarProps) {
+export function StatusBar({ status, styling }: StatusBarProps) {
   return (
     <div {...style(styles.staticIncomeBar, styling)}>
       <div
         {...style(
-          styles.dynamicBar(findBasicPercentage(state.assigned, state.total)),
+          styles.dynamicBar(findBasicPercentage(status.assigned, status.total)),
           styles.assigned
         )}
-      />
+        />
       <div
         {...style(
-          styles.dynamicBar(findBasicPercentage(state.used, state.total)),
+          styles.dynamicBar(findBasicPercentage(status.used, status.total)),
           styles.used
         )}
       />
@@ -22,8 +22,8 @@ export function StackedBar({ state, styling }: StackedBarProps) {
   );
 }
 
-type StackedBarProps = {
-  state: IncomeState;
+type StatusBarProps = {
+  status: FundsStatus;
   styling?: StyleXStyles;
 };
 

@@ -1,10 +1,4 @@
-export function findBasicPercentage(
-  partString: string,
-  totalString: string,
-): number {
-  const part = parseFloat(partString);
-  const total = parseFloat(totalString);
-
+export function findBasicPercentage(part: number, total: number): number {
   if (total === 0) return 0; // Avoid division by zero
 
   const percentage = (part / total) * 100;

@@ -23,7 +23,10 @@ import { create, props as style, type StyleXStyles } from 'stylex';
  */
 
 export function Money({ amount, styling }: MoneyProps) {
-  return <span {...style(styling)}>{amount}</span>;
+  const formattedAmount = Number.isInteger(amount)
+    ? amount.toString()
+    : amount.toFixed(2);
+  return <span {...style(styling)}>{formattedAmount}</span>;
 }
 
 type MoneyProps = {

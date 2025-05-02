@@ -1,7 +1,7 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import type { IncomeState } from '@/data/types';
+import type { FundsStatus } from '@/data/types';
 import { QuaternaryText } from '@/components/text/quaternary-text';
-import { StackedBar } from './stacked-bar';
+import { StatusBar } from './status-bar';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
 import { Money } from '@/components/money';
 import { create, props as style } from 'stylex';
@@ -11,7 +11,7 @@ import { useOutsidePress } from '@/hooks/use-outside-press';
 import { TertiaryText } from '@/components/text/tertiary-text';
 import { glass } from '@/stylex/materials.stylex';
 
-export function Chart({ incomeState }: { incomeState: IncomeState }) {
+export function Chart({ status }: { status: FundsStatus }) {
   const [collapsed, setCollapsed] = useState(false);
   const ref = useOutsidePress<HTMLDivElement>(() => setCollapsed(true));
 
@@ -22,17 +22,17 @@ export function Chart({ incomeState }: { incomeState: IncomeState }) {
       onClick={() => setCollapsed(!collapsed)}
     >
       <TotalHeader
-        total={incomeState.total}
+        total={status.total}
         collapsed={collapsed}
       />
 
       <Legend
-        incomeState={incomeState}
+        status={status}
         hidden={collapsed}
       />
 
-      <StackedBar
-        state={incomeState}
+      <StatusBar
+        status={status}
         styling={styles.stackedBar}
       />
     </div>
@@ -58,27 +58,27 @@ function TotalHeader({ total, collapsed }: TotalHeaderProps) {
   );
 }
 
-function Legend({ incomeState, hidden }: LegendProps) {
-  if (!incomeState) return null;
+function Legend({ status, hidden }: LegendProps) {
+  if (!status) return null;
 
   return (
     <div {...style(styles.legend, hidden && styles.legendHidden)}>
       <LegendItem
         label='Disponible'
-        amount={incomeState.assignable}
-        total={incomeState.total}
+        amount={status.total - status.assigned}
+        total={status.total}
         color={colors.income}
       />
       <LegendItem
         label='Asignado'
-        amount={incomeState.assigned}
-        total={incomeState.total}
+        amount={status.assigned}
+        total={status.total}
         color={colors.assignedIncome}
       />
       <LegendItem
         label='Usado'
-        amount={incomeState.used}
-        total={incomeState.total}
+        amount={status.used}
+        total={status.total}
         color={colors.usedIncome}
       />
     </div>
@@ -124,19 +124,19 @@ function DottedDivider() {
 }
 
 type TotalHeaderProps = {
-  total: string;
+  total: number;
   collapsed: boolean;
 };
 
 type LegendProps = {
-  incomeState?: IncomeState;
+  status: FundsStatus;
   hidden: boolean;
 };
 
 type LegendItemProps = {
   label: string;
-  amount: string;
-  total: string;
+  amount: number;
+  total: number;
   color: string;
 };
 
