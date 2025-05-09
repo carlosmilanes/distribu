@@ -1,6 +1,6 @@
 import { Text, type TextProps } from '@/components/core/text';
 import { create } from 'stylex';
-import { colors } from '@/stylex/vars.stylex';
+import { colors, dynamicSizes } from '@/stylex/vars.stylex';
 
 export function TertiaryText({ children, styling }: TextProps) {
   return <Text styling={[styles.base, styling]}>{children}</Text>;
@@ -9,6 +9,6 @@ export function TertiaryText({ children, styling }: TextProps) {
 const styles = create({
   base: {
     color: colors.tertiaryText,
-    fontSize: '1rem',
+    fontSize: dynamicSizes.s4,
   },
 });

@@ -10,7 +10,7 @@ import { Chart } from './chart';
 import { Floater } from './floater';
 import { ExpandedFloater } from './expanded-floater';
 import { create, props as style } from 'stylex';
-import { colors } from '@/stylex/vars.stylex';
+import { colors, dynamicSizes, fixedSizes } from '@/stylex/vars.stylex';
 
 export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -57,39 +57,39 @@ const styles = create({
   money: {
     paddingBottom: '0px',
     color: colors.income,
-    fontSize: '2.1rem',
+    fontSize: dynamicSizes.m2,
     fontWeight: '600',
   },
   label: {
-    marginTop: '-0.5rem',
+    marginTop: dynamicSizes.s2,
     marginBottom: '10px',
     color: colors.text,
   },
   iconButton: {
     position: 'absolute',
     top: '10px',
-    right: '16px',
+    right: fixedSizes.s4,
   },
   soloIcon: {
-    width: '2.5rem',
-    height: '2.5rem',
+    width: dynamicSizes.m2,
+    height: dynamicSizes.m2,
     strokeWidth: '2',
   },
   textIconButton: {
     position: 'absolute',
-    top: '8px',
-    right: '48px',
+    top: fixedSizes.s2,
+    right: fixedSizes.m3,
     display: 'flex',
-    gap: '4px',
-    paddingLeft: '12px',
-    paddingRight: '12px',
-    paddingTop: '4px',
-    paddingBottom: '4px',
+    gap: fixedSizes.s1,
+    paddingLeft: fixedSizes.s3,
+    paddingRight: fixedSizes.s3,
+    paddingTop: fixedSizes.s1,
+    paddingBottom: fixedSizes.s1,
     fontSize: '18px',
   },
   plusIcon: {
-    width: '1.5rem',
-    height: '1.5rem',
+    width: dynamicSizes.m1,
+    height: dynamicSizes.m1,
     strokeWidth: '2',
   },
 });

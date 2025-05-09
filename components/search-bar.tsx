@@ -2,7 +2,12 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchField, Input } from 'react-aria-components';
 import { Button } from '@/components/core/button';
 import { create, props as style, type StyleXStyles } from 'stylex';
-import { colors, borderRadius, fixedSizes } from '@/stylex/vars.stylex';
+import {
+  colors,
+  borderRadius,
+  fixedSizes,
+  dynamicSizes,
+} from '@/stylex/vars.stylex';
 
 export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
   return (
@@ -37,7 +42,7 @@ type SearchBarProps = {
 const styles = create({
   base: {
     display: 'flex',
-    height: '2.25rem',
+    height: dynamicSizes.m2,
     alignItems: 'center',
     gap: fixedSizes.s2,
     borderRadius: borderRadius.s,
@@ -45,8 +50,8 @@ const styles = create({
     padding: `0 ${fixedSizes.s2}`,
   },
   icon: {
-    width: '1.25rem',
-    height: '1.25rem',
+    width: dynamicSizes.s4,
+    height: dynamicSizes.s4,
     flexShrink: 0,
     color: colors.gray,
   },
@@ -58,8 +63,8 @@ const styles = create({
     },
   },
   clearButton: {
-    width: '1.25rem',
-    height: '1.25rem',
+    width: dynamicSizes.s4,
+    height: dynamicSizes.s4,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -69,8 +74,8 @@ const styles = create({
     flexShrink: 0,
   },
   clearIcon: {
-    width: '0.75rem',
-    height: '0.75rem',
+    width: dynamicSizes.s3,
+    height: dynamicSizes.s3,
     strokeWidth: '2',
     color: colors.background,
   },

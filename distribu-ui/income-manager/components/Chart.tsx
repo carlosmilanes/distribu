@@ -5,7 +5,7 @@ import { StatusBar } from './status-bar';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
 import { Money } from '@/components/money';
 import { create, props as style } from 'stylex';
-import { colors } from '@/stylex/vars.stylex';
+import { colors, dynamicSizes, fixedSizes } from '@/stylex/vars.stylex';
 import { useState } from 'react';
 import { useOutsidePress } from '@/hooks/use-outside-press';
 import { TertiaryText } from '@/components/text/tertiary-text';
@@ -147,18 +147,18 @@ const styles = create({
     zIndex: 10,
     width: '100%',
     borderTop: `2px solid ${colors.glassyBorder}`,
-    paddingBottom: '12px',
+    paddingBottom: fixedSizes.s3,
   },
   stackedBar: {
-    margin: '0 12px',
+    margin: `0 ${fixedSizes.s3}`,
   },
   totalHeader: {
     position: 'relative',
-    margin: '8px 0',
+    margin: `${fixedSizes.s2} 0`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 16px 0 12px',
+    padding: `0 ${fixedSizes.s4} 0 ${fixedSizes.s3}`,
   },
   totalContent: {
     display: 'flex',
@@ -169,12 +169,12 @@ const styles = create({
     fontWeight: '500',
   },
   totalAmount: {
-    fontSize: '1.5rem',
+    fontSize: dynamicSizes.m1,
     fontWeight: '600',
   },
   chevron: {
-    width: '1.5rem',
-    height: '1.5rem',
+    width: dynamicSizes.m1,
+    height: dynamicSizes.m1,
     strokeWidth: '2',
     transition: 'transform 300ms ease-in-out',
   },
@@ -182,8 +182,8 @@ const styles = create({
     transform: 'rotate(180deg)',
   },
   legend: {
-    height: '12.5rem',
-    margin: '0 12px',
+    height: dynamicSizes.l2,
+    margin: `0 ${fixedSizes.s3}`,
     overflow: 'hidden',
     transition: 'height 300ms ease-in-out, opacity 300ms ease-in-out',
   },
@@ -192,7 +192,7 @@ const styles = create({
     opacity: 0,
   },
   legendItem: {
-    marginBottom: '8px',
+    marginBottom: fixedSizes.s2,
   },
   legendContent: {
     display: 'flex',
@@ -201,17 +201,17 @@ const styles = create({
   },
   legendLabel: {
     color: colors.gray,
-    fontSize: '1rem',
+    fontSize: dynamicSizes.s4,
   },
   legendAmount: {
-    fontSize: '1.25rem',
+    fontSize: dynamicSizes.s4,
     fontWeight: '600',
   },
   legendPercentage: {
-    fontSize: '1rem',
+    fontSize: dynamicSizes.s4,
   },
   dottedDivider: {
-    height: '4px',
+    height: fixedSizes.s1,
     backgroundRepeat: 'repeat-x',
   },
   legendAmountColor: (color: string) => ({

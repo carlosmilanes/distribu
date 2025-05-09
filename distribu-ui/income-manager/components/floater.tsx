@@ -1,6 +1,12 @@
 import { motion, type PanInfo } from 'motion/react';
 import { create, props as style } from 'stylex';
-import { colors, borderRadius, shadows } from '@/stylex/vars.stylex';
+import {
+  colors,
+  borderRadius,
+  shadows,
+  dynamicSizes,
+  fixedSizes,
+} from '@/stylex/vars.stylex';
 import { reactiveElevation } from '@/stylex/elevations.stylex';
 import type { Medium } from '@/stylex/breakpoints.stylex';
 import { glass } from '@/stylex/materials.stylex';
@@ -54,7 +60,7 @@ const styles = create({
   base: {
     // positioning
     position: 'fixed',
-    bottom: '12px',
+    bottom: fixedSizes.s3,
     left: '50%',
     translate: '-50%',
 
@@ -63,17 +69,17 @@ const styles = create({
     border: `1px solid ${colors.gray4}`,
 
     // dimensions
-    height: '7rem',
+    height: dynamicSizes.m4,
     width: {
-      default: '21rem',
-      [MEDIUM]: '28rem',
+      default: dynamicSizes.xl1,
+      [MEDIUM]: dynamicSizes.xl2,
     },
 
     // spacing
-    padding: '2px 16px',
+    padding: `2px ${fixedSizes.s4}`,
 
     // others
-    borderRadius: borderRadius.big,
+    borderRadius: borderRadius.l,
     cursor: 'pointer',
   },
 });
