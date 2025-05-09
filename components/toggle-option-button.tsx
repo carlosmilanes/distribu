@@ -1,6 +1,6 @@
 import { cloneElement } from 'react';
 import { create, props } from 'stylex';
-import { colors, borderRadius } from '../stylex/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '../stylex/vars.stylex';
 
 export function ToggleOptionButton({
   children,
@@ -37,10 +37,10 @@ export function ToggleOptionButton({
 
 const ToggleOptionButtonStyles = create({
   base: {
-    width: '36px',
-    height: '36px',
-    borderRadius: borderRadius.medium,
-    padding: '4px',
+    width: fixedSizes.m2,
+    height: fixedSizes.m2,
+    borderRadius: borderRadius.m,
+    padding: fixedSizes.s1,
     ':hover': {
       backgroundColor: colors.gray4,
     },

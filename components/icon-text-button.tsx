@@ -1,6 +1,6 @@
 import { Button, type ButtonProps } from './core/button';
 import { create, props } from 'stylex';
-import { borderRadius } from '../stylex/vars.stylex';
+import { borderRadius, fixedSizes } from '../stylex/vars.stylex';
 
 export function IconTextButton({
   children,
@@ -21,12 +21,12 @@ export function IconTextButton({
 const IconTextButtonStyles = create({
   base: {
     fontWeight: '600',
-    gap: '4px',
+    gap: fixedSizes.s1,
     borderRadius: borderRadius.full,
-    paddingLeft: '16px',
-    paddingRight: '16px',
-    paddingTop: '4px',
-    paddingBottom: '4px',
+    paddingLeft: fixedSizes.s4,
+    paddingRight: fixedSizes.s4,
+    paddingTop: fixedSizes.s1,
+    paddingBottom: fixedSizes.s1,
     fontSize: '18px',
   },
 });

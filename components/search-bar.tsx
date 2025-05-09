@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchField, Input } from 'react-aria-components';
 import { Button } from '@/components/core/button';
 import { create, props as style, type StyleXStyles } from 'stylex';
-import { colors, borderRadius } from '@/stylex/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '@/stylex/vars.stylex';
 
 export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
   return (
@@ -39,10 +39,10 @@ const styles = create({
     display: 'flex',
     height: '2.25rem',
     alignItems: 'center',
-    gap: '0.5rem',
-    borderRadius: borderRadius.small,
+    gap: fixedSizes.s2,
+    borderRadius: borderRadius.s,
     backgroundColor: colors.secondaryBackground,
-    padding: '0 8px',
+    padding: `0 ${fixedSizes.s2}`,
   },
   icon: {
     width: '1.25rem',

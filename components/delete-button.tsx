@@ -1,7 +1,7 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { Button, type ButtonProps } from './core/button';
 import { create, props } from 'stylex';
-import { colors, borderRadius } from '../stylex/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '../stylex/vars.stylex';
 
 export function DeleteButton({ onPress, ...otherProps }: ButtonProps) {
   return (
@@ -19,12 +19,12 @@ export function DeleteButton({ onPress, ...otherProps }: ButtonProps) {
 const DeleteButtonStyles = create({
   base: {
     color: colors.alert,
-    margin: '8px',
-    width: '48px',
-    height: '48px',
+    margin: fixedSizes.s2,
+    width: fixedSizes.m3,
+    height: fixedSizes.m3,
     borderRadius: borderRadius.full,
     border: '1px solid',
-    padding: '8px',
+    padding: fixedSizes.s2,
     transitionProperty: 'background-color, color',
     transitionDuration: '200ms',
     transitionTimingFunction: 'ease-in-out',

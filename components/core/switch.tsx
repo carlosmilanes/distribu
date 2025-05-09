@@ -1,5 +1,5 @@
 import { create, props } from 'stylex';
-import { colors, borderRadius } from '../../stylex/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '../../stylex/vars.stylex';
 
 export function Switch({
   active,
@@ -35,8 +35,8 @@ export function Switch({
 const SwitchStyles = create({
   base: {
     position: 'relative',
-    height: '24px',
-    width: '40px',
+    height: fixedSizes.m1,
+    width: fixedSizes.m2,
     borderRadius: borderRadius.full,
     transitionProperty: 'background-color',
     transitionDuration: '200ms',
@@ -50,10 +50,10 @@ const SwitchStyles = create({
   },
   thumb: {
     position: 'absolute',
-    top: '4px',
+    top: fixedSizes.s1,
     display: 'block',
-    height: '16px',
-    width: '16px',
+    height: fixedSizes.s4,
+    width: fixedSizes.s4,
     borderRadius: borderRadius.full,
     backgroundColor: colors.background,
     boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
@@ -65,6 +65,6 @@ const SwitchStyles = create({
     transform: 'translateX(20px)',
   },
   thumbInactive: {
-    transform: 'translateX(4px)',
+    transform: `translateX(${fixedSizes.s1})`,
   },
 });

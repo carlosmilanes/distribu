@@ -1,7 +1,12 @@
 import { Button, type ButtonProps } from './core/button';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { create, props as style } from 'stylex';
-import { colors, borderRadius } from '../stylex/vars.stylex';
+import {
+  colors,
+  borderRadius,
+  fixedSizes,
+  fontSizes,
+} from '../stylex/vars.stylex';
 
 export function CloseButton({ onPress, styling }: ButtonProps) {
   return (
@@ -19,8 +24,8 @@ const styles = create({
   base: {
     // positioning
     position: 'absolute',
-    top: '12px',
-    right: '12px',
+    top: fixedSizes.s3,
+    right: fixedSizes.s3,
 
     // colors
     backgroundColor: colors.secondaryBackground,
@@ -34,12 +39,12 @@ const styles = create({
     transition: 'background-color 0.2s ease',
 
     // dimensions
-    width: '30px',
-    height: '30px',
+    width: fixedSizes.m2,
+    height: fixedSizes.m2,
 
     // border & spacing
     borderRadius: borderRadius.full,
-    padding: '6px',
+    padding: fixedSizes.s2,
   },
   icon: {
     width: '100%',
