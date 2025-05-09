@@ -72,16 +72,68 @@ export const colors = defineVars({
   gray4: { default: '#D1D1D6', [DARK]: '#3A3A3C' },
 });
 
+export const fixedSizes = defineVars({
+  s1: '4px',
+  s2: '8px',
+  s3: '12px',
+  s4: '16px',
+
+  m1: '24px',
+  m2: '32px',
+  m3: '48px',
+  m4: '64px',
+
+  l1: '96px',
+  l2: '128px',
+  l3: '192px',
+  l4: '256px',
+
+  xl1: '384px',
+  xl2: '512px',
+  xl3: '640px',
+  xl4: '768px',
+});
+
+export const dynamicSizes = defineVars({
+  s1: '0.25rem', // 4px
+  s2: '0.5rem', // 8px
+  s3: '0.75rem', // 12px
+  s4: '1rem', // 16px
+
+  m1: '1.5rem', // 24px
+  m2: '2rem', // 32px
+  m3: '3rem', // 48px
+  m4: '4rem', // 64px
+
+  l1: '6rem', // 96px
+  l2: '8rem', // 128px
+  l3: '12rem', // 192px
+  l4: '16rem', // 256px
+
+  xl1: '24rem', // 384px
+  xl2: '32rem', // 512px
+  xl3: '40rem', // 640px
+  xl4: '48rem', // 768px
+});
+
+export const fontSizes = defineVars({
+  s: '0.75rem', // 12px
+  m: '1rem', // 16px
+  l: '1.5rem', // 24px
+  xl: '2.25rem', // 36px
+});
+
 export const borderRadius = defineVars({
-  small: '8px',
-  medium: '16px',
-  big: '24px',
+  s: '4px',
+  m: '8px',
+  l: '16px',
+  xl: '24px',
   full: 'calc(infinity * 1px)',
 });
 
 export const shadows = defineVars({
-  small: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-  medium: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-  large: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-  xlarge: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+  s: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+  m: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+  l: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+  xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
 });
