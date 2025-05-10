@@ -5,7 +5,7 @@ import { DeletionHelper } from '@/components/deletion-helper';
 import { EscapeHelper } from '@/components/escape-helper';
 import { Switch } from '@/components/core/switch';
 import { DatePicker } from '@/components/date-picker';
-import { DeleteButton } from '@/components/delete-button';
+import { DeleteButton } from '@/components/buttons/delete-button';
 import { getDayInSpanish } from '@/utils/getDayInSpanish';
 import { adjustTextareaHeight } from '@/utils/adjustTextareaHeight';
 import { create, props } from 'stylex';
@@ -14,11 +14,11 @@ import { colors, borderRadius } from '../../../stylex/vars.stylex';
 export function IndividualIncome({
   income = {
     id: 0,
-    amount: '',
+    amount: 0,
     source: '',
     notes: '',
     date: new Date(),
-    recurring: false,
+    isRecurring: false,
   },
   onUpdate,
 }: {
@@ -33,7 +33,7 @@ export function IndividualIncome({
   const [source, setSource] = useState(income.source);
   const [notes, setNotes] = useState(income.notes);
   const [date, setDate] = useState(income.date);
-  const [recurring, setRecurring] = useState(income.recurring);
+  const [recurring, setRecurring] = useState(income.isRecurring);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -45,8 +45,8 @@ export function IndividualIncome({
     if (parts.length === 2 && parts[1].length > 2) {
       value = parts[0] + '.' + parts[1].substring(0, 2);
     }
-    setAmount(value);
-    onUpdate({ ...income, amount: value });
+    setAmount(Number(value));
+    onUpdate({ ...income, amount: Number(value) });
   };
 
   const handleSourceChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -71,7 +71,7 @@ export function IndividualIncome({
 
   const handleRecurringChange = (newRecurring: boolean) => {
     setRecurring(newRecurring);
-    onUpdate({ ...income, recurring: newRecurring });
+    onUpdate({ ...income, isRecurring: newRecurring });
   };
 
   return (
@@ -134,8 +134,8 @@ export function IndividualIncome({
                   formattedValue = value + '0';
                 }
               }
-              setAmount(formattedValue);
-              onUpdate({ ...income, amount: formattedValue });
+              setAmount(Number(formattedValue));
+              onUpdate({ ...income, amount: Number(formattedValue) });
             }}
           />
           <textarea
@@ -216,14 +216,14 @@ const IndividualIncomeStyles = create({
     maxWidth: '384px',
     alignItems: 'center',
     overflow: 'hidden',
-    borderRadius: borderRadius.big,
+    borderRadius: borderRadius.xl,
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
   },
   component: {
     backgroundColor: colors.secondaryBackground,
     color: colors.text,
     position: 'relative',
-    borderRadius: borderRadius.big,
+    borderRadius: borderRadius.xl,
     padding: '12px',
     transitionDuration: '300ms',
   },
@@ -240,7 +240,7 @@ const IndividualIncomeStyles = create({
     fontSize: '24px',
     outline: 'none',
     backgroundColor: 'transparent',
-    borderRadius: borderRadius.small,
+    borderRadius: borderRadius.s,
     paddingLeft: '4px',
     paddingRight: '4px',
     width: '12ch',
@@ -260,7 +260,7 @@ const IndividualIncomeStyles = create({
     marginTop: '4px',
     outline: 'none',
     backgroundColor: 'transparent',
-    borderRadius: borderRadius.small,
+    borderRadius: borderRadius.s,
     paddingLeft: '4px',
     paddingRight: '4px',
     width: '100%',
@@ -279,7 +279,7 @@ const IndividualIncomeStyles = create({
     marginTop: '4px',
     outline: 'none',
     backgroundColor: 'transparent',
-    borderRadius: borderRadius.small,
+    borderRadius: borderRadius.s,
     paddingLeft: '4px',
     paddingRight: '4px',
     width: '100%',
@@ -291,7 +291,7 @@ const IndividualIncomeStyles = create({
   },
   dateAndRecurrenceContainer: {
     padding: '8px',
-    borderRadius: borderRadius.full,
+    borderRadius: borderRadius.xl,
     ':hover': {
       backgroundColor: colors.gray4,
     },

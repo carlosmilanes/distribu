@@ -45,7 +45,7 @@ const styles = create({
     height: dynamicSizes.m2,
     alignItems: 'center',
     gap: fixedSizes.s2,
-    borderRadius: borderRadius.s,
+    borderRadius: borderRadius.m,
     backgroundColor: colors.secondaryBackground,
     padding: `0 ${fixedSizes.s2}`,
   },

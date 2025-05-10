@@ -3,16 +3,16 @@ import { shadows } from './vars.stylex';
 
 export const elevation = create({
   low: {
-    boxShadow: shadows.small,
+    boxShadow: shadows.s,
   },
   medium: {
-    boxShadow: shadows.medium,
+    boxShadow: shadows.m,
   },
   high: {
-    boxShadow: shadows.large,
+    boxShadow: shadows.l,
   },
   xhigh: {
-    boxShadow: shadows.xlarge,
+    boxShadow: shadows.xl,
   },
 });
 
@@ -22,7 +22,7 @@ export const reactiveElevation = create({
     transition: 'scale 0.5s ease-in-out',
 
     '::before': {
-      boxShadow: shadows.medium,
+      boxShadow: shadows.m,
       opacity: 1,
       content: '',
       position: 'absolute',
@@ -33,7 +33,7 @@ export const reactiveElevation = create({
     },
 
     '::after': {
-      boxShadow: shadows.large,
+      boxShadow: shadows.l,
       opacity: 0,
       content: '',
       position: 'absolute',
@@ -58,7 +58,7 @@ export const reactiveElevation = create({
 
     ':active': {
       scale: 0.98,
-      boxShadow: shadows.small,
+      boxShadow: shadows.s,
       '::before': {
         opacity: 0,
       },

@@ -3,14 +3,19 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import type { FundsData } from '@/data/types';
 import { AddIncomeButton } from './add-income-button';
 import { StatusBar } from './status-bar';
-import { TertiaryText } from '@/components/text/tertiary-text';
 import { Money } from '@/components/money';
 import { Incomes } from './incomes';
 import { Chart } from './chart';
 import { Floater } from './floater';
 import { ExpandedFloater } from './expanded-floater';
 import { create, props as style } from 'stylex';
-import { colors, dynamicSizes, fixedSizes } from '@/stylex/vars.stylex';
+import {
+  colors,
+  dynamicSizes,
+  fixedSizes,
+  fontSizes,
+} from '@/stylex/vars.stylex';
+import { SecondaryText } from '@/components/text/secondary-text';
 
 export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -38,11 +43,12 @@ export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
       isExpanded={isExpanded}
       setIsExpanded={setIsExpanded}
     >
+      <SecondaryText styling={styles.label}>Ingreso disponible</SecondaryText>
+
       <Money
         amount={fundsData.status.total - fundsData.status.assigned}
         styling={styles.money}
       />
-      <TertiaryText styling={styles.label}>Ingreso disponible</TertiaryText>
 
       <StatusBar status={fundsData.status} />
 
@@ -55,15 +61,15 @@ export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
 
 const styles = create({
   money: {
-    paddingBottom: '0px',
     color: colors.income,
-    fontSize: dynamicSizes.m2,
-    fontWeight: '600',
+    fontSize: fontSizes.xl,
+    fontWeight: '500',
+    lineHeight: 1,
+    marginTop: fixedSizes.s1,
+    marginBottom: fixedSizes.s3,
   },
   label: {
-    marginTop: dynamicSizes.s2,
-    marginBottom: '10px',
-    color: colors.text,
+    color: colors.gray2,
   },
   iconButton: {
     position: 'absolute',
@@ -73,7 +79,7 @@ const styles = create({
   soloIcon: {
     width: dynamicSizes.m2,
     height: dynamicSizes.m2,
-    strokeWidth: '2',
+    // strokeWidth: '2',
   },
   textIconButton: {
     position: 'absolute',

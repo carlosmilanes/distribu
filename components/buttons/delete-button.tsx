@@ -1,7 +1,7 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { Button, type ButtonProps } from './core/button';
+import { Button, type ButtonProps } from '@/components/core/button';
 import { create, props } from 'stylex';
-import { colors, borderRadius, fixedSizes } from '../stylex/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '@/stylex/vars.stylex';
 
 export function DeleteButton({ onPress, ...otherProps }: ButtonProps) {
   return (

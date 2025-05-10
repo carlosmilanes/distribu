@@ -2,7 +2,7 @@ import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { motion, type PanInfo, useDragControls } from 'motion/react';
 import { create, props as style } from 'stylex';
 import { colors, borderRadius } from '@/stylex/vars.stylex';
-import { CloseButton } from '@/components/close-button';
+import { CloseButton } from '@/components/buttons/close-button';
 import { PrimaryText } from '@/components/text/primary-text';
 
 export function ExpandedFloater({
@@ -108,15 +108,15 @@ const styles = create({
 
     // border
     border: `1px solid ${colors.gray4}`,
-    borderTopLeftRadius: borderRadius.big,
-    borderTopRightRadius: borderRadius.big,
+    borderTopLeftRadius: borderRadius.xl,
+    borderTopRightRadius: borderRadius.xl,
   },
   dialog: {
     outline: 'none',
   },
   header: {
-    borderTopLeftRadius: borderRadius.big,
-    borderTopRightRadius: borderRadius.big,
+    borderTopLeftRadius: borderRadius.xl,
+    borderTopRightRadius: borderRadius.xl,
     padding: '4px 12px',
   },
 });

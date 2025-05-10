@@ -117,10 +117,10 @@ export const dynamicSizes = defineVars({
 });
 
 export const fontSizes = defineVars({
-  s: '0.75rem', // 12px
+  s: '0.875rem', // 14px
   m: '1rem', // 16px
-  l: '1.5rem', // 24px
-  xl: '2.25rem', // 36px
+  l: '1.25rem', // 20px
+  xl: '1.875rem', // 30px
 });
 
 export const borderRadius = defineVars({

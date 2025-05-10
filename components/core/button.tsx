@@ -32,7 +32,7 @@ const styles = create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: borderRadius.medium,
+    borderRadius: borderRadius.m,
     cursor: 'pointer',
   },
 });

@@ -26,7 +26,7 @@ export function Money({ amount, styling }: MoneyProps) {
   const formattedAmount = Number.isInteger(amount)
     ? amount.toString()
     : amount.toFixed(2);
-  return <span {...style(styling)}>{formattedAmount}</span>;
+  return <div {...style(styling)}>{formattedAmount}</div>;
 }
 
 type MoneyProps = {

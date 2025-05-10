@@ -5,7 +5,12 @@ import { StatusBar } from './status-bar';
 import { findBasicPercentage } from '@/utils/findBasicPercentage';
 import { Money } from '@/components/money';
 import { create, props as style } from 'stylex';
-import { colors, dynamicSizes, fixedSizes } from '@/stylex/vars.stylex';
+import {
+  colors,
+  dynamicSizes,
+  fixedSizes,
+  fontSizes,
+} from '@/stylex/vars.stylex';
 import { useState } from 'react';
 import { useOutsidePress } from '@/hooks/use-outside-press';
 import { TertiaryText } from '@/components/text/tertiary-text';
@@ -182,7 +187,7 @@ const styles = create({
     transform: 'rotate(180deg)',
   },
   legend: {
-    height: dynamicSizes.l2,
+    height: '12.5rem',
     margin: `0 ${fixedSizes.s3}`,
     overflow: 'hidden',
     transition: 'height 300ms ease-in-out, opacity 300ms ease-in-out',
@@ -204,11 +209,11 @@ const styles = create({
     fontSize: dynamicSizes.s4,
   },
   legendAmount: {
-    fontSize: dynamicSizes.s4,
+    fontSize: fontSizes.l,
     fontWeight: '600',
   },
   legendPercentage: {
-    fontSize: dynamicSizes.s4,
+    fontSize: fontSizes.m,
   },
   dottedDivider: {
     height: fixedSizes.s1,

@@ -3,7 +3,6 @@ import { create, props as style } from 'stylex';
 import {
   colors,
   borderRadius,
-  shadows,
   dynamicSizes,
   fixedSizes,
 } from '@/stylex/vars.stylex';
@@ -60,7 +59,7 @@ const styles = create({
   base: {
     // positioning
     position: 'fixed',
-    bottom: fixedSizes.s3,
+    bottom: fixedSizes.s4,
     left: '50%',
     translate: '-50%',
 
@@ -69,17 +68,16 @@ const styles = create({
     border: `1px solid ${colors.gray4}`,
 
     // dimensions
-    height: dynamicSizes.m4,
     width: {
-      default: dynamicSizes.xl1,
+      default: '90%',
       [MEDIUM]: dynamicSizes.xl2,
     },
 
     // spacing
-    padding: `2px ${fixedSizes.s4}`,
+    padding: `${fixedSizes.s2} ${fixedSizes.s3}`,
 
     // others
-    borderRadius: borderRadius.l,
+    borderRadius: borderRadius.xl,
     cursor: 'pointer',
   },
 });

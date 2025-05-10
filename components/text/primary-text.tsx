@@ -1,6 +1,6 @@
 import { Text, type TextProps } from '@/components/core/text';
 import { create } from 'stylex';
-import { colors, dynamicSizes } from '@/stylex/vars.stylex';
+import { colors, fontSizes } from '@/stylex/vars.stylex';
 
 export function PrimaryText({ children, styling }: TextProps) {
   return <Text styling={[styles.base, styling]}>{children}</Text>;
@@ -9,6 +9,6 @@ export function PrimaryText({ children, styling }: TextProps) {
 const styles = create({
   base: {
     color: colors.text,
-    fontSize: dynamicSizes.m2,
+    fontSize: fontSizes.xl,
   },
 });
