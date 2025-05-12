@@ -1,4 +1,4 @@
-import { useTouchDevice } from '@/hooks/useTouchDevice';
+import { useTouchDevice } from '@/presentation/hooks/useTouchDevice';
 import { create, props } from 'stylex';
 import { colors, borderRadius } from '../stylex/vars.stylex';
 

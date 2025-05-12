@@ -1,9 +1,9 @@
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { motion, type PanInfo, useDragControls } from 'motion/react';
 import { create, props as style } from 'stylex';
-import { colors, borderRadius } from '@/stylex/vars.stylex';
-import { CloseButton } from '@/components/buttons/close-button';
-import { PrimaryText } from '@/components/text/primary-text';
+import { colors, borderRadius } from '@/presentation/stylex/vars.stylex';
+import { CloseButton } from '@/presentation/components/buttons/close-button';
+import { PrimaryText } from '@/presentation/components/text/primary-text';
 
 export function ExpandedFloater({
   isExpanded,

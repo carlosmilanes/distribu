@@ -1,6 +1,7 @@
-import { Button, type ButtonProps } from './core/button';
+
+import { Button, type ButtonProps } from '@/presentation/components/core/button';
 import { create, props } from 'stylex';
-import { borderRadius, fixedSizes } from '../stylex/vars.stylex';
+import { borderRadius, fixedSizes } from '@/presentation/stylex/vars.stylex';
 
 export function IconTextButton({
   children,

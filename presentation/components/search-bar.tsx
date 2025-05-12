@@ -1,13 +1,13 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SearchField, Input } from 'react-aria-components';
-import { Button } from '@/components/core/button';
+import { Button } from '@/presentation/components/core/button';
 import { create, props as style, type StyleXStyles } from 'stylex';
 import {
   colors,
   borderRadius,
   fixedSizes,
   dynamicSizes,
-} from '@/stylex/vars.stylex';
+} from '@/presentation/stylex/vars.stylex';
 
 export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
   return (
