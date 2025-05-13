@@ -5,10 +5,10 @@ import {
   borderRadius,
   dynamicSizes,
   fixedSizes,
-} from '@/presentation/stylex/vars.stylex';
-import { reactiveElevation } from '@/presentation/stylex/elevations.stylex';
-import type { Medium } from '@/presentation/stylex/breakpoints.stylex';
-import { glass } from '@/presentation/stylex/materials.stylex';
+} from '@/stylex/vars.stylex';
+import { reactiveElevation } from '@/stylex/elevations.stylex';
+import type { Medium } from '@/stylex/breakpoints.stylex';
+import { glass } from '@/stylex/materials.stylex';
 
 export function Floater({ isExpanded, setIsExpanded, children }: FloaterProps) {
   function handleDragUp(

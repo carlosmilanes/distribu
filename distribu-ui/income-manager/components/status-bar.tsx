@@ -1,7 +1,7 @@
 import type { FundsStatus } from '@/data/types';
-import { findBasicPercentage } from '@/presentation/utils/findBasicPercentage';
+import { findBasicPercentage } from '@/utils/findBasicPercentage';
 import { create, props as style, type StyleXStyles } from 'stylex';
-import { colors, borderRadius } from '@/presentation/stylex/vars.stylex';
+import { colors, borderRadius } from '@/stylex/vars.stylex';
 
 export function StatusBar({ status, styling }: StatusBarProps) {
   return (
@@ -11,7 +11,7 @@ export function StatusBar({ status, styling }: StatusBarProps) {
           styles.dynamicBar(findBasicPercentage(status.assigned, status.total)),
           styles.assigned
         )}
-      />
+        />
       <div
         {...style(
           styles.dynamicBar(findBasicPercentage(status.used, status.total)),

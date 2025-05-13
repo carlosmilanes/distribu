@@ -1,6 +1,6 @@
 import { cloneElement } from 'react';
 import { create, props } from 'stylex';
-import { colors, borderRadius, fixedSizes } from '@/presentation/stylex/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '../stylex/vars.stylex';
 
 export function ToggleOptionButton({
   children,

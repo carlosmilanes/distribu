@@ -1,7 +1,7 @@
 import type { Route } from './+types/route';
-import { FundsManager } from '@/presentation/distribu-ui/income-manager';
+import { FundsManager } from '@/distribu-ui/income-manager';
 import { mockFundsData } from '@/data/mock-funds-data';
-import { Picture } from '@/presentation/distribu-ui/income-manager/components/picture';
+import { Picture } from '@/distribu-ui/income-manager/components/picture';
 
 export function meta({}: Route.MetaArgs) {
   return [

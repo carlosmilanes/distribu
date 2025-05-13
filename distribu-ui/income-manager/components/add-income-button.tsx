@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Button } from '@/presentation/components/core/button';
+import { Button } from '@/components/core/button';
 import { create, type StyleXStyles } from 'stylex';
-import { colors } from '@/presentation/stylex/vars.stylex';
+import { colors } from '@/stylex/vars.stylex';
 
 export function AddIncomeButton({
   children,
