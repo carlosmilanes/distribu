@@ -1,4 +1,5 @@
-import type { FundsData } from '@/data/types';
+
+import type { FundsData } from '../../data/types';
 import { FloatingManager } from './floating-manager';
 
 export function FundsManager({ fundsData }: { fundsData: FundsData }) {

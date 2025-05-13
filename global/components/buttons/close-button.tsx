@@ -1,7 +1,7 @@
-import { Button, type ButtonProps } from '@/components/core/button';
+import { Button, type ButtonProps } from '../core/button';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { create, props as style } from 'stylex';
-import { colors, borderRadius, fixedSizes } from '@/stylex/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '@/global/styles/vars.stylex';
 
 export function CloseButton({ onPress, styling }: ButtonProps) {
   return (

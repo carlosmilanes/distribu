@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import type { FundsData } from '@/data/types';
+import type { FundsData } from '../../data/types';
 import { AddIncomeButton } from './add-income-button';
 import { StatusBar } from './status-bar';
-import { Money } from '@/components/money';
+import { Money } from '@/global/components/money';
 import { Incomes } from './incomes';
 import { Chart } from './chart';
 import { Floater } from './floater';
@@ -14,8 +14,8 @@ import {
   dynamicSizes,
   fixedSizes,
   fontSizes,
-} from '@/stylex/vars.stylex';
-import { SecondaryText } from '@/components/text/secondary-text';
+} from '@/global/styles/vars.stylex';
+import { SecondaryText } from '@/global/components/text/secondary-text';
 
 export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
   const [isExpanded, setIsExpanded] = useState(false);

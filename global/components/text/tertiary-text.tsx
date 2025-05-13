@@ -1,6 +1,6 @@
-import { Text, type TextProps } from '@/components/core/text';
+import { Text, type TextProps } from '../core/text';
 import { create } from 'stylex';
-import { colors, fontSizes } from '@/stylex/vars.stylex';
+import { colors, fontSizes } from '@/global/styles/vars.stylex';
 
 export function TertiaryText({ children, styling }: TextProps) {
   return <Text styling={[styles.base, styling]}>{children}</Text>;

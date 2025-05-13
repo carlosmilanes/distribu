@@ -1,6 +1,6 @@
-import { useTouchDevice } from '@/hooks/useTouchDevice';
+import { useTouchDevice } from '@/global/hooks/useTouchDevice';
 import { create, props } from 'stylex';
-import { colors, borderRadius } from '../stylex/vars.stylex';
+import { colors, borderRadius } from '../styles/vars.stylex';
 
 export function DatePicker({
   selectedDate = new Date(),
@@ -89,7 +89,7 @@ export function DatePicker({
 const DatePickerStyles = create({
   base: {
     backgroundColor: colors.gray4,
-    borderRadius: borderRadius.big,
+    borderRadius: borderRadius.full,
     padding: '16px',
     boxShadow:
       '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
