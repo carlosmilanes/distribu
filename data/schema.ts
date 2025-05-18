@@ -22,7 +22,7 @@ export const Role = pgEnum('role', ['manager', 'viewer']);
 
 export const distribus = pgTable('distribus', {
   id: serial('id').primaryKey(),
-  name: text('name').notNull(),
+  name: text('name').notNull().unique(),
   createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
     .defaultNow(),
@@ -69,7 +69,7 @@ export const reserves = pgTable(
     distribuId: integer('distribu_id')
       .notNull()
       .references(() => distribus.id),
-    name: text('name').notNull(),
+    name: text('name').notNull().unique(),
     position: integer('position').notNull(),
     amountAssigned: decimal('amount_assigned', {
       precision: 12,
@@ -104,9 +104,7 @@ export const uses = pgTable(
   'uses',
   {
     id: serial('id').primaryKey(),
-    reserveId: integer('reserve_id')
-      .notNull()
-      .references(() => reserves.id),
+    reserveId: integer('reserve_id').references(() => reserves.id),
     amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
