@@ -7,7 +7,8 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "seed": "pnpm exec tsx data/database/scripts/seed.ts",
+    "db": "pnpm exec tsx backend/database/scripts/db-test.ts",
+    "seed": "pnpm exec tsx backend/database/scripts/seed.ts",
     "studio": "pnpm drizzle-kit studio"
   },
   "dependencies": {
