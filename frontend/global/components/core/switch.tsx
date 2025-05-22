@@ -1,5 +1,9 @@
 import { create, props } from 'stylex';
-import { colors, borderRadius, fixedSizes } from '../../styles/vars.stylex';
+import {
+  colors,
+  borderRadius,
+  fixedSizes,
+} from '@/frontend/global/styles/vars.stylex';
 
 export function Switch({
   active,

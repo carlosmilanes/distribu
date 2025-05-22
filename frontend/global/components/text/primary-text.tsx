@@ -1,14 +1,14 @@
 import { Text, type TextProps } from '../core/text';
 import { create } from 'stylex';
-import { colors, fontSizes } from '@/global/styles/vars.stylex';
+import { colors, fontSizes } from '@/frontend/global/styles/vars.stylex';
 
-export function SecondaryText({ children, styling }: TextProps) {
+export function PrimaryText({ children, styling }: TextProps) {
   return <Text styling={[styles.base, styling]}>{children}</Text>;
 }
 
 const styles = create({
   base: {
-    color: colors.secondaryText,
-    fontSize: fontSizes.m,
+    color: colors.text,
+    fontSize: fontSizes.xl,
   },
 });

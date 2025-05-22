@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import type { Income } from '../../../backend/types';
+import type { Income } from '@/backend/types';
 import { IndividualIncome } from './individual-income';
-import { SearchBar } from '@/global/components/search-bar';
+import { SearchBar } from '@/frontend/global/components/search-bar';
 import { create, props as style } from 'stylex';
-import { colors } from '@/global/styles/vars.stylex';
+import { colors } from '@/frontend/global/styles/vars.stylex';
 
 export function Incomes({ incomes }: { incomes: Income[] }) {
   const [query, setQuery] = useState('');
