@@ -1,4 +1,4 @@
-import type { FundsStatus } from '../../../data/types';
+import type { FundsStatus } from '../../../backend/types';
 import { findBasicPercentage } from '@/global/utils/findBasicPercentage';
 import { create, props as style, type StyleXStyles } from 'stylex';
 import { colors, borderRadius } from '@/global/styles/vars.stylex';

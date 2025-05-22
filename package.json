@@ -6,7 +6,9 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "seed": "pnpm exec tsx data/database/scripts/seed.ts",
+    "studio": "pnpm drizzle-kit studio"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.3.1",
@@ -16,14 +18,14 @@
     "@react-router/serve": "^7.5.0",
     "@stylex-extend/vite": "^0.7.1",
     "@stylexjs/stylex": "^0.11.1",
+    "dotenv": "^16.5.0",
     "drizzle-orm": "^0.43.1",
     "isbot": "^5.1.25",
     "motion": "^12.6.3",
     "react": "^19.1.0",
     "react-aria-components": "^1.7.1",
     "react-dom": "^19.1.0",
-    "react-router": "^7.5.0",
-    "tailwind-merge": "^3.2.0"
+    "react-router": "^7.5.0"
   },
   "devDependencies": {
     "@react-router/dev": "^7.5.0",
@@ -34,6 +36,7 @@
     "drizzle-kit": "^0.31.1",
     "react-router-devtools": "^1.1.10",
     "tailwindcss": "^4.1.3",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "vite": "^5.4.17",
     "vite-tsconfig-paths": "^5.1.4"

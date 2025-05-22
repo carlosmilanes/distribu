@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Income } from '../../../data/types';
+import type { Income } from '../../../backend/types';
 import { IndividualIncome } from './individual-income';
 import { SearchBar } from '@/global/components/search-bar';
 import { create, props as style } from 'stylex';
