@@ -1,6 +1,13 @@
 import { db } from '../connection';
 import { reserves, reserveTags, tags, uses } from '../schema';
-import type { Reserve, NewReserve, NewUse, Tag, Use } from '../../types';
+import type {
+  Reserve,
+  NewReserve,
+  NewUse,
+  Tag,
+  Use,
+  NewTag,
+} from '../../types';
 import { eq, sum } from 'drizzle-orm';
 
 export async function addReserve(reserve: NewReserve) {
@@ -14,6 +21,30 @@ export async function addReserve(reserve: NewReserve) {
     }
     throw new Error(
       'Failed to add reserve: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function updateReserve(id: number, reserve: NewReserve) {
+  try {
+    return await db.update(reserves).set(reserve).where(eq(reserves.id, id));
+  } catch (error) {
+    console.error('Failed to update reserve:', error);
+    throw new Error(
+      'Failed to update reserve: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function deleteReserve(id: number) {
+  try {
+    return await db.delete(reserves).where(eq(reserves.id, id));
+  } catch (error) {
+    console.error('Failed to delete reserve:', error);
+    throw new Error(
+      'Failed to delete reserve: ' +
         (error instanceof Error ? error.message : String(error))
     );
   }
@@ -33,6 +64,30 @@ export async function addUse(use: NewUse, reserve?: Reserve) {
     console.error('Failed to add use:', error);
     throw new Error(
       'Failed to add use: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function updateUse(id: number, use: NewUse) {
+  try {
+    return await db.update(uses).set(use).where(eq(uses.id, id));
+  } catch (error) {
+    console.error('Failed to update use:', error);
+    throw new Error(
+      'Failed to update use: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function deleteUse(id: number) {
+  try {
+    return await db.delete(uses).where(eq(uses.id, id));
+  } catch (error) {
+    console.error('Failed to delete use:', error);
+    throw new Error(
+      'Failed to delete use: ' +
         (error instanceof Error ? error.message : String(error))
     );
   }
@@ -133,6 +188,63 @@ async function getReserveUses(reserveId: number): Promise<Use[]> {
     console.error(`Failed to get uses for reserve ${reserveId}:`, error);
     throw new Error(
       'Failed to get uses for reserve: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+// Tags
+export async function addTag(tag: NewTag) {
+  try {
+    return await db.insert(tags).values(tag);
+  } catch (error) {
+    console.error('Failed to add tag:', error);
+    throw new Error(
+      'Failed to add tag: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function addReserveTag(reserveId: number, tagId: number) {
+  try {
+    return await db.insert(reserveTags).values({ reserveId, tagId });
+  } catch (error) {
+    console.error('Failed to add reserve tag:', error);
+  }
+}
+
+export async function updateTag(id: number, tag: NewTag) {
+  try {
+    return await db.update(tags).set(tag).where(eq(tags.id, id));
+  } catch (error) {
+    console.error('Failed to update tag:', error);
+    throw new Error(
+      'Failed to update tag: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function deleteTag(id: number) {
+  try {
+    return await db.delete(tags).where(eq(tags.id, id));
+  } catch (error) {
+    console.error('Failed to delete tag:', error);
+    throw new Error(
+      'Failed to delete tag: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function deleteReserveTag(reserveId: number, tagId: number) {
+  try {
+    return await db.delete(reserveTags).where(eq(reserveTags.reserveId, reserveId));
+  } catch (error) {
+    console.error('Failed to delete reserve tag:', error);
+    throw new Error(
+      'Failed to delete reserve tag: ' +
         (error instanceof Error ? error.message : String(error))
     );
   }

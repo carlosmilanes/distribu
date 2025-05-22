@@ -17,6 +17,30 @@ export async function addIncome(income: NewIncome) {
   }
 }
 
+export async function updateIncome(id: number, income: NewIncome) {
+  try {
+    return await db.update(incomes).set(income).where(eq(incomes.id, id));
+  } catch (error) {
+    console.error('Failed to update income:', error);
+    throw new Error(
+      'Failed to update income: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function deleteIncome(id: number) {
+  try {
+    return await db.delete(incomes).where(eq(incomes.id, id));
+  } catch (error) {
+    console.error('Failed to delete income:', error);
+    throw new Error(
+      'Failed to delete income: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
 export async function getDistribuFundsData(
   distribuId: number
 ): Promise<FundsData> {

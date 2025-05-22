@@ -1,5 +1,6 @@
 import { db } from '../connection';
 import { distribus } from '../schema';
+import { eq } from 'drizzle-orm';
 
 export async function createDistribu(name: string) {
   try {
@@ -9,6 +10,21 @@ export async function createDistribu(name: string) {
       .returning({ id: distribus.id });
   } catch (error) {
     console.error('Error creating distribu:', error);
-    throw error;
+    throw new Error(
+      'Failed to create distribu: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
+}
+
+export async function deleteDistribu(id: number) {
+  try {
+    return await db.delete(distribus).where(eq(distribus.id, id));
+  } catch (error) {
+    console.error('Error deleting distribu:', error);
+    throw new Error(
+      'Failed to delete distribu: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
   }
 }
