@@ -4,16 +4,48 @@ import {
   reserveTags,
   recurringIncomes,
   recurringUses,
+  distribus,
 } from '../schema';
 import { addIncome } from '../actions/funds';
-import { addReserve, addUse } from '../actions/reserves';
-import { createDistribu } from '../actions/distribus';
+import { addReserve, addUse, addTag, deleteTag } from '../actions/reserves';
+import { createDistribu, deleteDistribu } from '../actions/distribus';
 import { mockTags, mockReserves, mockIncomes, mockUses } from '../../mockData';
+import { sql } from 'drizzle-orm';
 
 async function seed() {
   console.log('Starting seed process...');
 
   try {
+    // Clear all existing data
+    console.log('Clearing existing data...');
+
+    // Get all distribus and delete them (this will cascade to most related entities)
+    const allDistribusResult = await db.select().from(distribus);
+    for (const distribu of allDistribusResult) {
+      await deleteDistribu(distribu.id);
+    }
+
+    // Delete any remaining tags that might not be associated with a reserve
+    const allTagsResult = await db.select().from(tagsTable);
+    for (const tag of allTagsResult) {
+      await deleteTag(tag.id);
+    }
+
+    // Reset sequences to start from 1
+    console.log('Resetting ID sequences...');
+    await db.execute(sql`ALTER SEQUENCE distribus_id_seq RESTART WITH 1`);
+    await db.execute(sql`ALTER SEQUENCE incomes_id_seq RESTART WITH 1`);
+    await db.execute(sql`ALTER SEQUENCE reserves_id_seq RESTART WITH 1`);
+    await db.execute(sql`ALTER SEQUENCE tags_id_seq RESTART WITH 1`);
+    await db.execute(sql`ALTER SEQUENCE reserve_tags_id_seq RESTART WITH 1`);
+    await db.execute(sql`ALTER SEQUENCE uses_id_seq RESTART WITH 1`);
+    await db.execute(
+      sql`ALTER SEQUENCE recurring_incomes_id_seq RESTART WITH 1`
+    );
+    await db.execute(sql`ALTER SEQUENCE recurring_uses_id_seq RESTART WITH 1`);
+
+    console.log('Database cleared and sequences reset.');
+
     // Create a distribu first (since everything references it)
     const [distribuResult] = await createDistribu('Test Distribu');
 
@@ -22,9 +54,7 @@ async function seed() {
 
     // Add all tags
     for (const tag of mockTags) {
-      await db.insert(tagsTable).values({
-        name: tag.name,
-      });
+      await addTag({ name: tag.name });
     }
     console.log(`Added ${mockTags.length} tags`);
 
