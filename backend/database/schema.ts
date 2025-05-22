@@ -35,7 +35,7 @@ export const incomes = pgTable(
     id: serial('id').primaryKey(),
     distribuId: integer('distribu_id')
       .notNull()
-      .references(() => distribus.id),
+      .references(() => distribus.id, { onDelete: 'cascade' }),
     source: text('source'),
     amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
     createdAt: timestamp('created_at', { withTimezone: true })
@@ -53,7 +53,7 @@ export const recurringIncomes = pgTable('recurring_incomes', {
   id: serial('id').primaryKey(),
   incomeId: integer('income_id')
     .notNull()
-    .references(() => incomes.id),
+    .references(() => incomes.id, { onDelete: 'cascade' }),
   frequency: RecurrenceFrequency('frequency').default('monthly'),
   nextOccurrence: timestamp('next_occurrence', {
     withTimezone: true,
@@ -66,7 +66,7 @@ export const reserves = pgTable(
     id: serial('id').primaryKey(),
     distribuId: integer('distribu_id')
       .notNull()
-      .references(() => distribus.id),
+      .references(() => distribus.id, { onDelete: 'cascade' }),
     name: text('name').notNull().unique(),
     position: integer('position').notNull(),
     amountAssigned: decimal('amount_assigned', {
@@ -92,17 +92,19 @@ export const reserveTags = pgTable('reserve_tags', {
   id: serial('id').primaryKey(),
   reserveId: integer('reserve_id')
     .notNull()
-    .references(() => reserves.id),
+    .references(() => reserves.id, { onDelete: 'cascade' }),
   tagId: integer('tag_id')
     .notNull()
-    .references(() => tags.id),
+    .references(() => tags.id, { onDelete: 'cascade' }),
 });
 
 export const uses = pgTable(
   'uses',
   {
     id: serial('id').primaryKey(),
-    reserveId: integer('reserve_id').references(() => reserves.id),
+    reserveId: integer('reserve_id').references(() => reserves.id, {
+      onDelete: 'cascade',
+    }),
     amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
@@ -119,7 +121,7 @@ export const recurringUses = pgTable('recurring_uses', {
   id: serial('id').primaryKey(),
   useId: integer('use_id')
     .notNull()
-    .references(() => uses.id),
+    .references(() => uses.id, { onDelete: 'cascade' }),
   frequency: RecurrenceFrequency('frequency').default('monthly'),
   nextOccurrence: timestamp('next_occurrence', {
     withTimezone: true,
@@ -147,7 +149,7 @@ export const sessions = pgTable(
     id: text('id').primaryKey(),
     userId: integer('user_id')
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: 'cascade' }),
     expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
@@ -165,10 +167,10 @@ export const distribuRoles = pgTable(
     id: serial('id').primaryKey(),
     distribuId: integer('distribu_id')
       .notNull()
-      .references(() => distribus.id),
+      .references(() => distribus.id, { onDelete: 'cascade' }),
     userId: integer('user_id')
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: 'cascade' }),
     role: Role('role').notNull().default('viewer'),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
