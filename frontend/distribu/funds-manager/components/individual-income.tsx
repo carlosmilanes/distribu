@@ -14,11 +14,12 @@ import { colors, borderRadius } from '@/frontend/global/styles/vars.stylex';
 export function IndividualIncome({
   income = {
     id: 0,
-    amount: 0,
+    distribuId: 0,
+    amount: '0',
     source: '',
     notes: '',
-    date: new Date(),
-    isRecurring: false,
+    createdAt: new Date(),
+    recurrence: undefined,
   },
   onUpdate,
 }: {
@@ -29,11 +30,12 @@ export function IndividualIncome({
   const [showDeleteOption, setShowDeleteOption] = useState(false);
   const [sourceError, setSourceError] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [amount, setAmount] = useState(income.amount);
-  const [source, setSource] = useState(income.source);
-  const [notes, setNotes] = useState(income.notes);
-  const [date, setDate] = useState(income.date);
-  const [recurring, setRecurring] = useState(income.isRecurring);
+  const [amount, setAmount] = useState<string>(income.amount);
+  const [source, setSource] = useState<string>(income.source || '');
+  const [notes, setNotes] = useState<string>(income.notes || '');
+  const [date, setDate] = useState<Date>(income.createdAt);
+  const [recurring, setRecurring] = useState<boolean>(!!income.recurrence);
+  const [recurrence, setRecurrence] = useState(income.recurrence);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -45,8 +47,11 @@ export function IndividualIncome({
     if (parts.length === 2 && parts[1].length > 2) {
       value = parts[0] + '.' + parts[1].substring(0, 2);
     }
-    setAmount(Number(value));
-    onUpdate({ ...income, amount: Number(value) });
+    setAmount(value);
+    onUpdate({
+      ...income,
+      amount: value,
+    });
   };
 
   const handleSourceChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -54,24 +59,50 @@ export function IndividualIncome({
     adjustTextareaHeight(e);
     setSourceError(!value.trim());
     setSource(value);
-    onUpdate({ ...income, source: value });
+    onUpdate({
+      ...income,
+      source: value,
+    });
   };
 
   const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     adjustTextareaHeight(e);
     setNotes(value);
-    onUpdate({ ...income, notes: value });
+    onUpdate({
+      ...income,
+      notes: value,
+    });
   };
 
   const handleDateChange = (newDate: Date) => {
     setDate(newDate);
-    onUpdate({ ...income, date: newDate });
+    onUpdate({
+      ...income,
+      createdAt: newDate,
+    });
   };
 
   const handleRecurringChange = (newRecurring: boolean) => {
     setRecurring(newRecurring);
-    onUpdate({ ...income, isRecurring: newRecurring });
+    const newRecurrence = newRecurring
+      ? {
+          id: income.recurrence?.id || 0,
+          incomeId: income.id,
+          frequency: 'monthly' as 'daily' | 'weekly' | 'monthly' | null,
+          nextOccurrence: new Date(
+            date.getFullYear(),
+            date.getMonth() + 1,
+            date.getDate()
+          ),
+        }
+      : undefined;
+
+    setRecurrence(newRecurrence);
+    onUpdate({
+      ...income,
+      recurrence: newRecurrence,
+    });
   };
 
   return (
@@ -134,8 +165,11 @@ export function IndividualIncome({
                   formattedValue = value + '0';
                 }
               }
-              setAmount(Number(formattedValue));
-              onUpdate({ ...income, amount: Number(formattedValue) });
+              setAmount(formattedValue);
+              onUpdate({
+                ...income,
+                amount: formattedValue,
+              });
             }}
           />
           <textarea
