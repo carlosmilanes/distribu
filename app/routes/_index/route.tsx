@@ -1,6 +1,6 @@
 import type { Route } from './+types/route';
 import { FundsManager } from '@/frontend/distribu/funds-manager';
-import { mockFundsData } from '@/backend/mockData';
+import { getDistribuFundsData } from '@/backend/database/actions/funds';
 // import { Picture } from '@/distribu/funds-manager/components/picture';
 
 export function meta({}: Route.MetaArgs) {
@@ -10,12 +10,16 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-// TODO: use "loaderData"
-export default function Distribu() {
+export async function loader() {
+  const fundsData = await getDistribuFundsData(1);
+  return { fundsData };
+}
+
+export default function Distribu({ loaderData }: Route.ComponentProps) {
   return (
     <>
       {/* <Picture /> */}
-      <FundsManager fundsData={mockFundsData} />
+      <FundsManager fundsData={loaderData.fundsData} />
     </>
   );
 }
