@@ -73,7 +73,7 @@ export const reserves = pgTable(
       precision: 12,
       scale: 2,
     }).notNull(),
-    isPermanent: boolean('is_permanent').notNull(),
+    isMonthly: boolean('is_monthly').notNull(),
     isActive: boolean('is_active').notNull().default(true),
     notes: text('notes'),
   },
