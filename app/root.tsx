@@ -11,6 +11,7 @@ import type { Route } from './+types/root';
 import './app.css';
 import 'virtual:stylex.css';
 import { MotionConfig } from 'motion/react';
+import { LoadingScreen } from '@/frontend/global/components/loading-screen';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -31,6 +32,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
+}
+
+export function HydrateFallback() {
+  return <LoadingScreen />;
 }
 
 export default function App() {

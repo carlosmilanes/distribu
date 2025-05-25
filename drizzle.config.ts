@@ -6,6 +6,6 @@ export default defineConfig({
   out: './backend/database/migrations',
   driver: 'pglite',
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: 'memory://',
   },
 });
