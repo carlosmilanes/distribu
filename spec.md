@@ -4,7 +4,7 @@
 
 Distribu is a full-stack financial management application built with React Router 7, TypeScript, and PostgreSQL. The application focuses on income distribution and reserve fund management, allowing users to track income sources, allocate funds to different reserves, and monitor usage patterns.
 
-The app focus is simplicity, since many financial management applications are not easy to use.
+The app focus is simplicity for the user, since many financial management applications are not easy to use.
 
 Distribu is thought mainly for personal and family financial management on a monthly basis. Small businesses might also find the app useful, though they are not the primary focus.
 
