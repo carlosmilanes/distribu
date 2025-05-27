@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { ArrowPathIcon, ClockIcon } from '@heroicons/react/24/outline';
 import type { Income } from '@/backend/types';
-import { DeletionHelper } from '@/frontend/global/components/deletion-helper';
-import { EscapeHelper } from '@/frontend/global/components/escape-helper';
-import { Switch } from '@/frontend/global/components/core/switch';
-import { DatePicker } from '@/frontend/global/components/date-picker';
-import { DeleteButton } from '@/frontend/global/components/buttons/delete-button';
-import { getDayInSpanish } from '@/frontend/global/utils/getDayInSpanish';
-import { adjustTextareaHeight } from '@/frontend/global/utils/adjustTextareaHeight';
+import { DeletionHelper } from '@/app/components/deletion-helper';
+import { EscapeHelper } from '@/app/components/escape-helper';
+import { Switch } from '@/app/components/core/switch';
+import { DatePicker } from '@/app/components/date-picker';
+import { DeleteButton } from '@/app/components/buttons/delete-button';
+import { getDayInSpanish } from '@/app/utils/getDayInSpanish';
+import { adjustTextareaHeight } from '@/app/utils/adjustTextareaHeight';
 import { create, props } from 'stylex';
-import { colors, borderRadius } from '@/frontend/global/styles/vars.stylex';
+import { colors, borderRadius } from '@/app/styles/vars.stylex';
 
 export function IndividualIncome({
   income = {

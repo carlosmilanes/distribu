@@ -1,20 +1,20 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { FundsStatus } from '@/backend/types';
-import { QuaternaryText } from '@/frontend/global/components/text/quaternary-text';
+import { QuaternaryText } from '@/app/components/text/quaternary-text';
 import { StatusBar } from './status-bar';
-import { findBasicPercentage } from '@/frontend/global/utils/findBasicPercentage';
-import { Money } from '@/frontend/global/components/money';
+import { findBasicPercentage } from '@/app/utils/findBasicPercentage';
+import { Money } from '@/app/components/money';
 import { create, props as style } from 'stylex';
 import {
   colors,
   dynamicSizes,
   fixedSizes,
   fontSizes,
-} from '@/frontend/global/styles/vars.stylex';
+} from '@/app/styles/vars.stylex';
 import { useState } from 'react';
-import { useOutsidePress } from '@/frontend/global/hooks/use-outside-press';
-import { TertiaryText } from '@/frontend/global/components/text/tertiary-text';
-import { glass } from '@/frontend/global/styles/materials.stylex';
+import { useOutsidePress } from '@/app/hooks/use-outside-press';
+import { TertiaryText } from '@/app/components/text/tertiary-text';
+import { glass } from '@/app/styles/materials.stylex';
 
 export function Chart({ status }: { status: FundsStatus }) {
   const [collapsed, setCollapsed] = useState(false);
