@@ -8,9 +8,10 @@ alwaysApply: false
 ## General Principles
 
 - Write concise, readable TypeScript code.
-- Define component props types before the component itself, unless it receives only one prop.
+- Define component props types outside the component itself, unless it receives only one prop.
+- Style the components using Stylex.
+- Organize files in the following way: all components first, each followed by their helper functions (if any) and then their subcomponents (with their respective helper functions, if any); then all the types; then (last), the Stylex's 'style' object, defining the styles for the whole file.
 - Use traditional function declarations instead of arrow functions for components and named functions. Use arrow functions for inline event handlers and callbacks.
-- Structure components logically: exports, subcomponents, helpers, types.
 
 ## Naming Conventions
 
