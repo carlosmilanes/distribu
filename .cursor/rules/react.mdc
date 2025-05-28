@@ -7,9 +7,9 @@ alwaysApply: false
 
 ## General Principles
 
-- Write concise, readable TypeScript code.
+- Write concise, readable TypeScript code. See [typescript.mdc](mdc:.cursor/rules/typescript.mdc).
 - Define component prop types separate from the corresponding component itself.
-- Style the components using Stylex.
+- Style the components using Stylex. See [stylex.mdc](mdc:.cursor/rules/stylex.mdc).
 - Use traditional function declarations instead of arrow functions for components and named functions. Use arrow functions for inline event handlers and callbacks.
 
 ## Documentation

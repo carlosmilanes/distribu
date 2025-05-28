@@ -1,13 +1,13 @@
 ---
 description: 
-globs: **/*.tsx
+globs: 
 alwaysApply: false
 ---
 # StyleX Styles Generation Rules
 
 - Use named imports.
 - Use only one `styles` variable at the end of each file, containing all the styles for the corresponding file.
-- **Always create styles using the available relevant variables from `@styles`, especially from `@styles/vars.stylex.ts` for color, spacing, and typography. Do not use hardcoded values unless absolutely necessary and justified.**
+- **Always create styles using the available relevant variables defined in files inside mdc:app/styles/, especially from [vars.stylex.ts](mdc:app/styles/vars.stylex.ts) for color, spacing, typography, etc.. Do not use hardcoded values unless absolutely necessary and justified.**
 - For responsive styles, always use shared breakpoints/types from `@styles/breakpoints.stylex.ts`.
 - Define styles as atomic and reusable as possible (single responsibility per style key).
 - Use descriptive, consistent style key names (e.g., `primaryButton`, `cardContainer`).
