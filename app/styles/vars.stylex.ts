@@ -3,6 +3,26 @@ import { defineVars } from 'stylex';
 const DARK = '@media (prefers-color-scheme: dark)';
 
 export const colors = defineVars({
+  // base
+  '--primary': { default: '#34C759', [DARK]: '#30D158' },
+
+  primary: 'var(--primary)',
+
+  // TODO: remove this?
+  // darkerPrimary: {
+  //   default: 'color-mix(in oklab, var(--primary), black 8%)',
+  //   [DARK]: 'color-mix(in oklab, var(--primary), black 8%)',
+  // },
+
+  lighterPrimary: {
+    default: 'color-mix(in oklab, var(--primary), white 35%)',
+    [DARK]: 'color-mix(in oklab, var(--primary), white 35%)',
+  },
+
+  // ligherColor: {
+  //   (color: StyleXVar<string>) => `color-mix(in oklab, ${color}, white 35%)`,
+  // },
+
   // backgrounds
   background: { default: '#FFFFFF', [DARK]: '#000000' },
   secondaryBackground: { default: '#F2F2F7', [DARK]: '#1C1C1E' },
@@ -25,6 +45,9 @@ export const colors = defineVars({
 
   // text
   text: { default: '#000000', [DARK]: '#FFFFFF' },
+
+  whiteText: '#FFFFFF',
+
   secondaryText: {
     default: 'rgba(60, 60, 67, 0.6)',
     [DARK]: 'rgba(235, 235, 245, 0.6)',
@@ -121,6 +144,13 @@ export const fontSizes = defineVars({
   m: '1rem', // 16px
   l: '1.25rem', // 20px
   xl: '1.875rem', // 30px
+  xxl: '2.5rem', // 40px
+});
+
+export const fontWeights = defineVars({
+  regular: '400',
+  medium: '500',
+  bold: '700',
 });
 
 export const borderRadius = defineVars({
