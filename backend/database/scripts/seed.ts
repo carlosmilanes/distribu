@@ -9,7 +9,13 @@ import {
 import { addIncome } from '../actions/funds';
 import { addReserve, addUse, addTag, deleteTag } from '../actions/reserves';
 import { createDistribu, deleteDistribu } from '../actions/distribus';
-import { mockTags, mockReserves, mockIncomes, mockUses } from '../../mockData';
+import {
+  mockTags,
+  mockReserves,
+  mockIncomes,
+  mockUses,
+  DISTRIBU_PLACEHOLDER_ID,
+} from '../../mockData';
 import { sql } from 'drizzle-orm';
 
 async function seed() {
@@ -63,7 +69,10 @@ async function seed() {
       // Adjust distribuId to match the one we just created
       const reserveData = {
         ...reserve,
-        distribuId,
+        distribuId:
+          reserve.distribuId === DISTRIBU_PLACEHOLDER_ID
+            ? distribuId
+            : reserve.distribuId,
       };
 
       const { tags, uses, amountUsed, ...reserveToAdd } = reserveData;
@@ -91,7 +100,10 @@ async function seed() {
       // Adjust distribuId to match the one we just created
       const incomeData = {
         ...income,
-        distribuId,
+        distribuId:
+          income.distribuId === DISTRIBU_PLACEHOLDER_ID
+            ? distribuId
+            : income.distribuId,
       };
 
       const { recurrence, ...incomeToAdd } = incomeData;

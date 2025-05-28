@@ -1,5 +1,6 @@
-import { RecurrenceFrequency } from './database/schema';
 import type { FundsData, Income, Reserve, Tag, Use } from './types';
+
+export const DISTRIBU_PLACEHOLDER_ID = -9999;
 
 // Mock tags
 export const mockTags: Tag[] = [
@@ -45,7 +46,7 @@ export const mockUses: Use[] = [
 export const mockReserves: Reserve[] = [
   {
     id: 1,
-    distribuId: 1,
+    distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Housing',
     position: 1,
     amountAssigned: '1000.00',
@@ -58,7 +59,7 @@ export const mockReserves: Reserve[] = [
   },
   {
     id: 2,
-    distribuId: 1,
+    distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Groceries',
     position: 2,
     amountAssigned: '400.00',
@@ -71,7 +72,7 @@ export const mockReserves: Reserve[] = [
   },
   {
     id: 3,
-    distribuId: 1,
+    distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Transportation',
     position: 3,
     amountAssigned: '200.00',
@@ -84,7 +85,7 @@ export const mockReserves: Reserve[] = [
   },
   {
     id: 4,
-    distribuId: 1,
+    distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Entertainment',
     position: 4,
     amountAssigned: '150.00',
@@ -97,7 +98,7 @@ export const mockReserves: Reserve[] = [
   },
   {
     id: 5,
-    distribuId: 1,
+    distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Emergency Fund',
     position: 5,
     amountAssigned: '500.00',
@@ -114,7 +115,7 @@ export const mockReserves: Reserve[] = [
 export const mockIncomes: Income[] = [
   {
     id: 1,
-    distribuId: 1,
+    distribuId: DISTRIBU_PLACEHOLDER_ID,
     source: 'Salary',
     amount: '2500.00',
     createdAt: new Date('2024-08-01'),
@@ -128,7 +129,7 @@ export const mockIncomes: Income[] = [
   },
   {
     id: 2,
-    distribuId: 1,
+    distribuId: DISTRIBU_PLACEHOLDER_ID,
     source: 'Freelance work',
     amount: '350.00',
     createdAt: new Date('2024-08-15'),
