@@ -1,6 +1,6 @@
-import { useTouchDevice } from '@/frontend/global/hooks/useTouchDevice';
+import { useTouchDevice } from '@/app/hooks/useTouchDevice';
 import { create, props } from 'stylex';
-import { colors, borderRadius } from '@/frontend/global/styles/vars.stylex';
+import { colors, borderRadius } from '@/app/styles/vars.stylex';
 
 export function DatePicker({
   selectedDate = new Date(),

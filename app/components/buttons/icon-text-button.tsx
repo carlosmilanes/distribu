@@ -1,6 +1,6 @@
 import { Button, type ButtonProps } from '../core/button';
 import { create, props } from 'stylex';
-import { borderRadius, fixedSizes } from '@/frontend/global/styles/vars.stylex';
+import { borderRadius, fixedSizes } from '@/app/styles/vars.stylex';
 
 export function IconTextButton({
   children,

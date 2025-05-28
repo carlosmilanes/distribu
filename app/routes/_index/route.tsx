@@ -8,8 +8,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader() {
-  // Redirect to distribus hub after authentication
-  // TODO: Check authentication status and redirect accordingly
+export const clientLoader = () => {
   return redirect('/distribus');
-}
+};

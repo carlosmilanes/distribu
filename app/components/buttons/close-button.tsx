@@ -5,7 +5,7 @@ import {
   colors,
   borderRadius,
   fixedSizes,
-} from '@/frontend/global/styles/vars.stylex';
+} from '@/app/styles/vars.stylex';
 
 export function CloseButton({ onPress, styling }: ButtonProps) {
   return (

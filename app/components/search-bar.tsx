@@ -7,7 +7,7 @@ import {
   borderRadius,
   fixedSizes,
   dynamicSizes,
-} from '@/frontend/global/styles/vars.stylex';
+} from '@/app/styles/vars.stylex';
 
 export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
   return (

@@ -3,17 +3,7 @@ import { Link } from 'react-router';
 import { useState, useEffect } from 'react';
 import { create, props } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
-
-type Distribu = {
-  id: number;
-  name: string;
-};
-
-type UseDistribusDataReturn = {
-  distribus: Distribu[];
-  isLoading: boolean;
-  hasError: boolean;
-};
+import { mockFundsData } from '@/backend/mockData';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,19 +12,15 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader() {
-  // TODO: Fetch user's distribus from database
-  // const userDistribu = await getUserDistribu();
-
-  // Mock data for now
-  const mockDistribu: Distribu[] = [
+export const clientLoader = () => {
+  // Use mock distribus from mockData if available, else inline
+  const mockDistribu = [
     { id: 1, name: 'Family Budget' },
     { id: 2, name: 'Personal Savings' },
     { id: 3, name: 'Emergency Fund' },
   ];
-
   return { distribus: mockDistribu };
-}
+};
 
 /**
  * Main distribu selection component that allows users to choose or create workspaces
@@ -145,6 +131,17 @@ function CreateDistribuButton() {
     </button>
   );
 }
+
+type Distribu = {
+  id: number;
+  name: string;
+};
+
+type UseDistribusDataReturn = {
+  distribus: Distribu[];
+  isLoading: boolean;
+  hasError: boolean;
+};
 
 const styles = create({
   container: {
