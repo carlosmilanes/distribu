@@ -8,20 +8,10 @@ export const colors = defineVars({
 
   primary: 'var(--primary)',
 
-  // TODO: remove this?
-  // darkerPrimary: {
-  //   default: 'color-mix(in oklab, var(--primary), black 8%)',
-  //   [DARK]: 'color-mix(in oklab, var(--primary), black 8%)',
-  // },
-
   lighterPrimary: {
     default: 'color-mix(in oklab, var(--primary), white 35%)',
     [DARK]: 'color-mix(in oklab, var(--primary), white 35%)',
   },
-
-  // ligherColor: {
-  //   (color: StyleXVar<string>) => `color-mix(in oklab, ${color}, white 35%)`,
-  // },
 
   // backgrounds
   background: { default: '#FFFFFF', [DARK]: '#000000' },
@@ -166,4 +156,5 @@ export const shadows = defineVars({
   m: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
   l: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
   xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+  xxl: '0 25px 50px -12px rgb(0 0 0 / 0.25)',
 });
