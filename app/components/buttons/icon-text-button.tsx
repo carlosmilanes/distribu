@@ -10,7 +10,7 @@ export function IconTextButton({
   return (
     <Button
       onPress={onPress}
-      {...props(IconTextButtonStyles.base)}
+      {...props(styles.base)}
       {...otherProps}
     >
       {children}
@@ -18,7 +18,7 @@ export function IconTextButton({
   );
 }
 
-const IconTextButtonStyles = create({
+const styles = create({
   base: {
     fontWeight: '600',
     gap: fixedSizes.s1,
