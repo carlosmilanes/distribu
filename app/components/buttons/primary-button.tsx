@@ -1,15 +1,8 @@
-import { Button, type ButtonProps } from '@/app/components/core/button';
-import {
-  lightReflection,
-  reactiveElevation,
-} from '@/app/styles/elevations.stylex';
-import {
-  colors,
-  fixedSizes,
-  fontWeights,
-  shadows,
-} from '@/app/styles/vars.stylex';
+import { type ButtonProps } from '@/app/components/core/button';
+import { TextButton } from './text-button';
 import { create } from 'stylex';
+import { lightReflection } from '@/app/styles/elevations.stylex';
+import { colors, fixedSizes, fontWeights } from '@/app/styles/vars.stylex';
 
 export function PrimaryButton({
   children,
@@ -17,23 +10,22 @@ export function PrimaryButton({
   ...otherProps
 }: ButtonProps) {
   return (
-    <Button
+    <TextButton
       styling={[
-        reactiveElevation.low,
         lightReflection.ofColor(colors.primary),
-        styles.base,
+        styles.button,
         styling,
       ]}
       autoFocus
       {...otherProps}
     >
       {children}
-    </Button>
+    </TextButton>
   );
 }
 
 const styles = create({
-  base: {
+  button: {
     backgroundColor: colors.primary,
     color: colors.whiteText,
     fontWeight: fontWeights.medium,
