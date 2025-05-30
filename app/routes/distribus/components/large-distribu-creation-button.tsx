@@ -1,0 +1,189 @@
+import { DistribuCreationButton } from '@/app/routes/distribus/components/distribu-creation-button';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import {
+  colors,
+  dynamicSizes,
+  fixedSizes,
+  fontSizes,
+  shadows,
+} from '@/app/styles/vars.stylex';
+import { glass } from '@/app/styles/materials.stylex';
+import { borderRadius } from '@/app/styles/vars.stylex';
+import { create, props, keyframes } from 'stylex';
+import { reactiveElevation } from '@/app/styles/elevations.stylex';
+
+/**
+ * Large, prominent button for creating a new distribu with fancy animations.
+ * Features animated moving lights background using income-related colors.
+ * Wraps the simple DistribuCreationButton with decorative effects.
+ *
+ * @returns Enhanced button element with animated background
+ */
+export function LargeDistribuCreationButton() {
+  return (
+    <AnimatedGlass>
+      <DistribuCreationButton styling={styles.button}>
+        <PlusIcon {...props(styles.plusIcon)} />
+        Create Distribu
+      </DistribuCreationButton>
+    </AnimatedGlass>
+  );
+}
+
+/**
+ * Animated glass container with moving colored lights background.
+ * Provides a decorative container with income-themed light animations.
+ *
+ * @param children - Content to display inside the animated container
+ * @returns Glass container with animated light effects
+ */
+function AnimatedGlass({ children }: AnimatedGlassProps) {
+  return (
+    <div {...props([reactiveElevation.low, styles.buttonContainer])}>
+      <DancingLights />
+      <div {...props(styles.buttonWrapper)}>{children}</div>
+    </div>
+  );
+}
+
+function DancingLights() {
+  return (
+    <div {...props(styles.lightsContainer)}>
+      <div {...props(styles.redLight)} />
+      <div {...props(styles.orangeLight)} />
+      <div {...props(styles.greenLight)} />
+    </div>
+  );
+}
+
+// Types
+type AnimatedGlassProps = {
+  children: React.ReactNode;
+};
+
+// Define the keyframes animations for each light
+const redLightAnimation = keyframes({
+  '0%': {
+    transform: 'translate(140%, -10%) scale(1.0)',
+  },
+  '25%': {
+    transform: 'translate(-50%, -30%) scale(0.7)',
+  },
+  '50%': {
+    transform: 'translate(-60%, 110%) scale(1.3)',
+  },
+  '75%': {
+    transform: 'translate(170%, 140%) scale(0.9)',
+  },
+  '100%': {
+    transform: 'translate(140%, -10%) scale(1.0)',
+  },
+});
+
+const orangeLightAnimation = keyframes({
+  '0%': {
+    transform: 'translate(-40%, 20%) scale(0.8)',
+  },
+  '25%': {
+    transform: 'translate(300%, -20%) scale(1.2)',
+  },
+  '50%': {
+    transform: 'translate(160%, 120%) scale(0.6)',
+  },
+  '75%': {
+    transform: 'translate(-30%, 130%) scale(1.1)',
+  },
+  '100%': {
+    transform: 'translate(-40%, 20%) scale(0.8)',
+  },
+});
+
+const greenLightAnimation = keyframes({
+  '0%': {
+    transform: 'translate(-20%, -40%) scale(0.9)',
+  },
+  '25%': {
+    transform: 'translate(-40%, 10%) scale(1.1)',
+  },
+  '50%': {
+    transform: 'translate(-10%, 30%) scale(0.8)',
+  },
+  '75%': {
+    transform: 'translate(-30%, -10%) scale(1.0)',
+  },
+  '100%': {
+    transform: 'translate(-20%, -40%) scale(0.9)',
+  },
+});
+
+// Styles
+const styles = create({
+  buttonContainer: {
+    borderRadius: borderRadius.l,
+    padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
+    cursor: 'pointer',
+  },
+  lightsContainer: {
+    position: 'absolute',
+    inset: 0,
+    borderRadius: 'inherit',
+    overflow: 'hidden',
+    border: `1px solid ${colors.glassyBorder}`,
+  },
+  buttonWrapper: {
+    position: 'relative',
+    zIndex: 2,
+  },
+  button: {
+    fontSize: fontSizes.xl,
+    color: colors.income,
+  },
+  plusIcon: {
+    width: fontSizes.xxl,
+    height: fontSizes.xxl,
+  },
+  orangeLight: {
+    position: 'absolute',
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+    background: colors.assignedIncome,
+    filter: 'blur(20px)',
+    animationName: orangeLightAnimation,
+    animationDuration: '6s',
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: 'infinite',
+    opacity: 0.5,
+    zIndex: 1,
+  },
+  redLight: {
+    position: 'absolute',
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    background: colors.usedIncome,
+    filter: 'blur(15px)',
+    animationName: redLightAnimation,
+    animationDuration: '8s',
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: 'infinite',
+    opacity: 0.4,
+    zIndex: 1,
+  },
+  greenLight: {
+    position: 'absolute',
+    width: '70px',
+    height: '70px',
+    borderRadius: '50%',
+    background: colors.income,
+    filter: 'blur(18px)',
+    animationName: greenLightAnimation,
+    animationDuration: '7s',
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: 'infinite',
+    opacity: 0.2,
+    right: -20,
+    top: 10,
+    zIndex: 1,
+  },
+});
