@@ -8,11 +8,6 @@ export const colors = defineVars({
 
   primary: 'var(--primary)',
 
-  lighterPrimary: {
-    default: 'color-mix(in oklab, var(--primary), white 35%)',
-    [DARK]: 'color-mix(in oklab, var(--primary), white 35%)',
-  },
-
   // backgrounds
   background: { default: '#FFFFFF', [DARK]: '#000000' },
   secondaryBackground: { default: '#F2F2F7', [DARK]: '#1C1C1E' },
