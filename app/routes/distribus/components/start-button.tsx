@@ -1,9 +1,13 @@
-import { DistribuCreationButton } from '@/app/routes/distribus/components/distribu-creation-button';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { borderRadius } from '@/app/styles/vars.stylex';
 import { create, props, keyframes } from 'stylex';
-import { reactiveElevation } from '@/app/styles/elevations.stylex';
+import { elevation, reactiveElevation } from '@/app/styles/elevations.stylex';
+import { Button } from '@/app/components/core/button';
+import { useState } from 'react';
+import { DistribuCreationForm } from './distribu-creation-form';
+import { Dialog, Modal, ModalOverlay } from 'react-aria-components';
+import { motion } from 'motion/react';
 
 /**
  * Large, prominent button for creating a new distribu with fancy animations.
@@ -12,14 +16,52 @@ import { reactiveElevation } from '@/app/styles/elevations.stylex';
  *
  * @returns Enhanced button element with animated background
  */
-export function LargeDistribuCreationButton() {
+export function StartButton() {
+  const [isPressed, setIsPressed] = useState(false);
+
   return (
-    <AnimatedGlass>
-      <DistribuCreationButton styling={styles.button}>
+    <>
+      {isPressed ? (
+        <CreationForm
+          isShown={isPressed}
+          setIsShown={setIsPressed}
+        />
+      ) : (
+        <CreationButton onPress={() => setIsPressed(true)} />
+      )}
+    </>
+  );
+}
+
+function CreationButton({ onPress }: { onPress: () => void }) {
+  return (
+    <AnimatedGlass purpose='button'>
+      <Button
+        styling={styles.button}
+        onPress={onPress}
+      >
         <PlusIcon {...props(styles.plusIcon)} />
         Create Distribu
-      </DistribuCreationButton>
+      </Button>
     </AnimatedGlass>
+  );
+}
+
+function CreationForm({ isShown, setIsShown }: CreationFormProps) {
+  return (
+    <ModalOverlay
+      isOpen={isShown}
+      onOpenChange={setIsShown}
+      isDismissable
+    >
+      <Modal>
+        <Dialog>
+          <AnimatedGlass purpose='form'>
+            <DistribuCreationForm />
+          </AnimatedGlass>
+        </Dialog>
+      </Modal>
+    </ModalOverlay>
   );
 }
 
@@ -30,12 +72,18 @@ export function LargeDistribuCreationButton() {
  * @param children - Content to display inside the animated container
  * @returns Glass container with animated light effects
  */
-function AnimatedGlass({ children }: AnimatedGlassProps) {
+function AnimatedGlass({ children, purpose }: AnimatedGlassProps) {
   return (
-    <div {...props([reactiveElevation.low, styles.buttonContainer])}>
+    <motion.div
+      layoutId='start-button'
+      {...props([
+        purpose === 'button' ? reactiveElevation.low : elevation.low,
+        styles.glass,
+      ])}
+    >
       <DancingLights />
       <div {...props(styles.buttonWrapper)}>{children}</div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -50,7 +98,13 @@ function DancingLights() {
 }
 
 // Types
+type CreationFormProps = {
+  isShown: boolean;
+  setIsShown: (isShown: boolean) => void;
+};
+
 type AnimatedGlassProps = {
+  purpose: 'button' | 'form';
   children: React.ReactNode;
 };
 
@@ -111,7 +165,11 @@ const greenLightAnimation = keyframes({
 
 // Styles
 const styles = create({
-  buttonContainer: {
+  glass: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    translate: '-50% -50%',
     borderRadius: borderRadius.l,
     padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
     cursor: 'pointer',

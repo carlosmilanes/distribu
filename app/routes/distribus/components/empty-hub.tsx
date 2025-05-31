@@ -5,7 +5,7 @@ import {
   fontWeights,
 } from '@/app/styles/vars.stylex';
 import { create, props } from 'stylex';
-import { LargeDistribuCreationButton } from '@/app/routes/distribus/components/large-distribu-creation-button';
+import { StartButton } from '@/app/routes/distribus/components/start-button';
 
 /**
  * EmptyHub displays a full-page empty state when no distribus exist.
@@ -19,21 +19,29 @@ export function EmptyHub() {
       {...props(styles.base)}
       aria-label='No distribus'
     >
+      <StartText />
+      <StartButton />
+    </main>
+  );
+}
+
+function StartText() {
+  return (
+    <div>
       <h1 {...props(styles.emptyTitle)}>No Distribus Here</h1>
       <p {...props(styles.emptyDescription)}>Get started by creating one</p>
-      <LargeDistribuCreationButton />
-    </main>
+    </div>
   );
 }
 
 // Styles
 const styles = create({
   base: {
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // minHeight: '100vh',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     backgroundColor: colors.background,
     textAlign: 'center',
     padding: fixedSizes.m2,

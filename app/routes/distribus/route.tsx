@@ -1,17 +1,44 @@
 import type { Route } from './+types/route';
-import { Link } from 'react-router';
+import { Link, redirect, Form } from 'react-router';
 import { useState, useEffect } from 'react';
 import { create, props } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
 import { EmptyHub } from './components/empty-hub';
 import { DistribusGrid } from './components/distribus-grid';
 import type { Distribu } from './components/distribus-grid';
+import { createDistribu } from '@/backend/database/actions/distribus';
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: 'Distribus - Select Workspace' },
     { name: 'description', content: 'Select or create a new distribu' },
   ];
+}
+
+/**
+ * Action handler for creating a new distribu
+ *
+ * @param request - Form data containing the distribu name
+ * @returns Redirect to the newly created distribu page
+ */
+export async function clientAction({ request }: Route.ActionArgs) {
+  const formData = await request.formData();
+  const name = formData.get('name') as string;
+
+  if (!name || !name.trim()) {
+    throw new Error('Distribu name is required');
+  }
+
+  try {
+    const result = await createDistribu(name.trim());
+    const slug = createSlug(name.trim());
+    return redirect(`/distribus/${slug}`);
+  } catch (error) {
+    throw new Error(
+      'Failed to create distribu: ' +
+        (error instanceof Error ? error.message : String(error))
+    );
+  }
 }
 
 export const clientLoader = () => {

@@ -1,7 +1,9 @@
 import { Button, type ButtonProps } from '@/app/components/core/button';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { fontSizes } from '@/app/styles/vars.stylex';
-import { create, props } from 'stylex';
+import { create } from 'stylex';
+import { Modal } from '@/app/components/core/modal';
+import { useState } from 'react';
+import { DistribuCreationForm } from './distribu-creation-form';
 
 /**
  * Simple button for creating a new distribu.
@@ -10,15 +12,26 @@ import { create, props } from 'stylex';
  * @returns Simple button element for creating distribus
  */
 export function DistribuCreationButton({ children, styling }: Props) {
-  const handleCreateClick = () => {
-    // TODO: Implement create distribu modal/form
-  };
+  const [isPressed, setIsPressed] = useState(false);
+
+  if (isPressed) {
+    return (
+      <Modal
+        isOpen={isPressed}
+        onOpenChange={setIsPressed}
+      >
+        <DistribuCreationForm />
+      </Modal>
+    );
+  }
 
   return (
     <Button
-      onPress={handleCreateClick}
       aria-label='Create new distribu'
       styling={styling}
+      onPress={() => {
+        setIsPressed(true);
+      }}
     >
       {children}
     </Button>
