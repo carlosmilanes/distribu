@@ -1,13 +1,6 @@
 import { DistribuCreationButton } from '@/app/routes/distribus/components/distribu-creation-button';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import {
-  colors,
-  dynamicSizes,
-  fixedSizes,
-  fontSizes,
-  shadows,
-} from '@/app/styles/vars.stylex';
-import { glass } from '@/app/styles/materials.stylex';
+import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { borderRadius } from '@/app/styles/vars.stylex';
 import { create, props, keyframes } from 'stylex';
 import { reactiveElevation } from '@/app/styles/elevations.stylex';
@@ -122,6 +115,10 @@ const styles = create({
     borderRadius: borderRadius.l,
     padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
     cursor: 'pointer',
+    ':focus-within': {
+      outline: `2px solid ${colors.income}`,
+      outlineOffset: '2px',
+    },
   },
   lightsContainer: {
     position: 'absolute',
@@ -137,6 +134,10 @@ const styles = create({
   button: {
     fontSize: fontSizes.xl,
     color: colors.income,
+    ':focus': {
+      outline: 'none',
+      boxShadow: 'none',
+    },
   },
   plusIcon: {
     width: fontSizes.xxl,
