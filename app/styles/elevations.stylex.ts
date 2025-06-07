@@ -1,6 +1,5 @@
 import { create } from 'stylex';
-import { colors, shadows } from './vars.stylex';
-import type { StyleXVar } from '@stylexjs/stylex/lib/StyleXTypes';
+import { shadows } from './vars.stylex';
 
 export const elevation = create({
   low: {
@@ -17,6 +16,12 @@ export const elevation = create({
   },
 });
 
+/**
+ * Reactive elevation styles that provide hover and active state animations with shadow transitions.
+ *
+ * **Warning**: If `overflow: hidden` is applied to the same element, the elevation effect will not be shown
+ * since the pseudo-element shadows extend beyond the element bounds and will be clipped.
+ */
 export const reactiveElevation = create({
   low: {
     position: 'relative',
