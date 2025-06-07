@@ -37,11 +37,11 @@ function StartText() {
 // Styles
 const styles = create({
   base: {
-    // minHeight: '100vh',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.background,
     textAlign: 'center',
     padding: fixedSizes.m2,

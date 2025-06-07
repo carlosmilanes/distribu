@@ -4,10 +4,11 @@ import { borderRadius } from '@/app/styles/vars.stylex';
 import { create, props, keyframes } from 'stylex';
 import { elevation, reactiveElevation } from '@/app/styles/elevations.stylex';
 import { Button } from '@/app/components/core/button';
+import { Modal } from '@/app/components/core/modal';
 import { useState } from 'react';
 import { DistribuCreationForm } from './distribu-creation-form';
-import { Dialog, Modal, ModalOverlay } from 'react-aria-components';
 import { motion } from 'motion/react';
+import { useOutsidePress } from '@/app/hooks/use-outside-press';
 
 /**
  * Large, prominent button for creating a new distribu with fancy animations.
@@ -20,70 +21,48 @@ export function StartButton() {
   const [isPressed, setIsPressed] = useState(false);
 
   return (
-    <>
+    <div {...props(styles.base)}>
       {isPressed ? (
-        <CreationForm
-          isShown={isPressed}
-          setIsShown={setIsPressed}
-        />
+        <CreationForm setIsShown={setIsPressed} />
       ) : (
         <CreationButton onPress={() => setIsPressed(true)} />
       )}
-    </>
+    </div>
   );
 }
 
 function CreationButton({ onPress }: { onPress: () => void }) {
   return (
-    <AnimatedGlass purpose='button'>
-      <Button
-        styling={styles.button}
-        onPress={onPress}
-      >
-        <PlusIcon {...props(styles.plusIcon)} />
-        Create Distribu
-      </Button>
-    </AnimatedGlass>
-  );
-}
-
-function CreationForm({ isShown, setIsShown }: CreationFormProps) {
-  return (
-    <ModalOverlay
-      isOpen={isShown}
-      onOpenChange={setIsShown}
-      isDismissable
-    >
-      <Modal>
-        <Dialog>
-          <AnimatedGlass purpose='form'>
-            <DistribuCreationForm />
-          </AnimatedGlass>
-        </Dialog>
-      </Modal>
-    </ModalOverlay>
-  );
-}
-
-/**
- * Animated glass container with moving colored lights background.
- * Provides a decorative container with income-themed light animations.
- *
- * @param children - Content to display inside the animated container
- * @returns Glass container with animated light effects
- */
-function AnimatedGlass({ children, purpose }: AnimatedGlassProps) {
-  return (
-    <motion.div
-      layoutId='start-button'
-      {...props([
-        purpose === 'button' ? reactiveElevation.low : elevation.low,
-        styles.glass,
-      ])}
+    <Button
+      styling={[reactiveElevation.low, styles.button]}
+      onPress={onPress}
     >
       <DancingLights />
-      <div {...props(styles.buttonWrapper)}>{children}</div>
-    </motion.div>
+      <ButtonText />
+    </Button>
+  );
+}
+
+function ButtonText() {
+  return (
+    <div {...props(styles.buttonText)}>
+      <PlusIcon {...props(styles.plusIcon)} />
+      Create Distribu
+    </div>
+  );
+}
+
+function CreationForm({ setIsShown }: CreationFormProps) {
+  const ref = useOutsidePress<HTMLDivElement>(() => setIsShown(false));
+
+  return (
+    <div
+      {...props(elevation.low, styles.modal)}
+      ref={ref}
+    >
+      <DancingLights />
+      <DistribuCreationForm />
+    </div>
   );
 }
 
@@ -99,13 +78,7 @@ function DancingLights() {
 
 // Types
 type CreationFormProps = {
-  isShown: boolean;
   setIsShown: (isShown: boolean) => void;
-};
-
-type AnimatedGlassProps = {
-  purpose: 'button' | 'form';
-  children: React.ReactNode;
 };
 
 // Define the keyframes animations for each light
@@ -164,42 +137,57 @@ const greenLightAnimation = keyframes({
 });
 
 // Styles
+const shared = {
+  border: `1px solid ${colors.glassyBorder}`,
+};
+
 const styles = create({
-  glass: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    translate: '-50% -50%',
+  base: {},
+
+  // Button
+  button: {
+    fontSize: fontSizes.xl,
+    color: colors.income,
     borderRadius: borderRadius.l,
     padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
-    cursor: 'pointer',
-    ':focus-within': {
+    border: shared.border,
+    ':focus': {
       outline: `2px solid ${colors.income}`,
-      outlineOffset: '2px',
+    },
+    ':active': {
+      outline: 'none',
     },
   },
+
+  buttonText: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: dynamicSizes.s1,
+    zIndex: 2,
+  },
+
+  plusIcon: {
+    width: fontSizes.xxl,
+    height: fontSizes.xxl,
+  },
+
+  // Modal
+  modal: {
+    position: 'relative',
+    border: shared.border,
+    width: 'fit-content',
+    height: 'fit-content',
+    maxWidth: '90vw',
+    maxHeight: '90vh',
+  },
+
+  // Dancing lights
   lightsContainer: {
+    border: 'inherit',
     position: 'absolute',
     inset: 0,
     borderRadius: 'inherit',
     overflow: 'hidden',
-    border: `1px solid ${colors.glassyBorder}`,
-  },
-  buttonWrapper: {
-    position: 'relative',
-    zIndex: 2,
-  },
-  button: {
-    fontSize: fontSizes.xl,
-    color: colors.income,
-    ':focus': {
-      outline: 'none',
-      boxShadow: 'none',
-    },
-  },
-  plusIcon: {
-    width: fontSizes.xxl,
-    height: fontSizes.xxl,
   },
   orangeLight: {
     position: 'absolute',
