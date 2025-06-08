@@ -1,5 +1,5 @@
-import { useEffect, type RefObject } from 'react';
-import { useStableCallback } from './use-stable-callback';
+import { type RefObject } from 'react';
+import { useEventListener } from './use-event-listener';
 
 /**
  * Foundation hook for listening to keyboard events
@@ -12,20 +12,12 @@ export function useKeyDown(
   callback: () => void,
   scopeRef?: RefObject<EventTarget> | null
 ) {
-  const stableCallback = useStableCallback(callback);
-
-  useEffect(() => {
-    const scope = scopeRef?.current || document;
-
-    function handleKeyDown(event: Event) {
-      const keyboardEvent = event as KeyboardEvent;
-      if (keyboardEvent.key === key) {
-        keyboardEvent.preventDefault();
-        stableCallback();
-      }
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === key) {
+      event.preventDefault();
+      callback();
     }
+  };
 
-    scope.addEventListener('keydown', handleKeyDown);
-    return () => scope.removeEventListener('keydown', handleKeyDown);
-  }, [key, stableCallback]);
+  useEventListener('keydown', handleKeyDown, scopeRef);
 }
