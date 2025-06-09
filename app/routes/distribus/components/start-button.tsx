@@ -23,7 +23,7 @@ export function StartButton() {
   return (
     <div {...props(styles.base)}>
       {isPressed ? (
-        <CreationForm setIsShown={setIsPressed} />
+        <CreationForm onDismiss={() => setIsPressed(false)} />
       ) : (
         <CreationButton onPress={() => setIsPressed(true)} />
       )}
@@ -38,12 +38,12 @@ function CreationButton({ onPress }: { onPress: () => void }) {
       onPress={onPress}
     >
       <DancingLights />
-      <ButtonText />
+      <ButtonContent />
     </Button>
   );
 }
 
-function ButtonText() {
+function ButtonContent() {
   return (
     <div {...props(styles.buttonText)}>
       <PlusIcon {...props(styles.plusIcon)} />
@@ -52,12 +52,12 @@ function ButtonText() {
   );
 }
 
-function CreationForm({ setIsShown }: CreationFormProps) {
-  const ref = useDismiss<HTMLDivElement>(() => setIsShown(false));
+function CreationForm({ onDismiss }: CreationFormProps) {
+  const ref = useDismiss<HTMLDivElement>(onDismiss);
 
   return (
     <div
-      {...props(elevation.low, styles.modal)}
+      {...props(elevation.low, styles.form)}
       ref={ref}
     >
       <DancingLights />
@@ -78,7 +78,7 @@ function DancingLights() {
 
 // Types
 type CreationFormProps = {
-  setIsShown: (isShown: boolean) => void;
+  onDismiss: () => void;
 };
 
 // Define the keyframes animations for each light
@@ -138,7 +138,7 @@ const greenLightAnimation = keyframes({
 
 // Styles
 const shared = {
-  border: `1px solid ${colors.glassyBorder}`,
+  border: `0.5px solid ${colors.glassyBorder}`,
 };
 
 const styles = create({
@@ -146,8 +146,9 @@ const styles = create({
 
   // Button
   button: {
-    fontSize: fontSizes.xl,
+    backgroundColor: colors.secondaryBackground,
     color: colors.income,
+    fontSize: fontSizes.xl,
     borderRadius: borderRadius.l,
     padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
     border: shared.border,
@@ -172,7 +173,7 @@ const styles = create({
   },
 
   // Modal
-  modal: {
+  form: {
     position: 'relative',
     border: shared.border,
     width: 'fit-content',
