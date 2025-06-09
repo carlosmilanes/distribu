@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { DistribuCreationForm } from './distribu-creation-form';
 import { motion } from 'motion/react';
 import { useDismiss } from '@/app/hooks/event-listeners/use-dismiss';
+import { MotionButton } from '@/app/components/buttons/motion-button';
 
 /**
  * Large, prominent button for creating a new distribu with fancy animations.
@@ -33,13 +34,14 @@ export function StartButton() {
 
 function CreationButton({ onPress }: { onPress: () => void }) {
   return (
-    <Button
+    <MotionButton
+      layoutId="start"
       styling={[reactiveElevation.low, styles.button]}
       onPress={onPress}
     >
       <DancingLights />
       <ButtonContent />
-    </Button>
+    </MotionButton>
   );
 }
 
@@ -56,13 +58,14 @@ function CreationForm({ onDismiss }: CreationFormProps) {
   const ref = useDismiss<HTMLDivElement>(onDismiss);
 
   return (
-    <div
+    <motion.div
       {...props(elevation.low, styles.form)}
+      layoutId="start"
       ref={ref}
     >
       <DancingLights />
       <DistribuCreationForm />
-    </div>
+    </motion.div>
   );
 }
 
