@@ -8,7 +8,7 @@ import { Modal } from '@/app/components/core/modal';
 import { useState } from 'react';
 import { DistribuCreationForm } from './distribu-creation-form';
 import { motion } from 'motion/react';
-import { useOutsidePress } from '@/app/hooks/use-outside-press';
+import { useDismiss } from '@/app/hooks/event-listeners/use-dismiss';
 
 /**
  * Large, prominent button for creating a new distribu with fancy animations.
@@ -53,7 +53,7 @@ function ButtonText() {
 }
 
 function CreationForm({ setIsShown }: CreationFormProps) {
-  const ref = useOutsidePress<HTMLDivElement>(() => setIsShown(false));
+  const ref = useDismiss<HTMLDivElement>(() => setIsShown(false));
 
   return (
     <div

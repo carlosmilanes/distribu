@@ -1,6 +1,6 @@
 import { useRef, type RefObject } from 'react';
-import { useDocumentEventListener } from './event-listeners/use-document-event-listener';
-import { useStableCallback } from './use-stable-callback';
+import { useDocumentEventListener } from './use-document-event-listener';
+import { useStableCallback } from '../use-stable-callback';
 
 /**
  * Hook that triggers a handler when clicking or touching outside a referenced element.

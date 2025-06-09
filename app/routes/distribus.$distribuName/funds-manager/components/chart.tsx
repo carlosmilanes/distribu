@@ -12,7 +12,7 @@ import {
   fontSizes,
 } from '@/app/styles/vars.stylex';
 import { useState } from 'react';
-import { useOutsidePress } from '@/app/hooks/use-outside-press';
+import { useOutsidePress } from '@/app/hooks/use-outside';
 import { TertiaryText } from '@/app/components/text/tertiary-text';
 import { glass } from '@/app/styles/materials.stylex';
 
