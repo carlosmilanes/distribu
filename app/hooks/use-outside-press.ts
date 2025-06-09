@@ -1,35 +1,44 @@
-import { useRef, useEffect } from 'react';
+import { useRef, type RefObject } from 'react';
+import { useDocumentEventListener } from './event-listeners/use-document-event-listener';
+import { useStableCallback } from './use-stable-callback';
 
 /**
- * Hook that handles outside interactions (mouse, touch, scroll) for any HTML element
- * @param callback Function to call when an interaction outside the element is detected
- * @returns Ref to be attached to the element that should detect outside interactions
+ * Hook that triggers a handler when clicking or touching outside a referenced element.
+ *
+ * @template T - The type of HTML element to attach the ref to
+ * @param handler - Function called when clicking/touching outside the referenced element
+ * @returns A ref object to attach to the target element
+ *
+ * @example
+ * ```tsx
+ * function Modal() {
+ *   const [isOpen, setIsOpen] = useState(true);
+ *   const modalRef = useOutsidePress<HTMLDivElement>(() => setIsOpen(false));
+ *
+ *   return (
+ *     <div ref={modalRef} className="modal">
+ *       Modal content
+ *     </div>
+ *   );
+ * }
+ * ```
  */
-export function useOutsidePress<T extends HTMLElement>(callback: () => void) {
+export function useOutsidePress<T extends HTMLElement = HTMLElement>(
+  handler: (event: MouseEvent | TouchEvent) => void
+): RefObject<T | null> {
   const ref = useRef<T>(null);
+  const stableHandler = useStableCallback(handler);
 
-  useEffect(() => {
-    function handleOutsidePress(e: Event) {
-      if (
-        ref.current &&
-        e.composedPath() &&
-        !e.composedPath().includes(ref.current)
-      ) {
-        callback();
-      }
+  function handleEvent(event: MouseEvent | TouchEvent) {
+    const target = event.target;
+    if (!ref.current || !target || ref.current.contains(target as Node)) {
+      return;
     }
+    stableHandler(event);
+  }
 
-    document.addEventListener('mousedown', handleOutsidePress);
-    document.addEventListener('touchstart', handleOutsidePress);
-    document.addEventListener('scroll', handleOutsidePress, true); // Use capture phase
-
-    // Clean up the event listeners
-    return () => {
-      document.removeEventListener('mousedown', handleOutsidePress);
-      document.removeEventListener('touchstart', handleOutsidePress);
-      document.removeEventListener('scroll', handleOutsidePress, true);
-    };
-  }, [callback]);
+  useDocumentEventListener('click', handleEvent);
+  useDocumentEventListener('touchstart', handleEvent, { passive: true });
 
   return ref;
 }
