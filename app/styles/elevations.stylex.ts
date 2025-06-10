@@ -64,7 +64,6 @@ export const reactiveElevation = create({
 
     ':active': {
       scale: 0.98,
-      boxShadow: 'none',
       '::before': {
         opacity: 0,
       },

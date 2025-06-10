@@ -1,8 +1,8 @@
 import { PrimaryButton } from '@/app/components/buttons/primary-button';
 import { create, props, type StyleXStyles } from 'stylex';
 import { Form } from 'react-router';
-import { dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
-import { useRef, useEffect } from 'react';
+import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
+import { useRef, useEffect, useState } from 'react';
 
 /**
  * React Router form for creating a new distribu
@@ -10,18 +10,23 @@ import { useRef, useEffect } from 'react';
  * @returns Form element for entering distribu name
  */
 export function DistribuCreationForm({ styling }: { styling?: StyleXStyles }) {
+  const [inputValue, setInputValue] = useState('');
+
   return (
     <Form
-      {...props(styles.form, styling)}
+      {...props(styling)}
       method='post'
     >
-      <NameInput />
-      <SubmitButton />
+      <NameInput
+        value={inputValue}
+        onChange={setInputValue}
+      />
+      <SubmitButton disabled={inputValue.trim() === ''} />
     </Form>
   );
 }
 
-function NameInput() {
+function NameInput({ value, onChange }: NameInputProps) {
   const inputRef = useAutoFocus();
 
   return (
@@ -31,6 +36,8 @@ function NameInput() {
       type='text'
       id='name'
       name='name'
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       required
       placeholder='Pick a name...'
       aria-label='New distribu name'
@@ -55,11 +62,12 @@ function useAutoFocus() {
   return inputRef;
 }
 
-function SubmitButton() {
+function SubmitButton({ disabled }: { disabled: boolean }) {
   return (
     <PrimaryButton
       styling={styles.button}
       type='submit'
+      isDisabled={disabled}
       onPress={() => {}}
     >
       Let's go!
@@ -67,23 +75,17 @@ function SubmitButton() {
   );
 }
 
-const styles = create({
-  form: {
-    width: '100%',
-  },
-  title: {
-    fontSize: '1.25rem',
-    fontWeight: '600',
-    marginBottom: '1rem',
-    color: '#111827',
-  },
+type NameInputProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
 
+const styles = create({
   input: {
     width: '100%',
     marginBottom: dynamicSizes.m1,
-    padding: '0.5rem 0',
-    border: 'none',
-    borderBottom: '1px solid #d1d5db',
+    padding: `${dynamicSizes.s1} 0`,
+    borderBottom: `1px solid ${colors.gray4}`,
     fontSize: fontSizes.l,
     ':focus': {
       outline: 'none',
@@ -91,11 +93,6 @@ const styles = create({
     '::placeholder': {
       fontStyle: 'italic',
     },
-  },
-  buttonGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: '1.5rem',
   },
 
   button: {
