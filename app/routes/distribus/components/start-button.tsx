@@ -3,13 +3,11 @@ import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { borderRadius } from '@/app/styles/vars.stylex';
 import { create, props, keyframes } from 'stylex';
 import { elevation, reactiveElevation } from '@/app/styles/elevations.stylex';
-import { Button } from '@/app/components/core/button';
-import { Modal } from '@/app/components/core/modal';
 import { useState } from 'react';
 import { DistribuCreationForm } from './distribu-creation-form';
-import { motion } from 'motion/react';
 import { useDismiss } from '@/app/hooks/event-listeners/use-dismiss';
 import { MotionButton } from '@/app/components/buttons/motion-button';
+import { MotionContainer } from '@/app/components/motion-container';
 
 /**
  * Large, prominent button for creating a new distribu with fancy animations.
@@ -35,7 +33,7 @@ export function StartButton() {
 function CreationButton({ onPress }: { onPress: () => void }) {
   return (
     <MotionButton
-      layoutId="start"
+      layoutId='start'
       styling={[reactiveElevation.low, styles.button]}
       onPress={onPress}
     >
@@ -47,7 +45,7 @@ function CreationButton({ onPress }: { onPress: () => void }) {
 
 function ButtonContent() {
   return (
-    <div {...props(styles.buttonText)}>
+    <div {...props(styles.buttonContent)}>
       <PlusIcon {...props(styles.plusIcon)} />
       Create Distribu
     </div>
@@ -58,14 +56,14 @@ function CreationForm({ onDismiss }: CreationFormProps) {
   const ref = useDismiss<HTMLDivElement>(onDismiss);
 
   return (
-    <motion.div
-      {...props(elevation.low, styles.form)}
-      layoutId="start"
+    <MotionContainer
+      {...props(elevation.medium, styles.formContainer)}
+      layoutId='start'
       ref={ref}
     >
       <DancingLights />
-      <DistribuCreationForm />
-    </motion.div>
+      <DistribuCreationForm styling={styles.form} />
+    </MotionContainer>
   );
 }
 
@@ -141,7 +139,10 @@ const greenLightAnimation = keyframes({
 
 // Styles
 const shared = {
+  backgroundColor: colors.secondaryBackground,
   border: `0.5px solid ${colors.glassyBorder}`,
+  borderRadius: borderRadius.l,
+  padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
 };
 
 const styles = create({
@@ -149,11 +150,11 @@ const styles = create({
 
   // Button
   button: {
-    backgroundColor: colors.secondaryBackground,
+    backgroundColor: shared.backgroundColor,
     color: colors.income,
     fontSize: fontSizes.xl,
-    borderRadius: borderRadius.l,
-    padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
+    borderRadius: shared.borderRadius,
+    padding: shared.padding,
     border: shared.border,
     ':focus': {
       outline: `2px solid ${colors.income}`,
@@ -163,7 +164,7 @@ const styles = create({
     },
   },
 
-  buttonText: {
+  buttonContent: {
     display: 'flex',
     alignItems: 'center',
     gap: dynamicSizes.s1,
@@ -175,14 +176,21 @@ const styles = create({
     height: fontSizes.xxl,
   },
 
-  // Modal
-  form: {
+  formContainer: {
     position: 'relative',
+    backgroundColor: shared.backgroundColor,
     border: shared.border,
+    borderRadius: shared.borderRadius,
+    padding: shared.padding,
     width: 'fit-content',
     height: 'fit-content',
     maxWidth: '90vw',
     maxHeight: '90vh',
+  },
+
+  form: {
+    position: 'relative',
+    zIndex: 2,
   },
 
   // Dancing lights

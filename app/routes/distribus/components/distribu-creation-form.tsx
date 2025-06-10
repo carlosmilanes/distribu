@@ -1,54 +1,74 @@
-import { Button } from '@/app/components/core/button';
-import { create, props } from 'stylex';
+import { PrimaryButton } from '@/app/components/buttons/primary-button';
+import { create, props, type StyleXStyles } from 'stylex';
 import { Form } from 'react-router';
+import { dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
+import { useRef, useEffect } from 'react';
 
 /**
  * React Router form for creating a new distribu
  *
  * @returns Form element for entering distribu name
  */
-export function DistribuCreationForm() {
+export function DistribuCreationForm({ styling }: { styling?: StyleXStyles }) {
   return (
     <Form
+      {...props(styles.form, styling)}
       method='post'
-      {...props(styles.form)}
     >
-      <h2 {...props(styles.title)}>Create New Distribu</h2>
-
-      <div {...props(styles.inputGroup)}>
-        <label
-          htmlFor='name'
-          {...props(styles.label)}
-        >
-          Distribu Name
-        </label>
-        <input
-          type='text'
-          id='name'
-          name='name'
-          required
-          placeholder='Enter distribu name...'
-          {...props(styles.input)}
-        />
-      </div>
-
-      <div {...props(styles.buttonGroup)}>
-        <Button
-          type='submit'
-          styling={styles.submitButton}
-          onPress={() => {}}
-        >
-          Create Distribu
-        </Button>
-      </div>
+      <NameInput />
+      <SubmitButton />
     </Form>
+  );
+}
+
+function NameInput() {
+  const inputRef = useAutoFocus();
+
+  return (
+    <input
+      {...props(styles.input)}
+      ref={inputRef}
+      type='text'
+      id='name'
+      name='name'
+      required
+      placeholder='Pick a name...'
+      aria-label='New distribu name'
+    />
+  );
+}
+
+/**
+ * Custom hook for automatically focusing an input element
+ *
+ * @returns Ref object to be attached to an input element
+ */
+function useAutoFocus() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  return inputRef;
+}
+
+function SubmitButton() {
+  return (
+    <PrimaryButton
+      styling={styles.button}
+      type='submit'
+      onPress={() => {}}
+    >
+      Let's go!
+    </PrimaryButton>
   );
 }
 
 const styles = create({
   form: {
-    padding: '1.5rem',
-    maxWidth: '400px',
     width: '100%',
   },
   title: {
@@ -57,26 +77,19 @@ const styles = create({
     marginBottom: '1rem',
     color: '#111827',
   },
-  inputGroup: {
-    marginBottom: '1rem',
-  },
-  label: {
-    display: 'block',
-    fontSize: '0.875rem',
-    fontWeight: '500',
-    marginBottom: '0.5rem',
-    color: '#374151',
-  },
+
   input: {
     width: '100%',
-    padding: '0.5rem 0.75rem',
-    border: '1px solid #d1d5db',
-    borderRadius: '0.375rem',
-    fontSize: '1rem',
+    marginBottom: dynamicSizes.m1,
+    padding: '0.5rem 0',
+    border: 'none',
+    borderBottom: '1px solid #d1d5db',
+    fontSize: fontSizes.l,
     ':focus': {
-      outline: '2px solid #3b82f6',
-      outlineOffset: '2px',
-      borderColor: '#3b82f6',
+      outline: 'none',
+    },
+    '::placeholder': {
+      fontStyle: 'italic',
     },
   },
   buttonGroup: {
@@ -84,11 +97,9 @@ const styles = create({
     justifyContent: 'flex-end',
     marginTop: '1.5rem',
   },
-  submitButton: {
-    backgroundColor: '#3b82f6',
-    color: '#ffffff',
-    ':hover': {
-      backgroundColor: '#2563eb',
-    },
+
+  button: {
+    margin: '0 auto',
+    fontSize: fontSizes.l,
   },
 });

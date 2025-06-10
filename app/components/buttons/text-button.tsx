@@ -18,5 +18,7 @@ export const TextButton = ({
 };
 
 const styles = create({
-  button: {},
+  button: {
+    lineHeight: 1,
+  },
 });
