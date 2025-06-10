@@ -8,6 +8,7 @@ import { DistribuCreationForm } from './distribu-creation-form';
 import { useDismiss } from '@/app/hooks/event-listeners/use-dismiss';
 import { MotionButton } from '@/app/components/buttons/motion-button';
 import { MotionContainer } from '@/app/components/motion-container';
+import { layoutTransitions } from '@/app/motion/presets';
 
 /**
  * Large, prominent button for creating a new distribu with fancy animations.
@@ -20,13 +21,13 @@ export function StartButton() {
   const [isPressed, setIsPressed] = useState(false);
 
   return (
-    <div {...props(styles.base)}>
+    <>
       {isPressed ? (
         <CreationForm onDismiss={() => setIsPressed(false)} />
       ) : (
         <CreationButton onPress={() => setIsPressed(true)} />
       )}
-    </div>
+    </>
   );
 }
 
@@ -36,6 +37,7 @@ function CreationButton({ onPress }: { onPress: () => void }) {
       layoutId='start'
       styling={[reactiveElevation.low, styles.button]}
       onPress={onPress}
+      transition={layoutTransitions.springy}
     >
       <DancingLights />
       <ButtonContent />
@@ -60,6 +62,7 @@ function CreationForm({ onDismiss }: CreationFormProps) {
       {...props(elevation.medium, styles.formContainer)}
       layoutId='start'
       ref={ref}
+      transition={layoutTransitions.springy}
     >
       <DancingLights />
       <DistribuCreationForm styling={styles.form} />
@@ -77,7 +80,6 @@ function DancingLights() {
   );
 }
 
-// Types
 type CreationFormProps = {
   onDismiss: () => void;
 };
@@ -146,9 +148,6 @@ const shared = {
 };
 
 const styles = create({
-  base: {},
-
-  // Button
   button: {
     backgroundColor: shared.backgroundColor,
     color: colors.income,
@@ -157,7 +156,7 @@ const styles = create({
     padding: shared.padding,
     border: shared.border,
     ':focus': {
-      outline: `2px solid ${colors.income}`,
+      outline: `1px solid ${colors.income}`,
     },
     ':active': {
       outline: 'none',
@@ -182,10 +181,6 @@ const styles = create({
     border: shared.border,
     borderRadius: shared.borderRadius,
     padding: shared.padding,
-    width: 'fit-content',
-    height: 'fit-content',
-    maxWidth: '90vw',
-    maxHeight: '90vh',
   },
 
   form: {
