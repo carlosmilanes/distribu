@@ -6,6 +6,9 @@ import {
 } from '@/app/styles/vars.stylex';
 import { create, props } from 'stylex';
 import { StartButton } from '@/app/routes/distribus/components/start-button';
+import { MotionContainer } from '@/app/components/motion-container';
+import { layoutTransitions } from '@/app/motion/presets';
+import { LayoutGroup } from 'motion/react';
 
 /**
  * EmptyHub displays a full-page empty state when no distribus exist.
@@ -15,26 +18,30 @@ import { StartButton } from '@/app/routes/distribus/components/start-button';
  */
 export function EmptyHub() {
   return (
-    <main
-      {...props(styles.base)}
-      aria-label='No distribus'
-    >
-      <StartText />
-      <StartButton />
-    </main>
+    <LayoutGroup>
+      <main
+        {...props(styles.base)}
+        aria-label='No distribus'
+      >
+        <StartText />
+        <StartButton />
+      </main>
+    </LayoutGroup>
   );
 }
 
 function StartText() {
   return (
-    <div>
+    <MotionContainer
+      layout
+      transition={layoutTransitions.springy}
+    >
       <h1 {...props(styles.emptyTitle)}>No Distribus Here</h1>
       <p {...props(styles.emptyDescription)}>Get started by creating one</p>
-    </div>
+    </MotionContainer>
   );
 }
 
-// Styles
 const styles = create({
   base: {
     minHeight: '100vh',
