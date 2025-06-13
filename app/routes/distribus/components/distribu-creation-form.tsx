@@ -1,6 +1,6 @@
 import { PrimaryButton } from '@/app/components/buttons/primary-button';
 import { create, props, type StyleXStyles } from 'stylex';
-import { Form } from 'react-router';
+import { useFetcher } from 'react-router';
 import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { useRef, useEffect, useState } from 'react';
 
@@ -10,10 +10,11 @@ import { useRef, useEffect, useState } from 'react';
  * @returns Form element for entering distribu name
  */
 export function DistribuCreationForm({ styling }: { styling?: StyleXStyles }) {
+  const fetcher = useFetcher();
   const [inputValue, setInputValue] = useState('');
 
   return (
-    <Form
+    <fetcher.Form
       {...props(styling)}
       method='post'
     >
@@ -22,7 +23,7 @@ export function DistribuCreationForm({ styling }: { styling?: StyleXStyles }) {
         onChange={setInputValue}
       />
       <SubmitButton disabled={inputValue.trim() === ''} />
-    </Form>
+    </fetcher.Form>
   );
 }
 
