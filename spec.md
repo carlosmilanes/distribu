@@ -2,7 +2,7 @@
 
 ## Overview
 
-Distribu is a full-stack financial management application built with React Router 7, TypeScript, and PostgreSQL. The application focuses on income distribution and reserve fund management, allowing users to track income sources, allocate funds to different reserves, and monitor usage patterns.
+Distribu is a full-stack financial management application built with React Router 7, TypeScript, and TinyBase. The application focuses on income distribution and reserve fund management, allowing users to track income sources, allocate funds to different reserves, and monitor usage patterns.
 
 The app focus is simplicity for the user, since many financial management applications are not easy to use.
 
@@ -88,12 +88,14 @@ The app combines elements of **envelope budgeting** and **zero-based budgeting**
 
 ### Backend Stack
 
-- **Runtime**: Node.js
-- **Database**: PostgreSQL with PGLite (offline-first approach)
-- **ORM**: Drizzle ORM
-- **Authentication**: Custom session-based auth
-- **Storage**: IndexedDB and filesystem for offline functionality
-- **Deployment**: Vercel (initial target)
+- **Runtime**: Node.js (development), Cloudflare Workers (production)
+- **Data Store**: TinyBase with MergeableStore for collaboration
+- **Local Persistence**: Browser LocalPersister (Phase 1), PglitePersister (Phase 2)
+- **Server Persistence**: Cloudflare Durable Objects with TinyBase persistence
+- **Synchronization**: WebSocket-based real-time sync with conflict resolution
+- **Authentication**: Custom session-based auth with Cloudflare integration
+- **Offline Support**: Native offline-first with eventual synchronization
+- **Deployment**: Cloudflare (Durable Objects + Workers)
 
 ### Key Features
 
@@ -120,12 +122,18 @@ The app combines elements of **envelope budgeting** and **zero-based budgeting**
 
 ## Development Workflow
 
-### Database Management
+### Data Management
 
-- `pnpm migrate`: Apply schema changes
-- `pnpm seed`: Populate with test data
-- `pnpm studio`: Open Drizzle Studio for data inspection
-- `pnpm db`: Run database tests
+- `pnpm dev`: Start development server with TinyBase local persistence
+- `pnpm build`: Create production build with Cloudflare Workers
+- `pnpm typecheck`: Run TypeScript validation
+
+#### TinyBase Development Tools
+
+- Browser DevTools: Inspect TinyBase stores and data flow
+- TinyBase Inspector: Runtime data inspection and debugging
+- Local persistence testing with different scenarios
+- Collaboration simulation with multiple browser instances
 
 ### Development Commands
 
@@ -172,32 +180,35 @@ The app combines elements of **envelope budgeting** and **zero-based budgeting**
 
 ## Planned Features & Future Development
 
-### Current Development Focus
+### Current Development Focus (Phase 1)
 
-- Offline-first architecture using IndexedDB and filesystem
-- Local storage with PGLite and Drizzle ORM
+- Local-first architecture using TinyBase with LocalPersister
 - Core fund management and reserve functionality
+- Complete UI implementation with offline support
 
-### Planned Features
+### Planned Features (Phase 2-3)
 
-- Reserve amount matching (easy adjustment to match actual usage)
-- Monthly archive system
+- Real-time collaboration with MergeableStore and WebSocket synchronization
+- Cross-device synchronization via Cloudflare Durable Objects
+- Conflict resolution for concurrent editing scenarios
+- Monthly archive system with TinyBase persistence
 - Month-end notifications and manual transition controls
 - Notification system for recurring transactions
 - Fund carryover between months
 - Reserve activation notifications and controls
 
-### Future Considerations (Lower Priority)
+### Future Considerations (Phase 4+)
 
-- Online synchronization architecture and conflict resolution
-- Historical analysis, reporting, and month-to-month comparisons
-- Tag-based statistical analysis and trends
+- Native iOS and Android apps with TinyBase synchronization
+- Advanced historical analysis and reporting with TinyBase Queries
+- Tag-based statistical analysis using TinyBase Indexes and Metrics
 - Enhanced reporting and analytics
-- Mobile app development
+- REST API layer for third-party integrations
 - Export/import functionality
 
 ### Explicitly Not Planned
 
+- Traditional database integrations (PostgreSQL, MySQL, etc.)
 - Bank integrations
 - Payment system integrations
 - Third-party financial tool connections
