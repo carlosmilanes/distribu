@@ -27,7 +27,8 @@
     "react": "^19.1.0",
     "react-aria-components": "^1.10.0",
     "react-dom": "^19.1.0",
-    "react-router": "^7.6.2"
+    "react-router": "^7.6.2",
+    "tinybase": "^6.2.1"
   },
   "devDependencies": {
     "@react-router/dev": "^7.6.2",
