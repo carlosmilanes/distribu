@@ -1,7 +1,7 @@
 import type { Route } from './+types/route';
 import { FundsManager } from './funds-manager';
 import { slugToDisplayName } from '@/app/utils/slug';
-import { mockFundsData } from '@/backend/mockData';
+import { mockFundsData } from '@/drizzle/mockData';
 // import { Picture } from '@/distribu/funds-manager/components/picture';
 
 export function meta({ params }: Route.MetaArgs) {
@@ -15,13 +15,13 @@ export function meta({ params }: Route.MetaArgs) {
   ];
 }
 
-export const clientLoader = ({ params }: Route.LoaderArgs) => {
+export async function clientLoader({ params }: Route.LoaderArgs) {
   return {
     fundsData: mockFundsData,
     distribuName: params.distribuName,
     displayName: slugToDisplayName(params.distribuName),
   };
-};
+}
 
 export default function Distribu({ loaderData }: Route.ComponentProps) {
   return (

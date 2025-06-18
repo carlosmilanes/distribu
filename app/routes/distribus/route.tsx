@@ -1,12 +1,11 @@
 import type { Route } from './+types/route';
-import { Link, redirect, Form } from 'react-router';
+import { redirect } from 'react-router';
 import { useState, useEffect } from 'react';
 import { create, props } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
 import { EmptyHub } from './components/empty-hub';
 import { DistribusGrid } from './components/distribus-grid';
 import type { Distribu } from './components/distribus-grid';
-import { createDistribu } from '@/backend/database/actions/distribus';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -29,16 +28,8 @@ export async function clientAction({ request }: Route.ActionArgs) {
     throw new Error('Distribu name is required');
   }
 
-  try {
-    const result = await createDistribu(name.trim());
-    const slug = createSlug(name.trim());
-    return redirect(`/distribus/${slug}`);
-  } catch (error) {
-    throw new Error(
-      'Failed to create distribu: ' +
-        (error instanceof Error ? error.message : String(error))
-    );
-  }
+  const distribuName = createSlug(name.trim());
+  return redirect(`/distribus/${distribuName}`);
 }
 
 export const clientLoader = () => {
