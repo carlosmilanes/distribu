@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import type { FundsStatus } from '@/backend/types';
+import type { FundsStatus } from '@/drizzle/types';
 import { QuaternaryText } from '@/app/components/text/quaternary-text';
 import { StatusBar } from './status-bar';
 import { findBasicPercentage } from '@/app/utils/findBasicPercentage';
@@ -12,13 +12,13 @@ import {
   fontSizes,
 } from '@/app/styles/vars.stylex';
 import { useState } from 'react';
-import { useOutsidePress } from '@/app/hooks/use-outside';
+import { useDismiss } from '@/app/hooks/event-listeners/use-dismiss';
 import { TertiaryText } from '@/app/components/text/tertiary-text';
 import { glass } from '@/app/styles/materials.stylex';
 
 export function Chart({ status }: { status: FundsStatus }) {
   const [collapsed, setCollapsed] = useState(false);
-  const ref = useOutsidePress<HTMLDivElement>(() => setCollapsed(true));
+  const ref = useDismiss<HTMLDivElement>(() => setCollapsed(true));
 
   return (
     <div

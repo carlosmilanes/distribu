@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ArrowPathIcon, ClockIcon } from '@heroicons/react/24/outline';
-import type { Income } from '@/backend/types';
+import type { Income } from '@/drizzle/types';
 import { DeletionHelper } from '@/app/components/deletion-helper';
 import { EscapeHelper } from '@/app/components/escape-helper';
 import { Switch } from '@/app/components/core/switch';

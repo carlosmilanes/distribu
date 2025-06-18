@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import type { FundsData } from '@/backend/types';
+import type { FundsData } from '@/drizzle/types';
 import { AddIncomeButton } from './add-income-button';
 import { StatusBar } from './status-bar';
 import { Money } from '@/app/components/money';
