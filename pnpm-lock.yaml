@@ -23,6 +23,9 @@ importers:
       '@react-router/serve':
         specifier: ^7.6.2
         version: 7.6.2(react-router@7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)
+      '@sqlite.org/sqlite-wasm':
+        specifier: 3.50.1-build1
+        version: 3.50.1-build1
       '@stylex-extend/vite':
         specifier: ^0.7.1
         version: 0.7.1(jiti@2.4.2)(postcss@8.5.4)(rollup@4.42.0)(tsx@4.19.4)
@@ -41,6 +44,9 @@ importers:
       motion:
         specifier: ^12.16.0
         version: 12.16.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      persister-sqlite-wasm:
+        specifier: link:tinybase/persisters/persister-sqlite-wasm
+        version: link:tinybase/persisters/persister-sqlite-wasm
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -55,7 +61,7 @@ importers:
         version: 7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tinybase:
         specifier: ^6.2.1
-        version: 6.2.1(@electric-sql/pglite@0.3.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 6.2.1(@electric-sql/pglite@0.3.1)(@sqlite.org/sqlite-wasm@3.50.1-build1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@react-router/dev':
         specifier: ^7.6.2
@@ -1947,6 +1953,10 @@ packages:
     resolution: {integrity: sha512-LpHiJRwkaVz/LqjHjK8LCi8osq7elmpwujwbXKNW88bM8eeGxavJIKKjkjpMHAh/2xfnrt1ZSnhTv41WYUHYmA==}
     cpu: [x64]
     os: [win32]
+
+  '@sqlite.org/sqlite-wasm@3.50.1-build1':
+    resolution: {integrity: sha512-yH4M/SHN98NibniIwTVk6rwTJjy7n39l7zwWY3u+qsfZBGTi4lC1uEl2NDvIlkzsFtfCBvHBJJFJ1iuU3UzzEQ==}
+    hasBin: true
 
   '@stylex-extend/babel-plugin@0.7.1':
     resolution: {integrity: sha512-3pFgDMUrx5ZP1iHfeQiv26DCThIWpqwLb3/TMYG/QjjhW7ajTpm7dAI7O3RIPEBo8VSatXOg+ijU4H9UlRcYnQ==}
@@ -5972,6 +5982,8 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.42.0':
     optional: true
 
+  '@sqlite.org/sqlite-wasm@3.50.1-build1': {}
+
   '@stylex-extend/babel-plugin@0.7.1':
     dependencies:
       '@babel/core': 7.26.10
@@ -7569,9 +7581,10 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  tinybase@6.2.1(@electric-sql/pglite@0.3.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  tinybase@6.2.1(@electric-sql/pglite@0.3.1)(@sqlite.org/sqlite-wasm@3.50.1-build1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     optionalDependencies:
       '@electric-sql/pglite': 0.3.1
+      '@sqlite.org/sqlite-wasm': 3.50.1-build1
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
