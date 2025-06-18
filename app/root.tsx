@@ -12,6 +12,7 @@ import './app.css';
 import 'virtual:stylex.css';
 import { MotionConfig } from 'motion/react';
 import { LoadingScreen } from '@/app/components/loading-screen';
+import { DataProvider } from '@/tinybase/data-provider';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -49,7 +50,9 @@ export default function App() {
       }}
       reducedMotion='user'
     >
-      <Outlet />
+      <DataProvider>
+        <Outlet />
+      </DataProvider>
     </MotionConfig>
   );
 }

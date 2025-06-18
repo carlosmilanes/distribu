@@ -1,7 +1,6 @@
 import { Button as AriaButton, type PressEvent } from 'react-aria-components';
 import { create, props as style, type StyleXStyles } from 'stylex';
-import { borderRadius, colors, dynamicSizes } from '@/app/styles/vars.stylex';
-import { reactiveElevation } from '@/app/styles/elevations.stylex';
+import { borderRadius, dynamicSizes } from '@/app/styles/vars.stylex';
 // Implementation reference: https://react-spectrum.adobe.com/react-aria/Button.html
 
 export function Button({
