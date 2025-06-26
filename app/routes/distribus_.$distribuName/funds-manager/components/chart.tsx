@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import type { FundsStatus } from '@/drizzle/types';
+import type { FundsStatus } from '@/data/types';
 import { QuaternaryText } from '@/app/components/text/quaternary-text';
 import { StatusBar } from './status-bar';
 import { findBasicPercentage } from '@/app/utils/findBasicPercentage';

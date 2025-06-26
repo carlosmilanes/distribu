@@ -5,8 +5,8 @@ import { useFetcher, useNavigate } from 'react-router';
 import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { useRef, useEffect, useState } from 'react';
 import { createSlug } from '@/app/utils/slug';
-import { useDistribuCreationCallback } from '@/tinybase/stores/store';
 import { Form } from 'react-router';
+import { createDistribu } from '@/data/database/queries/distribus';
 
 /**
  * React Router form for creating a new distribu
@@ -68,41 +68,12 @@ function useAutoFocus() {
 }
 
 function SubmitButton({ disabled }: { disabled: boolean }) {
-  const createDistribu = useDistribuCreationCallback();
-
-  function handleSubmit(e: PressEvent) {
-    const form = e.target.closest('form');
-    if (!form) return;
-
-    const formData = new FormData(form);
-    const newDistribuName = formData.get('name') as string;
-    if (!newDistribuName) return;
-
-    try {
-      const distribuId = createDistribu(newDistribuName);
-      if (!distribuId) {
-        throw new Error('Failed to create distribu');
-      }
-      // Let the form submit naturally to trigger clientAction
-    } catch (error) {
-      // Prevent form submission if TinyBase operation fails
-      if (form) {
-        form.onsubmit = (e) => e.preventDefault();
-      }
-      console.error(error);
-    }
-  }
-
-  function testFunction() {
-    console.log('testFunction');
-  }
-
   return (
     <PrimaryButton
       styling={styles.button}
       type='submit'
       isDisabled={disabled}
-      onPress={testFunction}
+      onPress={() => createDistribu('test')}
     >
       Let's go!
     </PrimaryButton>

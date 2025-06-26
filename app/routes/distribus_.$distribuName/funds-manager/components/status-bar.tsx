@@ -1,4 +1,4 @@
-import type { FundsStatus } from '@/drizzle/types';
+import type { FundsStatus } from '@/data/types';
 import { findBasicPercentage } from '@/app/utils/findBasicPercentage';
 import { create, props as style, type StyleXStyles } from 'stylex';
 import { colors, borderRadius } from '@/app/styles/vars.stylex';

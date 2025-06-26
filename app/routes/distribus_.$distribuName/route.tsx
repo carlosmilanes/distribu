@@ -1,7 +1,7 @@
 import type { Route } from './+types/route';
 import { FundsManager } from './funds-manager';
 import { slugToDisplayName } from '@/app/utils/slug';
-import { mockFundsData } from '@/drizzle/mockData';
+import { mockFundsData } from '@/data/mockData';
 // import { Picture } from '@/distribu/funds-manager/components/picture';
 
 export function meta({ params }: Route.MetaArgs) {

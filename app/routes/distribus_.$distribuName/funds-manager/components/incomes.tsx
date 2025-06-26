@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Income } from '@/drizzle/types';
+import type { Income } from '@/data/types';
 import { IndividualIncome } from './individual-income';
 import { SearchBar } from '@/app/components/search-bar';
 import { create, props as style } from 'stylex';
