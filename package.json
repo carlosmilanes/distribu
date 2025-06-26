@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.3.1",
+    "@electric-sql/pglite-react": "^0.2.21",
     "@heroicons/react": "^2.2.0",
     "@react-router/fs-routes": "^7.6.2",
     "@react-router/node": "^7.6.2",
@@ -25,7 +26,6 @@
     "drizzle-orm": "^0.44.2",
     "isbot": "^5.1.25",
     "motion": "^12.16.0",
-    "persister-sqlite-wasm": "link:tinybase/persisters/persister-sqlite-wasm",
     "react": "^19.1.0",
     "react-aria-components": "^1.10.0",
     "react-dom": "^19.1.0",

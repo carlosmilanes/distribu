@@ -11,6 +11,9 @@ importers:
       '@electric-sql/pglite':
         specifier: ^0.3.1
         version: 0.3.1
+      '@electric-sql/pglite-react':
+        specifier: ^0.2.21
+        version: 0.2.21(@electric-sql/pglite@0.3.1)(react@19.1.0)
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.1.0)
@@ -44,9 +47,6 @@ importers:
       motion:
         specifier: ^12.16.0
         version: 12.16.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      persister-sqlite-wasm:
-        specifier: link:tinybase/persisters/persister-sqlite-wasm
-        version: link:tinybase/persisters/persister-sqlite-wasm
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -321,6 +321,12 @@ packages:
 
   '@dual-bundle/import-meta-resolve@4.1.0':
     resolution: {integrity: sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==}
+
+  '@electric-sql/pglite-react@0.2.21':
+    resolution: {integrity: sha512-DDx001vIDUeedh5xBmAihuZmlz0vDU1CZ13o5ozCK4K2PAeFkWTBSoXUVs/5rtMiNiy+A9kuay0kYjYq5ksmqg==}
+    peerDependencies:
+      '@electric-sql/pglite': 0.3.3
+      react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
 
   '@electric-sql/pglite@0.3.1':
     resolution: {integrity: sha512-Kpbd2FMXnM5I56ZpMnGKZhv+h31ipeimgyJVb1C+nWFTikp33z0TTwmksEtHpPinuqKiMJblH2OJM0RubKvJgg==}
@@ -4080,6 +4086,11 @@ snapshots:
   '@drizzle-team/brocli@0.10.2': {}
 
   '@dual-bundle/import-meta-resolve@4.1.0': {}
+
+  '@electric-sql/pglite-react@0.2.21(@electric-sql/pglite@0.3.1)(react@19.1.0)':
+    dependencies:
+      '@electric-sql/pglite': 0.3.1
+      react: 19.1.0
 
   '@electric-sql/pglite@0.3.1': {}
 
