@@ -9,17 +9,11 @@ import type { Distribu } from './components/distribus-grid';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'Distribus - Select Workspace' },
+    { title: 'Distribus' },
     { name: 'description', content: 'Select or create a new distribu' },
   ];
 }
 
-/**
- * Action handler for creating a new distribu
- *
- * @param request - Form data containing the distribu name
- * @returns Redirect to the newly created distribu page
- */
 export async function clientAction({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const name = formData.get('name') as string;

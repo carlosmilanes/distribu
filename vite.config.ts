@@ -6,4 +6,7 @@ import { stylex } from '@stylex-extend/vite';
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), stylex()],
+  optimizeDeps: {
+    exclude: ['@electric-sql/pglite'],
+  },
 });
