@@ -1,6 +1,6 @@
-import { db } from '../../connection';
+import { db } from '../../access';
 import { uses } from '../../schema';
-import { deleteUse } from '../../actions/reserves';
+import { deleteUse } from '../../queries/reserves';
 import { sql } from 'drizzle-orm';
 
 async function resetUsesTable() {

@@ -1,4 +1,4 @@
-import { db } from '../connection';
+import { db } from '../access';
 import {
   tags as tagsTable,
   reserveTags,
@@ -6,9 +6,9 @@ import {
   recurringUses,
   distribus,
 } from '../schema';
-import { addIncome } from '../actions/funds';
-import { addReserve, addUse, addTag, deleteTag } from '../actions/reserves';
-import { createDistribu, deleteDistribu } from '../actions/distribus';
+import { addIncome } from '../queries/funds';
+import { addReserve, addUse, addTag, deleteTag } from '../queries/reserves';
+import { createDistribu, deleteDistribu } from '../queries/distribus';
 import {
   mockTags,
   mockReserves,

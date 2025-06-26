@@ -1,5 +1,5 @@
 // auth.ts
-import { db } from './database/connection';
+import { db } from './database/access';
 import { users, sessions } from './database/schema';
 import { eq } from 'drizzle-orm';
 import { randomBytes, pbkdf2Sync } from 'crypto';

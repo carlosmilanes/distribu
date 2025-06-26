@@ -1,4 +1,4 @@
-import { db } from '../connection';
+import { db } from '../access';
 import { reserves, reserveTags, tags, uses } from '../schema';
 import type {
   Reserve,
@@ -240,7 +240,9 @@ export async function deleteTag(id: number) {
 
 export async function deleteReserveTag(reserveId: number, tagId: number) {
   try {
-    return await db.delete(reserveTags).where(eq(reserveTags.reserveId, reserveId));
+    return await db
+      .delete(reserveTags)
+      .where(eq(reserveTags.reserveId, reserveId));
   } catch (error) {
     console.error('Failed to delete reserve tag:', error);
     throw new Error(

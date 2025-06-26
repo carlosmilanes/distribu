@@ -1,6 +1,6 @@
-import { db } from '../../connection';
+import { db } from '../../access';
 import { tags } from '../../schema';
-import { deleteTag } from '../../actions/reserves';
+import { deleteTag } from '../../queries/reserves';
 import { sql } from 'drizzle-orm';
 
 async function resetTagsTable() {
