@@ -9,7 +9,7 @@
     "typecheck": "react-router typegen && tsc",
     "db": "pnpm exec tsx backend/database/scripts/db-test.ts",
     "seed": "pnpm exec tsx backend/database/scripts/seed.ts",
-    "migrate": "pnpm drizzle-kit push",
+  "migrate": "pnpm drizzle-kit push",
     "studio": "pnpm drizzle-kit studio"
   },
   "dependencies": {

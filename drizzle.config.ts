@@ -5,7 +5,4 @@ export default defineConfig({
   schema: './data/database/schema.ts',
   out: './data/database/migrations',
   driver: 'pglite',
-  dbCredentials: {
-    url: ':memory:',
-  },
 });
