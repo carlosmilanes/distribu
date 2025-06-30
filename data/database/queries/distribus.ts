@@ -41,20 +41,18 @@ export async function getDistribus() {
           getDistribuTotalUsed(distribu.id),
         ]);
 
-        const total = totalIncomes || 0;
-        const assigned = totalAssigned || 0;
-        const used = totalUsed || 0;
-        const available = total - assigned;
+        const totalAmount = totalIncomes || 0;
+        const assignedAmount = totalAssigned || 0;
+        const usedAmount = totalUsed || 0;
+        const availableAmount = totalAmount - assignedAmount;
 
         return {
           id: distribu.id,
           name: distribu.name,
-          amounts: {
-            total,
-            assigned,
-            used,
-            available,
-          },
+          totalAmount,
+          assignedAmount,
+          usedAmount,
+          availableAmount,
           createdAt: distribu.createdAt,
           updatedAt: distribu.updatedAt,
         };
@@ -63,9 +61,9 @@ export async function getDistribus() {
 
     return distribusWithAmounts;
   } catch (error) {
-    console.error('Error getting distribus with amounts:', error);
+    console.error('Error getting distribus:', error);
     throw new Error(
-      'Failed to get distribus with amounts: ' +
+      'Failed to get distribus: ' +
         (error instanceof Error ? error.message : String(error))
     );
   }

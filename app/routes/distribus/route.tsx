@@ -3,14 +3,18 @@ import { redirect } from 'react-router';
 import { useState, useEffect } from 'react';
 import { create, props } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
-import { EmptyHub } from './components/empty-hub';
+import { EmptyManager } from './components/empty-manager';
 import { DistribusGrid } from './components/distribus-grid';
 import type { Distribu } from './components/distribus-grid';
+import {
+  createDistribu,
+  getDistribus,
+} from '@/data/database/queries/distribus';
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: 'Distribus' },
-    { name: 'description', content: 'Select or create a new distribu' },
+    { name: 'description', content: 'Manage your distribus' },
   ];
 }
 
@@ -22,19 +26,14 @@ export async function clientAction({ request }: Route.ActionArgs) {
     throw new Error('Distribu name is required');
   }
 
+  await createDistribu(name.trim());
   const distribuName = createSlug(name.trim());
   return redirect(`/distribus/${distribuName}`);
 }
 
-export const clientLoader = () => {
-  // Use mock distribus from mockData if available, else inline
-  // const mockDistribu = [
-  //   { id: 1, name: 'Family Budget' },
-  //   { id: 2, name: 'Personal Savings' },
-  //   { id: 3, name: 'Emergency Fund' },
-  // ];
-  return { distribus: [] };
-};
+export async function clientLoader() {
+  return await getDistribus();
+}
 
 /**
  * Main distribu selection component that allows users to choose or create workspaces
@@ -42,64 +41,17 @@ export const clientLoader = () => {
  * @param loaderData - Contains the list of available distribus from the loader
  * @returns JSX element with distribu selection interface
  */
-export default function DistribusHub({ loaderData }: Route.ComponentProps) {
-  const { distribus, isLoading, hasError } = useDistribusData(
-    loaderData.distribus
-  );
-
-  if (hasError) {
-    return (
-      <div {...props(styles.container)}>
-        <h1 {...props(styles.title)}>Error Loading Distribus</h1>
-        <p>Please try again later.</p>
-      </div>
-    );
-  }
-
+export default function DistribusManager({ loaderData: distribus }: Route.ComponentProps) {
   return (
     <>
-      {isLoading ? (
-        <div aria-live='polite'>Loading distribus...</div>
-      ) : distribus.length === 0 ? (
-        <EmptyHub />
+      {distribus.length === 0 ? (
+        <EmptyManager />
       ) : (
         <DistribusGrid distribus={distribus} />
       )}
     </>
   );
 }
-
-/**
- * Custom hook for managing distribu data state and loading states
- *
- * @param initialDistribu - Initial list of distribus from server
- * @returns Object containing distribus array, loading state, and error state
- */
-function useDistribusData(initialDistribu: Distribu[]): UseDistribusDataReturn {
-  const [distribus, setDistribu] = useState<Distribu[]>(initialDistribu);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    // Reset error state when new data is provided
-    if (initialDistribu.length > 0) {
-      setHasError(false);
-      setDistribu(initialDistribu);
-    }
-  }, [initialDistribu]);
-
-  return {
-    distribus,
-    isLoading,
-    hasError,
-  };
-}
-
-type UseDistribusDataReturn = {
-  distribus: Distribu[];
-  isLoading: boolean;
-  hasError: boolean;
-};
 
 const styles = create({
   container: {

@@ -16,7 +16,7 @@ import { LayoutGroup } from 'motion/react';
  *
  * @returns Full viewport empty state UI with create button
  */
-export function EmptyHub() {
+export function EmptyManager() {
   return (
     <LayoutGroup>
       <main

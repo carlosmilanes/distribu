@@ -73,6 +73,12 @@ function CreateDistribuButton() {
 export type Distribu = {
   id: number;
   name: string;
+  totalAmount: number;
+  assignedAmount: number;
+  usedAmount: number;
+  availableAmount: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 type DistribusGridProps = {

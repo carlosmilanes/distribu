@@ -23,20 +23,20 @@ export function StartButton() {
   return (
     <>
       {isPressed ? (
-        <CreationForm onDismiss={() => setIsPressed(false)} />
+        <CreationForm dismissHandler={() => setIsPressed(false)} />
       ) : (
-        <CreationButton onPress={() => setIsPressed(true)} />
+        <CreationButton pressHandler={() => setIsPressed(true)} />
       )}
     </>
   );
 }
 
-function CreationButton({ onPress }: { onPress: () => void }) {
+function CreationButton({ pressHandler }: { pressHandler: () => void }) {
   return (
     <MotionButton
       layoutId='start'
       styling={[reactiveElevation.low, styles.button]}
-      onPress={onPress}
+      onPress={pressHandler}
       transition={layoutTransitions.springy}
     >
       <DancingLights />
@@ -54,8 +54,8 @@ function ButtonContent() {
   );
 }
 
-function CreationForm({ onDismiss }: CreationFormProps) {
-  const ref = useDismiss<HTMLDivElement>(onDismiss);
+function CreationForm({ dismissHandler }: CreationFormProps) {
+  const ref = useDismiss<HTMLDivElement>(dismissHandler);
 
   return (
     <MotionContainer
@@ -81,7 +81,7 @@ function DancingLights() {
 }
 
 type CreationFormProps = {
-  onDismiss: () => void;
+  dismissHandler: () => void;
 };
 
 // Define the keyframes animations for each light

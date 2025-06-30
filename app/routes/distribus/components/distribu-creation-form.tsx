@@ -14,11 +14,11 @@ import { createDistribu } from '@/data/database/queries/distribus';
  * @returns Form element for entering distribu name
  */
 export function DistribuCreationForm({ styling }: { styling?: StyleXStyles }) {
+  const fetcher = useFetcher();
   const [inputValue, setInputValue] = useState('');
-  // const fetcher = useFetcher();
 
   return (
-    <Form
+    <fetcher.Form
       {...props(styling)}
       method='post'
     >
@@ -27,7 +27,7 @@ export function DistribuCreationForm({ styling }: { styling?: StyleXStyles }) {
         onChange={setInputValue}
       />
       <SubmitButton disabled={inputValue.trim() === ''} />
-    </Form>
+    </fetcher.Form>
   );
 }
 
@@ -73,7 +73,7 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
       styling={styles.button}
       type='submit'
       isDisabled={disabled}
-      onPress={() => createDistribu('test')}
+      onPress={() => {}}
     >
       Let's go!
     </PrimaryButton>
