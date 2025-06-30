@@ -1,4 +1,4 @@
-import { db } from '../access';
+import { db } from '../entry';
 import { incomes, uses, reserves } from '../schema';
 import type { Income, NewIncome, FundsData, Reserve } from '../../types';
 import { eq, sum } from 'drizzle-orm';

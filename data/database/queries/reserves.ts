@@ -1,4 +1,4 @@
-import { db } from '../access';
+import { db } from '../entry';
 import { reserves, reserveTags, tags, uses } from '../schema';
 import type {
   Reserve,

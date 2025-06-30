@@ -1,4 +1,4 @@
-import { db } from '../../access';
+import { db } from '../../entry';
 import { distribus } from '../../schema';
 import { deleteDistribu } from '../../queries/distribus';
 import { sql } from 'drizzle-orm';

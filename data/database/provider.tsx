@@ -1,6 +1,6 @@
 import type { PGlite, PGliteInterfaceExtensions } from '@electric-sql/pglite';
 import { makePGliteProvider } from '@electric-sql/pglite-react';
-import { pglite } from './access';
+import { pglite } from './entry';
 import type { live } from '@electric-sql/pglite/live';
 
 const { PGliteProvider } = makePGliteProvider<

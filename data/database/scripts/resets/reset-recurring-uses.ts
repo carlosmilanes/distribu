@@ -1,4 +1,4 @@
-import { db } from '../../access';
+import { db } from '../../entry';
 import { recurringUses } from '../../schema';
 import { sql } from 'drizzle-orm';
 

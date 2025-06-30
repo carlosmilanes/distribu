@@ -1,4 +1,4 @@
-import { db } from '../../access';
+import { db } from '../../entry';
 import { incomes } from '../../schema';
 import { deleteIncome } from '../../queries/funds';
 import { sql } from 'drizzle-orm';
