@@ -17,6 +17,8 @@ import {
   lightReflection,
 } from '@/app/styles/elevations.stylex';
 import { SecondaryText } from '@/app/components/text/secondary-text';
+import { Heading } from '@/app/components/text/heading';
+import { OptionsButton } from '@/app/components/buttons/options-button';
 
 /**
  * DistribusGrid displays a grid of DistribuCard components and a create button.
@@ -27,10 +29,10 @@ import { SecondaryText } from '@/app/components/text/secondary-text';
 export function DistribusList({ distribus }: { distribus: Distribu[] }) {
   return (
     <main {...style(styles.base)}>
-      <PrimaryText>Distribus</PrimaryText>
+      <Heading>Distribus</Heading>
       <div {...style(styles.list)}>
         {distribus.map((distribu) => (
-          <DistribuCard
+          <DistribuItem
             key={distribu.id}
             distribu={distribu}
           />
@@ -47,18 +49,19 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
  * @param distribu - Distribu object
  * @returns Link card for the distribu
  */
-function DistribuCard({ distribu }: { distribu: Distribu }) {
+function DistribuItem({ distribu }: { distribu: Distribu }) {
   return (
     <Link
       to={`/distribus/${createSlug(distribu.name)}`}
       {...style(
         reactiveElevation.low,
         lightReflection.ofColor(colors.secondaryBackground),
-        styles.card
+        styles.item
       )}
     >
       <PrimaryText styleProps={styles.name}>{distribu.name}</PrimaryText>
       <DistribuStatus distribu={distribu} />
+      <OptionsButton styleProps={styles.optionsButton} />
     </Link>
   );
 }
@@ -140,28 +143,30 @@ export type Distribu = {
 // Styles
 const styles = create({
   base: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '1.5rem',
+    paddingLeft: fixedSizes.l2,
+    paddingRight: fixedSizes.l2,
   },
-  title: {
-    fontSize: '1.875rem',
-    fontWeight: 'bold',
-    marginBottom: '1.5rem',
-    color: '#111827',
-  },
+
   list: {
     display: 'flex',
     flexDirection: 'column',
     gap: fixedSizes.s3,
+    maxWidth: fixedSizes.xl2,
+    margin: '0 auto',
   },
-  card: {
+  item: {
     display: 'flex',
     flexDirection: 'column',
     gap: fixedSizes.s2,
     padding: fixedSizes.s3,
     backgroundColor: colors.secondaryBackground,
+    border: `1px solid ${colors.glassyBorder}`,
     borderRadius: borderRadius.l,
+  },
+  optionsButton: {
+    position: 'absolute',
+    top: fixedSizes.s2,
+    right: fixedSizes.s2,
   },
   name: {
     color: colors.text,
