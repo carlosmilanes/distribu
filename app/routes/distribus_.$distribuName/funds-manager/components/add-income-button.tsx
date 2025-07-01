@@ -3,12 +3,15 @@ import { Button } from '@/app/components/core/button';
 import { create, type StyleXStyles } from 'stylex';
 import { colors } from '@/app/styles/vars.stylex';
 
-export function AddIncomeButton({ children, styling }: AddIncomeButtonProps) {
+export function AddIncomeButton({
+  children,
+  styleProps,
+}: AddIncomeButtonProps) {
   const [isAddingIncome, setIsAddingIncome] = useState(false);
 
   return (
     <Button
-      styling={[styles.base, styling]}
+      styleProps={[styles.base, styleProps]}
       onPress={() => setIsAddingIncome(true)}
     >
       {children}
@@ -18,7 +21,7 @@ export function AddIncomeButton({ children, styling }: AddIncomeButtonProps) {
 
 type AddIncomeButtonProps = {
   children: React.ReactNode;
-  styling?: StyleXStyles;
+  styleProps?: StyleXStyles;
 };
 
 const styles = create({

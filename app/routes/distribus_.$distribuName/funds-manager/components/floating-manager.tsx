@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import type { FundsData } from '@/data/types';
 import { AddIncomeButton } from './add-income-button';
-import { StatusBar } from './status-bar';
+import { StatusBar } from '../../../../components/status-bar';
 import { Money } from '@/app/components/money';
 import { Incomes } from './incomes';
 import { Chart } from './chart';
@@ -26,7 +26,7 @@ export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
         isExpanded={isExpanded}
         setIsExpanded={setIsExpanded}
       >
-        <AddIncomeButton styling={styles.textIconButton}>
+        <AddIncomeButton styleProps={styles.textIconButton}>
           <PlusIcon {...style(styles.plusIcon)} />
           Añadir
         </AddIncomeButton>
@@ -43,16 +43,18 @@ export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
       isExpanded={isExpanded}
       setIsExpanded={setIsExpanded}
     >
-      <SecondaryText styling={styles.label}>Ingreso disponible</SecondaryText>
+      <SecondaryText styleProps={styles.label}>
+        Ingreso disponible
+      </SecondaryText>
 
       <Money
         amount={fundsData.status.total - fundsData.status.assigned}
-        styling={styles.money}
+        styleProps={styles.money}
       />
 
       <StatusBar status={fundsData.status} />
 
-      <AddIncomeButton styling={styles.iconButton}>
+      <AddIncomeButton styleProps={styles.iconButton}>
         <PlusIcon {...style(styles.soloIcon)} />
       </AddIncomeButton>
     </Floater>

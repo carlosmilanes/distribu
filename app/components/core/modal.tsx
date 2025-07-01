@@ -15,7 +15,7 @@ export function Modal({
   heading,
   withCloseButton,
   children,
-  styling,
+  styleProps,
   overlayStyling,
   isOpen,
   onOpenChange,
@@ -29,7 +29,7 @@ export function Modal({
       isDismissable
     >
       <AriaModal
-        {...props(elevation.high, styles.modal, styling)}
+        {...props(elevation.high, styles.modal, styleProps)}
         {...otherProps}
       >
         <Dialog>
@@ -52,7 +52,7 @@ type ModalProps = {
   onOpenChange: (isOpen: boolean) => void;
   withCloseButton?: boolean;
   children: React.ReactNode;
-  styling?: StyleXStyles;
+  styleProps?: StyleXStyles;
   overlayStyling?: StyleXStyles;
 };
 

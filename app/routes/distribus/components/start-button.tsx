@@ -35,7 +35,7 @@ function CreationButton({ pressHandler }: { pressHandler: () => void }) {
   return (
     <MotionButton
       layoutId='start'
-      styling={[reactiveElevation.low, styles.button]}
+      styleProps={[reactiveElevation.low, styles.button]}
       onPress={pressHandler}
       transition={layoutTransitions.springy}
     >
@@ -65,7 +65,7 @@ function CreationForm({ dismissHandler }: CreationFormProps) {
       transition={layoutTransitions.springy}
     >
       <DancingLights />
-      <DistribuCreationForm styling={styles.form} />
+      <DistribuCreationForm styleProps={styles.form} />
     </MotionContainer>
   );
 }

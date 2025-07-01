@@ -1,16 +1,12 @@
 import { Button, type ButtonProps } from '../core/button';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { create, props as style } from 'stylex';
-import {
-  colors,
-  borderRadius,
-  fixedSizes,
-} from '@/app/styles/vars.stylex';
+import { colors, borderRadius, fixedSizes } from '@/app/styles/vars.stylex';
 
-export function CloseButton({ onPress, styling }: ButtonProps) {
+export function CloseButton({ onPress, styleProps }: ButtonProps) {
   return (
     <Button
-      styling={[styles.base, styling]}
+      styleProps={[styles.base, styleProps]}
       onPress={onPress}
       aria-label='Close'
     >

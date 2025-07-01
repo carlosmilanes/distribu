@@ -1,7 +1,7 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { FundsStatus } from '@/data/types';
 import { QuaternaryText } from '@/app/components/text/quaternary-text';
-import { StatusBar } from './status-bar';
+import { StatusBar } from '../../../../components/status-bar';
 import { findBasicPercentage } from '@/app/utils/findBasicPercentage';
 import { Money } from '@/app/components/money';
 import { create, props as style } from 'stylex';
@@ -38,7 +38,7 @@ export function Chart({ status }: { status: FundsStatus }) {
 
       <StatusBar
         status={status}
-        styling={styles.stackedBar}
+        styleProps={styles.stackedBar}
       />
     </div>
   );
@@ -48,10 +48,10 @@ function TotalHeader({ total, collapsed }: TotalHeaderProps) {
   return (
     <div {...style(styles.totalHeader)}>
       <div {...style(styles.totalContent)}>
-        <TertiaryText styling={styles.totalLabel}>Total</TertiaryText>
+        <TertiaryText styleProps={styles.totalLabel}>Total</TertiaryText>
 
         <Money
-          styling={styles.totalAmount}
+          styleProps={styles.totalAmount}
           amount={total}
         />
       </div>
@@ -93,16 +93,16 @@ function Legend({ status, hidden }: LegendProps) {
 function LegendItem({ label, amount, total, color }: LegendItemProps) {
   return (
     <div {...style(styles.legendItem)}>
-      <QuaternaryText styling={styles.legendLabel}>{label}</QuaternaryText>
+      <QuaternaryText styleProps={styles.legendLabel}>{label}</QuaternaryText>
 
       <div {...style(styles.legendContent)}>
         <Money
-          styling={[styles.legendAmount, styles.legendAmountColor(color)]}
+          styleProps={[styles.legendAmount, styles.legendAmountColor(color)]}
           amount={amount}
         />
 
         <QuaternaryText
-          styling={[
+          styleProps={[
             styles.legendPercentage,
             styles.legendPercentageColor(color),
           ]}

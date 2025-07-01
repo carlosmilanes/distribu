@@ -11,7 +11,7 @@ export function Incomes({ incomes }: { incomes: Income[] }) {
   return (
     <>
       <SearchBar
-        styling={styles.searchBar}
+        styleProps={styles.searchBar}
         query={query}
         onQueryChange={setQuery}
       />

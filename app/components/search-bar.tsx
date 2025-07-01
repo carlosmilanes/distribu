@@ -9,10 +9,14 @@ import {
   dynamicSizes,
 } from '@/app/styles/vars.stylex';
 
-export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
+export function SearchBar({
+  query,
+  onQueryChange,
+  styleProps,
+}: SearchBarProps) {
   return (
     <SearchField
-      {...style(styles.base, styling)}
+      {...style(styles.base, styleProps)}
       value={query}
       onChange={onQueryChange}
     >
@@ -23,7 +27,7 @@ export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
       />
       {query && (
         <Button
-          styling={styles.clearButton}
+          styleProps={styles.clearButton}
           onPress={() => onQueryChange('')}
         >
           <XMarkIcon {...style(styles.clearIcon)} />
@@ -36,7 +40,7 @@ export function SearchBar({ query, onQueryChange, styling }: SearchBarProps) {
 type SearchBarProps = {
   query: string;
   onQueryChange: (query: string) => void;
-  styling?: StyleXStyles;
+  styleProps?: StyleXStyles;
 };
 
 const styles = create({

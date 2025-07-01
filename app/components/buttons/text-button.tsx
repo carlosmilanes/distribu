@@ -5,16 +5,16 @@ import { create } from 'stylex';
 export const TextButton = ({
   children,
   isDisabled = false,
-  styling,
+  styleProps,
   ...otherProps
 }: ButtonProps) => {
   return (
     <Button
-      styling={[
+      styleProps={[
         isDisabled ? elevation.low : reactiveElevation.low,
         styles.button,
         isDisabled && styles.disabled,
-        styling,
+        styleProps,
       ]}
       isDisabled={isDisabled}
       {...otherProps}

@@ -6,15 +6,15 @@ import { colors, dynamicSizes, fontWeights } from '@/app/styles/vars.stylex';
 
 export function PrimaryButton({
   children,
-  styling,
+  styleProps,
   ...otherProps
 }: ButtonProps) {
   return (
     <TextButton
-      styling={[
+      styleProps={[
         lightReflection.ofColor(colors.primary),
         styles.button,
-        styling,
+        styleProps,
       ]}
       autoFocus
       {...otherProps}

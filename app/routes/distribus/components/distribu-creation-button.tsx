@@ -11,7 +11,7 @@ import { DistribuCreationForm } from './distribu-creation-form';
  *
  * @returns Simple button element for creating distribus
  */
-export function DistribuCreationButton({ children, styling }: Props) {
+export function DistribuCreationButton({ children, styleProps }: Props) {
   const [isPressed, setIsPressed] = useState(false);
 
   if (isPressed) {
@@ -28,7 +28,7 @@ export function DistribuCreationButton({ children, styling }: Props) {
   return (
     <Button
       aria-label='Create new distribu'
-      styling={styling}
+      styleProps={styleProps}
       onPress={() => {
         setIsPressed(true);
       }}
@@ -38,4 +38,4 @@ export function DistribuCreationButton({ children, styling }: Props) {
   );
 }
 
-type Props = Pick<ButtonProps, 'children' | 'styling'>;
+type Props = Pick<ButtonProps, 'children' | 'styleProps'>;

@@ -1,6 +1,22 @@
 import { Link } from 'react-router';
-import { create, props } from 'stylex';
+import { create, props as style } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
+import { PrimaryText } from '@/app/components/text/primary-text';
+import { StatusBar } from '@/app/components/status-bar';
+import { Money } from '@/app/components/money';
+import { TertiaryText } from '@/app/components/text/tertiary-text';
+import {
+  borderRadius,
+  colors,
+  fixedSizes,
+  fontSizes,
+  fontWeights,
+} from '@/app/styles/vars.stylex';
+import {
+  reactiveElevation,
+  lightReflection,
+} from '@/app/styles/elevations.stylex';
+import { SecondaryText } from '@/app/components/text/secondary-text';
 
 /**
  * DistribusGrid displays a grid of DistribuCard components and a create button.
@@ -8,11 +24,11 @@ import { createSlug } from '@/app/utils/slug';
  * @param distribus - Array of distribus to display
  * @returns Main section with grid of distribus and create button
  */
-export function DistribusGrid({ distribus }: DistribusGridProps) {
+export function DistribusList({ distribus }: { distribus: Distribu[] }) {
   return (
-    <main {...props(styles.container)}>
-      <h1 {...props(styles.title)}>Select Distribu</h1>
-      <div {...props(styles.grid)}>
+    <main {...style(styles.base)}>
+      <PrimaryText>Distribus</PrimaryText>
+      <div {...style(styles.list)}>
         {distribus.map((distribu) => (
           <DistribuCard
             key={distribu.id}
@@ -31,21 +47,61 @@ export function DistribusGrid({ distribus }: DistribusGridProps) {
  * @param distribu - Distribu object
  * @returns Link card for the distribu
  */
-function DistribuCard({ distribu }: DistribuCardProps) {
-  const handleCardClick = () => {
-    // Analytics or additional logic could go here
-  };
+function DistribuCard({ distribu }: { distribu: Distribu }) {
   return (
     <Link
       to={`/distribus/${createSlug(distribu.name)}`}
-      {...props(styles.card)}
-      onClick={handleCardClick}
+      {...style(
+        reactiveElevation.low,
+        lightReflection.ofColor(colors.secondaryBackground),
+        styles.card
+      )}
     >
-      <h2 {...props(styles.cardTitle)}>{distribu.name}</h2>
-      <p {...props(styles.cardDescription)}>
-        Manage your {distribu.name.toLowerCase()} finances
-      </p>
+      <PrimaryText styleProps={styles.name}>{distribu.name}</PrimaryText>
+      <DistribuStatus distribu={distribu} />
     </Link>
+  );
+}
+
+function DistribuStatus({ distribu }: { distribu: Distribu }) {
+  if (distribu.totalAmount === 0) {
+    return (
+      <div {...style(styles.fundAvailability)}>
+        <SecondaryText>No funds yet</SecondaryText>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <FundAvailability distribu={distribu} />
+      <StatusBar
+        status={{
+          total: distribu.totalAmount,
+          assigned: distribu.assignedAmount,
+          used: distribu.usedAmount,
+        }}
+      />
+    </div>
+  );
+}
+
+function FundAvailability({ distribu }: { distribu: Distribu }) {
+  return (
+    <div {...style(styles.fundAvailability)}>
+      <SecondaryText>Unassigned from Total</SecondaryText>
+      <div {...style(styles.amounts)}>
+        <Money
+          amount={distribu.availableAmount}
+          styleProps={styles.unassigned}
+        />
+        <div {...style(styles.separator)} />
+        <Money
+          amount={distribu.totalAmount}
+          styleProps={styles.total}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -60,7 +116,7 @@ function CreateDistribuButton() {
   };
   return (
     <button
-      {...props(styles.createButton)}
+      {...style(styles.createButton)}
       onClick={handleCreateClick}
       aria-label='Create new distribu workspace'
     >
@@ -81,17 +137,9 @@ export type Distribu = {
   updatedAt: Date;
 };
 
-type DistribusGridProps = {
-  distribus: Distribu[];
-};
-
-type DistribuCardProps = {
-  distribu: Distribu;
-};
-
 // Styles
 const styles = create({
-  container: {
+  base: {
     maxWidth: '1200px',
     margin: '0 auto',
     padding: '1.5rem',
@@ -102,41 +150,47 @@ const styles = create({
     marginBottom: '1.5rem',
     color: '#111827',
   },
-  grid: {
-    display: 'grid',
-    gap: '1rem',
-    gridTemplateColumns: {
-      default: '1fr',
-      '@media (min-width: 768px)': 'repeat(2, 1fr)',
-      '@media (min-width: 1024px)': 'repeat(3, 1fr)',
-    },
+  list: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: fixedSizes.s3,
   },
   card: {
-    display: 'block',
-    padding: '1.5rem',
-    backgroundColor: '#ffffff',
-    border: '1px solid #e5e7eb',
-    borderRadius: '0.5rem',
-    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-    textDecoration: 'none',
-    transition: 'background-color 0.2s ease',
-    ':hover': {
-      backgroundColor: '#f9fafb',
-    },
-    ':focus': {
-      outline: '2px solid #3b82f6',
-      outlineOffset: '2px',
-    },
+    display: 'flex',
+    flexDirection: 'column',
+    gap: fixedSizes.s2,
+    padding: fixedSizes.s3,
+    backgroundColor: colors.secondaryBackground,
+    borderRadius: borderRadius.l,
   },
-  cardTitle: {
-    fontSize: '1.25rem',
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: '0.5rem',
+  name: {
+    color: colors.text,
+    marginBottom: fixedSizes.s3,
   },
-  cardDescription: {
-    color: '#6b7280',
-    fontSize: '0.875rem',
+  fundAvailability: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: fixedSizes.s1,
+  },
+  amounts: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: fixedSizes.s1,
+    fontSize: fontSizes.xl,
+  },
+  unassigned: {
+    color: colors.income,
+  },
+  total: {
+    color: colors.text,
+  },
+  separator: {
+    width: fixedSizes.s1,
+    borderRadius: borderRadius.full,
+    height: fixedSizes.m1,
+    backgroundColor: colors.gray,
+    rotate: '15deg',
   },
   createButton: {
     marginTop: '2rem',

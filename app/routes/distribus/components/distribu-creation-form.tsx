@@ -13,13 +13,17 @@ import { createDistribu } from '@/data/database/queries/distribus';
  *
  * @returns Form element for entering distribu name
  */
-export function DistribuCreationForm({ styling }: { styling?: StyleXStyles }) {
+export function DistribuCreationForm({
+  styleProps,
+}: {
+  styleProps?: StyleXStyles;
+}) {
   const fetcher = useFetcher();
   const [inputValue, setInputValue] = useState('');
 
   return (
     <fetcher.Form
-      {...props(styling)}
+      {...props(styleProps)}
       method='post'
     >
       <NameInput
@@ -70,10 +74,9 @@ function useAutoFocus() {
 function SubmitButton({ disabled }: { disabled: boolean }) {
   return (
     <PrimaryButton
-      styling={styles.button}
+      styleProps={styles.button}
       type='submit'
       isDisabled={disabled}
-      onPress={() => {}}
     >
       Let's go!
     </PrimaryButton>

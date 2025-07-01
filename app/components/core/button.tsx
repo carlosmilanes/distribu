@@ -6,13 +6,13 @@ import { borderRadius, dynamicSizes } from '@/app/styles/vars.stylex';
 export function Button({
   children,
   type = 'button',
-  styling,
+  styleProps,
   onPress,
   ...otherProps
 }: ButtonProps) {
   return (
     <AriaButton
-      {...style(styles.base, styling)}
+      {...style(styles.base, styleProps)}
       onPress={onPress}
       type={type}
       {...otherProps}
@@ -25,8 +25,8 @@ export function Button({
 export type ButtonProps = React.ComponentPropsWithoutRef<typeof AriaButton> & {
   children?: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  styling?: StyleXStyles;
-  onPress: (e: PressEvent) => void;
+  styleProps?: StyleXStyles;
+  onPress?: (e: PressEvent) => void;
 };
 
 const styles = create({
