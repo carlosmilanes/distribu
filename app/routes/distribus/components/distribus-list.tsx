@@ -11,14 +11,17 @@ import {
   fixedSizes,
   fontSizes,
   fontWeights,
+  shadows,
 } from '@/app/styles/vars.stylex';
 import {
+  elevation,
   reactiveElevation,
   lightReflection,
 } from '@/app/styles/elevations.stylex';
 import { SecondaryText } from '@/app/components/text/secondary-text';
 import { Heading } from '@/app/components/text/heading';
 import { OptionsButton } from '@/app/components/buttons/options-button';
+import { OptionsProvider } from '@/app/components/options-provider';
 
 /**
  * DistribusGrid displays a grid of DistribuCard components and a create button.
@@ -32,10 +35,15 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
       <Heading>Distribus</Heading>
       <div {...style(styles.list)}>
         {distribus.map((distribu) => (
-          <DistribuItem
+          <OptionsProvider
             key={distribu.id}
-            distribu={distribu}
-          />
+            options={[]}
+          >
+            <DistribuContainer
+              key={distribu.id}
+              distribu={distribu}
+            />
+          </OptionsProvider>
         ))}
         <CreateDistribuButton />
       </div>
@@ -49,7 +57,7 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
  * @param distribu - Distribu object
  * @returns Link card for the distribu
  */
-function DistribuItem({ distribu }: { distribu: Distribu }) {
+function DistribuContainer({ distribu }: { distribu: Distribu }) {
   return (
     <Link
       to={`/distribus/${createSlug(distribu.name)}`}
@@ -61,7 +69,13 @@ function DistribuItem({ distribu }: { distribu: Distribu }) {
     >
       <PrimaryText styleProps={styles.name}>{distribu.name}</PrimaryText>
       <DistribuStatus distribu={distribu} />
-      <OptionsButton styleProps={styles.optionsButton} />
+      <OptionsButton
+        styleProps={[
+          elevation.low,
+          lightReflection.ofColor(colors.tertiaryBackground),
+          styles.optionsButton,
+        ]}
+      />
     </Link>
   );
 }
@@ -165,8 +179,8 @@ const styles = create({
   },
   optionsButton: {
     position: 'absolute',
-    top: fixedSizes.s2,
-    right: fixedSizes.s2,
+    top: fixedSizes.s3,
+    right: fixedSizes.s3,
   },
   name: {
     color: colors.text,
