@@ -3,5 +3,5 @@ export {
   PlusIcon as AddIcon,
   TrashIcon as DeleteIcon,
   MagnifyingGlassIcon as SearchIcon,
-  EllipsisHorizontalCircleIcon as OptionsIcon,
+  EllipsisHorizontalIcon as OptionsIcon,
 } from '@heroicons/react/24/outline';
