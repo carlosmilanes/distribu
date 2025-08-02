@@ -3,7 +3,13 @@ import { shadows } from './vars.stylex';
 
 export const elevation = create({
   low: {
-    boxShadow: shadows.s,
+    '::before': {
+      content: '',
+      boxShadow: shadows.s,
+      position: 'absolute',
+      inset: 0,
+      borderRadius: 'inherit',
+    },
   },
   medium: {
     boxShadow: shadows.m,
@@ -178,6 +184,6 @@ export const reactiveElevation = create({
 
 export const lightReflection = create({
   ofColor: (backgroundColor: string) => ({
-    boxShadow: `inset 0 1.5px 1px color-mix(in oklab, ${backgroundColor}, white 35%)`,
+   boxShadow: `inset 0 0.5px 1px color-mix(in oklab, ${backgroundColor}, white 35%)`,
   }),
 });

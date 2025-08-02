@@ -69,13 +69,7 @@ function DistribuContainer({ distribu }: { distribu: Distribu }) {
     >
       <PrimaryText styleProps={styles.name}>{distribu.name}</PrimaryText>
       <DistribuStatus distribu={distribu} />
-      <OptionsButton
-        styleProps={[
-          elevation.low,
-          lightReflection.ofColor(colors.tertiaryBackground),
-          styles.optionsButton,
-        ]}
-      />
+      <OptionsButton styleProps={styles.optionsButton} />
     </Link>
   );
 }
@@ -181,6 +175,7 @@ const styles = create({
     position: 'absolute',
     top: fixedSizes.s3,
     right: fixedSizes.s3,
+    border: `1px solid ${colors.alert}`, // TODO: delete
   },
   name: {
     color: colors.text,
