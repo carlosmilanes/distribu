@@ -175,7 +175,6 @@ const styles = create({
     position: 'absolute',
     top: fixedSizes.s3,
     right: fixedSizes.s3,
-    border: `1px solid ${colors.alert}`, // TODO: delete
   },
   name: {
     color: colors.text,

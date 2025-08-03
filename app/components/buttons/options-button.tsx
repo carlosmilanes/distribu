@@ -28,6 +28,16 @@ const styles = create({
     borderRadius: borderRadius.full,
     height: dynamicSizes.m1,
     width: dynamicSizes.m1,
+
+    // extended touch/click area
+    '::after': {
+      content: '',
+      position: 'absolute',
+      top: '-20px',    /* Extend 10px above */
+      left: '-20px',   /* Extend 10px to the left */
+      right: '-20px',  /* Extend 10px to the right */
+      bottom: '-20px', /* Extend 10px below */
+    },
   },
   icon: {
     width: '100%',
