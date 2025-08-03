@@ -1,20 +1,14 @@
----
-description: 
-globs: **/*.tsx
-alwaysApply: false
----
 # React Code Generation Rules
 
 ## General Principles
 
-- Write concise, readable TypeScript code. See [typescript.mdc](mdc:.cursor/rules/typescript.mdc).
 - Define component prop types separate from the corresponding component itself.
-- Style the components using Stylex. See [stylex.mdc](mdc:.cursor/rules/stylex.mdc).
 - Use traditional function declarations instead of arrow functions for components and named functions. Use arrow functions for inline event handlers and callbacks.
 
 ## Documentation
 
 - **All components, hooks, and functions must have docstrings** using TSDoc format.
+- Whenever you make changes to a component, hook, or function, make sure to update its docstring to reflect the changes.
 - Include brief description of purpose, parameters, and return values.
 - For components, describe what they render and key props.
 - For hooks, describe the state/logic they manage and return values.
@@ -69,7 +63,6 @@ function createSlug(name: string): string {
   3. **Subcomponents** (in order of appearance in the parent component)
 - **File structure order**: After all components and their dependencies are laid out hierarchically, follow with:
   1. **Types** (component prop types grouped together, one for each component)
-  2. **Styles** (StyleX styles at the end)
 
 ### Example Structure:
 
@@ -121,11 +114,6 @@ type FirstSubComponentProps = {
 type SecondSubComponentProps = {
   // props for SecondSubComponent
 };
-
-// Styles (at the very end)
-const styles = create({
-  // StyleX styles
-});
 ```
 
 ## Naming Conventions

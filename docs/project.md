@@ -2,7 +2,7 @@
 
 ## Overview
 
-Distribu is a full-stack financial management application built with React Router 7, TypeScript, and TinyBase. The application focuses on income distribution and reserve fund management, allowing users to track income sources, allocate funds to different reserves, and monitor usage patterns.
+Distribu is a full-stack financial management application built with React Router 7 and TypeScript. The application focuses on income distribution and reserve fund management, allowing users to track income sources, allocate funds to different reserves, and monitor usage patterns.
 
 The app focus is simplicity for the user, since many financial management applications are not easy to use.
 
@@ -89,12 +89,8 @@ The app combines elements of **envelope budgeting** and **zero-based budgeting**
 ### Backend Stack
 
 - **Runtime**: Node.js (development), Cloudflare Workers (production)
-- **Data Store**: TinyBase with MergeableStore for collaboration
-- **Local Persistence**: Browser LocalPersister (Phase 1), PglitePersister (Phase 2)
-- **Server Persistence**: Cloudflare Durable Objects with TinyBase persistence
-- **Synchronization**: WebSocket-based real-time sync with conflict resolution
+- **Data Store**: To be determined (currently exploring options)
 - **Authentication**: Custom session-based auth with Cloudflare integration
-- **Offline Support**: Native offline-first with eventual synchronization
 - **Deployment**: Cloudflare (Durable Objects + Workers)
 
 ### Key Features
@@ -124,16 +120,9 @@ The app combines elements of **envelope budgeting** and **zero-based budgeting**
 
 ### Data Management
 
-- `pnpm dev`: Start development server with TinyBase local persistence
+- `pnpm dev`: Start development server
 - `pnpm build`: Create production build with Cloudflare Workers
 - `pnpm typecheck`: Run TypeScript validation
-
-#### TinyBase Development Tools
-
-- Browser DevTools: Inspect TinyBase stores and data flow
-- TinyBase Inspector: Runtime data inspection and debugging
-- Local persistence testing with different scenarios
-- Collaboration simulation with multiple browser instances
 
 ### Development Commands
 
@@ -182,16 +171,16 @@ The app combines elements of **envelope budgeting** and **zero-based budgeting**
 
 ### Current Development Focus (Phase 1)
 
-- Local-first architecture using TinyBase with LocalPersister
 - Core fund management and reserve functionality
-- Complete UI implementation with offline support
+- Complete UI implementation
+- Data persistence architecture (exploring options)
 
 ### Planned Features (Phase 2-3)
 
-- Real-time collaboration with MergeableStore and WebSocket synchronization
+- Real-time collaboration and synchronization
 - Cross-device synchronization via Cloudflare Durable Objects
 - Conflict resolution for concurrent editing scenarios
-- Monthly archive system with TinyBase persistence
+- Monthly archive system
 - Month-end notifications and manual transition controls
 - Notification system for recurring transactions
 - Fund carryover between months
@@ -199,16 +188,15 @@ The app combines elements of **envelope budgeting** and **zero-based budgeting**
 
 ### Future Considerations (Phase 4+)
 
-- Native iOS and Android apps with TinyBase synchronization
-- Advanced historical analysis and reporting with TinyBase Queries
-- Tag-based statistical analysis using TinyBase Indexes and Metrics
+- Native iOS and Android apps
+- Advanced historical analysis and reporting
+- Tag-based statistical analysis
 - Enhanced reporting and analytics
 - REST API layer for third-party integrations
 - Export/import functionality
 
 ### Explicitly Not Planned
 
-- Traditional database integrations (PostgreSQL, MySQL, etc.)
 - Bank integrations
 - Payment system integrations
 - Third-party financial tool connections

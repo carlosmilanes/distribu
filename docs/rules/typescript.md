@@ -1,8 +1,3 @@
----
-description: 
-globs: **/*.ts
-alwaysApply: false
----
 # TypeScript code generation rules
 
 ## General Principles

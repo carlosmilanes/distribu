@@ -1,11 +1,7 @@
----
-description: 
-globs: 
-alwaysApply: false
----
 # StyleX Styles Generation Rules
 
 - Use named imports.
+- Always import `props` as `style`.
 - Use only one `styles` variable at the end of each file, containing all the styles for the corresponding file.
 - **Always create styles using the available relevant variables defined in files inside mdc:app/styles/, especially from [vars.stylex.ts](mdc:app/styles/vars.stylex.ts) for color, spacing, typography, etc.. Do not use hardcoded values unless absolutely necessary and justified.**
 - For responsive styles, always use shared breakpoints/types from `@styles/breakpoints.stylex.ts`.
@@ -13,18 +9,18 @@ alwaysApply: false
 - Use descriptive, consistent style key names (e.g., `primaryButton`, `cardContainer`).
 - Compose styles using arrays or spread syntax for shared patterns.
 - Add a short comment for any non-obvious style rule or when deviating from conventions.
-- Apply the styles (using the `{...props(styles.example)}` syntax) before any other attribute on the styled elements.
+- Apply the styles (using the `{...style(styles.example)}` syntax) as the last prop on the styled elements.
 
 ## Example
 
 ```typescript
-import { create, props } from 'stylex';
+import { create, props as style } from 'stylex';
 import { colors } from '@styles/vars.stylex';
 
 function Component() {
   return (
-    <div {...props(styles.base)}>
-      {/* other props go here, after the styles */}
+    <div className="example" id="my-div" {...style(styles.base)}>
+      {/* styles applied as the last prop */}
     </div>
   );
 }
