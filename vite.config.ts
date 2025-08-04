@@ -3,9 +3,20 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { stylex } from '@stylex-extend/vite';
+import babel from "vite-plugin-babel";
+
+const ReactCompilerConfig = { /* ... */ };
 
 export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), stylex()],
+  plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), stylex(), babel({
+    filter: /\.[jt]sx?$/,
+    babelConfig: {
+      presets: ["@babel/preset-typescript"], // if you use TypeScript
+      plugins: [
+        ["babel-plugin-react-compiler", ReactCompilerConfig],
+      ],
+    },
+  }),],
   optimizeDeps: {
     exclude: ['@electric-sql/pglite'],
   },

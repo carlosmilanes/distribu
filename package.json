@@ -9,7 +9,7 @@
     "typecheck": "react-router typegen && tsc",
     "db": "pnpm exec tsx backend/database/scripts/db-test.ts",
     "seed": "pnpm exec tsx backend/database/scripts/seed.ts",
-  "migrate": "pnpm drizzle-kit push",
+    "migrate": "pnpm drizzle-kit push",
     "studio": "pnpm drizzle-kit studio"
   },
   "dependencies": {
@@ -30,7 +30,8 @@
     "react-aria-components": "^1.10.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.6.2",
-    "tinybase": "^6.2.1"
+    "tinybase": "^6.2.1",
+    "vite-plugin-babel": "^1.3.2"
   },
   "devDependencies": {
     "@react-router/dev": "^7.6.2",
@@ -38,7 +39,9 @@
     "@types/node": "^20.17.30",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.2",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
     "drizzle-kit": "^0.31.1",
+    "eslint-plugin-react-hooks": "6.0.0-rc.1",
     "react-router-devtools": "^5.0.6",
     "tailwindcss": "^4.1.3",
     "tsx": "^4.19.4",
