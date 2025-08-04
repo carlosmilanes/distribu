@@ -16,6 +16,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='es'>
       <head>
+        <script src="http://localhost:8097"></script>
         <meta charSet='utf-8' />
         <meta
           name='viewport'
