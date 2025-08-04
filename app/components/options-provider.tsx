@@ -1,3 +1,16 @@
+/**
+ * This file exports a wrapper component (OptionsProvider) that is meant for:
+ * - wrapping any component that has options
+ * - receiving the options array as props
+ * - providing a context for the options to be consumed by any child component
+ * - animating an 'options modal' with a lift and blur effect
+ * 
+ * USAGE: 
+ * <OptionsProvider options={options}>
+ *   <YourComponent />
+ * </OptionsProvider>
+ */
+
 import {
   createContext,
   useContext,
@@ -43,6 +56,8 @@ export function OptionsProvider({
 }: OptionsProviderProps) {
   const [optionsRevealed, setOptionsRevealed] = useState(false);
 
+// TODO: custom functions necessary?
+
   const showOptions = () => {
     setOptionsRevealed(true);
   };
@@ -55,17 +70,17 @@ export function OptionsProvider({
     setOptionsRevealed((prev) => !prev);
   };
 
-  const contextValue = useContextValue({
+  const contextValue = {
     optionsRevealed,
     showOptions,
     hideOptions,
     toggleOptions,
     options,
-  });
+  };
 
   return (
     <OptionsContext.Provider value={contextValue}>
-      <div className='options-provider-container'>
+      <div className='options-provider-container'> {/* TODO: why this class? */}
         <AnimatePresence>
           {optionsRevealed && <BackgroundBlur />}
         </AnimatePresence>
@@ -80,125 +95,6 @@ export function OptionsProvider({
       </div>
     </OptionsContext.Provider>
   );
-}
-
-/**
- * Demo component showing how to use OptionsProvider with array format
- *
- * @returns JSX element demonstrating OptionsProvider usage
- */
-export function OptionsProviderDemo() {
-  const arrayOptions: OptionItem[] = [
-    {
-      id: 'edit',
-      label: 'Edit',
-      icon: '✏️',
-      onSelect: () => console.log('Edit selected'),
-    },
-    {
-      id: 'delete',
-      label: 'Delete',
-      icon: '🗑️',
-      onSelect: () => console.log('Delete selected'),
-    },
-    {
-      id: 'share',
-      label: 'Share',
-      icon: '📤',
-      onSelect: () => console.log('Share selected'),
-    },
-  ];
-
-  const objectOptions: OptionsObject = {
-    title: 'Quick Actions',
-    items: [
-      {
-        id: 'copy',
-        label: 'Copy to clipboard',
-        icon: '📋',
-        onSelect: () => console.log('Copy selected'),
-      },
-      {
-        id: 'download',
-        label: 'Download',
-        icon: '⬇️',
-        onSelect: () => console.log('Download selected'),
-      },
-    ],
-  };
-
-  return (
-    <div style={{ padding: '20px', display: 'flex', gap: '20px' }}>
-      <OptionsProvider options={arrayOptions}>
-        <DemoCard
-          title='Array Options'
-          subtitle='Click to show options'
-        />
-      </OptionsProvider>
-
-      <OptionsProvider options={objectOptions}>
-        <DemoCard
-          title='Object Options'
-          subtitle='Custom title and actions'
-        />
-      </OptionsProvider>
-    </div>
-  );
-}
-
-/**
- * Demo card component that uses the options context
- */
-function DemoCard({ title, subtitle }: { title: string; subtitle: string }) {
-  const { toggleOptions, optionsRevealed } = useOptions();
-
-  return (
-    <motion.div
-      onClick={toggleOptions}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      style={{
-        padding: '20px',
-        borderRadius: '12px',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        color: 'white',
-        cursor: 'pointer',
-        minWidth: '200px',
-        textAlign: 'center',
-      }}
-    >
-      <h3 style={{ margin: '0 0 8px 0' }}>{title}</h3>
-      <p style={{ margin: 0, opacity: 0.9, fontSize: '14px' }}>{subtitle}</p>
-      <p style={{ margin: '12px 0 0 0', fontSize: '12px', opacity: 0.7 }}>
-        {optionsRevealed ? 'Options visible' : 'Click to show options'}
-      </p>
-    </motion.div>
-  );
-}
-
-/**
- * Custom hook to memoize context value to prevent unnecessary re-renders
- */
-function useContextValue({
-  optionsRevealed,
-  showOptions,
-  hideOptions,
-  toggleOptions,
-  options,
-}: {
-  optionsRevealed: boolean;
-  showOptions: () => void;
-  hideOptions: () => void;
-  toggleOptions: () => void;
-  options: OptionsProviderProps['options'];
-}): OptionsContextValue {
-  return {
-    optionsRevealed,
-    showOptions,
-    hideOptions,
-    toggleOptions,
-    options,
-  };
 }
 
 /**
@@ -386,20 +282,6 @@ function OptionsObject({
   );
 }
 
-// Animation variants for the content lift effect
-const contentVariants = {
-  default: {
-    scale: 1,
-    y: 0,
-    filter: 'brightness(1)',
-  },
-  lifted: {
-    scale: 0.95,
-    y: -10,
-    filter: 'brightness(0.8)',
-  },
-};
-
 // Type definitions
 type OptionItem = {
   id?: string | number;
@@ -429,6 +311,20 @@ type OptionsContextValue = {
 type ContentWrapperProps = {
   children: ReactNode;
   optionsRevealed: boolean;
+};
+
+// Animation variants for the content lift effect
+const contentVariants = {
+  default: {
+    scale: 1,
+    y: 0,
+    filter: 'brightness(1)',
+  },
+  lifted: {
+    scale: 0.95,
+    y: -10,
+    filter: 'brightness(0.8)',
+  },
 };
 
 // Styles
