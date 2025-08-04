@@ -1,6 +1,5 @@
 import { useRef, type RefObject } from 'react';
 import { useDocumentEventListener } from './use-document-event-listener';
-import { useStableCallback } from '../use-stable-callback';
 
 /**
  * Hook that triggers a handler when clicking or touching outside a referenced element.
@@ -27,14 +26,13 @@ export function useOutsidePress<T extends HTMLElement = HTMLElement>(
   handler: (event: MouseEvent | TouchEvent) => void
 ): RefObject<T | null> {
   const ref = useRef<T>(null);
-  const stableHandler = useStableCallback(handler);
 
   function handleEvent(event: MouseEvent | TouchEvent) {
     const target = event.target;
     if (!ref.current || !target || ref.current.contains(target as Node)) {
       return;
     }
-    stableHandler(event);
+    handler(event);
   }
 
   useDocumentEventListener('click', handleEvent);

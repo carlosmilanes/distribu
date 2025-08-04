@@ -51,9 +51,8 @@ function createSlug(name: string): string {
 ## Component Architecture
 
 - Extract component logic into hooks. Separate component logic from presentation. Custom hooks should manage side effects, state, and logic; the component focuses only on rendering.
-- Optimize for performance and Web Vitals.
-  - Implement memoization techniques (use, useMemo, useCallback) where necessary to optimize re-renders.
-  - Implement lazy loading for large components to improve initial load performance.
+- Do not implement memoization techniques like useMemo and useCallback, since React Compiler is installed in this project.
+- Implement lazy loading for large components to improve initial load performance.
 
 ## Component Organization
 

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useStableCallback } from '../use-stable-callback';
 
 /**
  * Hook for managing HTML element event listeners with automatic cleanup
@@ -11,13 +10,11 @@ export function useElementEventListener<K extends keyof HTMLElementEventMap>(
   targetElement: HTMLElement | null,
   options?: AddEventListenerOptions
 ) {
-  const stableHandler = useStableCallback(handler);
-
   useEffect(() => {
     if (!targetElement?.addEventListener) return;
 
     const eventListener = (event: Event) => {
-      stableHandler(event as HTMLElementEventMap[K]);
+      handler(event as HTMLElementEventMap[K]);
     };
 
     targetElement.addEventListener(eventName, eventListener, options);
@@ -25,5 +22,5 @@ export function useElementEventListener<K extends keyof HTMLElementEventMap>(
     return () => {
       targetElement.removeEventListener(eventName, eventListener, options);
     };
-  }, [targetElement, eventName, stableHandler, options]);
+  }, [targetElement, eventName, handler, options]);
 }

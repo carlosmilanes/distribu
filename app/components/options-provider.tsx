@@ -2,7 +2,6 @@ import {
   createContext,
   useContext,
   useState,
-  useCallback,
   type ReactNode,
 } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -44,17 +43,17 @@ export function OptionsProvider({
 }: OptionsProviderProps) {
   const [optionsRevealed, setOptionsRevealed] = useState(false);
 
-  const showOptions = useCallback(() => {
+  const showOptions = () => {
     setOptionsRevealed(true);
-  }, []);
+  };
 
-  const hideOptions = useCallback(() => {
+  const hideOptions = () => {
     setOptionsRevealed(false);
-  }, []);
+  };
 
-  const toggleOptions = useCallback(() => {
+  const toggleOptions = () => {
     setOptionsRevealed((prev) => !prev);
-  }, []);
+  };
 
   const contextValue = useContextValue({
     optionsRevealed,
@@ -193,16 +192,13 @@ function useContextValue({
   toggleOptions: () => void;
   options: OptionsProviderProps['options'];
 }): OptionsContextValue {
-  return useCallback(
-    () => ({
-        optionsRevealed,
-      showOptions,
-      hideOptions,
-      toggleOptions,
-      options,
-    }),
-    [optionsRevealed, showOptions, hideOptions, toggleOptions, options]
-  )();
+  return {
+    optionsRevealed,
+    showOptions,
+    hideOptions,
+    toggleOptions,
+    options,
+  };
 }
 
 /**
