@@ -8,14 +8,14 @@ export function Button({
   type = 'button',
   styleProps,
   onPress,
-  ...otherProps
+  ...rest
 }: ButtonProps) {
   return (
     <AriaButton
       {...style(styles.base, styleProps)}
       onPress={onPress}
       type={type}
-      {...otherProps}
+      {...rest}
     >
       {children}
     </AriaButton>
