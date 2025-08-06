@@ -22,6 +22,25 @@ import { SecondaryText } from '@/app/components/text/secondary-text';
 import { Heading } from '@/app/components/text/heading';
 import { OptionsButton } from '@/app/components/buttons/options-button';
 import { OptionsProvider } from '@/app/components/options-provider';
+import { useOptions } from '@/app/components/options-provider';
+import { useNavigate } from 'react-router';
+
+const testOptions = [
+  {
+    id: 'edit',
+    label: 'Edit',
+    onSelect: () => {
+      console.log('Edit option selected');
+    },
+  },
+  {
+    id: 'delete',
+    label: 'Delete',
+    onSelect: () => {
+      console.log('Delete option selected');
+    },
+  },
+];
 
 /**
  * DistribusGrid displays a grid of DistribuCard components and a create button.
@@ -37,7 +56,7 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
         {distribus.map((distribu) => (
           <OptionsProvider
             key={distribu.id}
-            options={[]}
+            options={testOptions}
           >
             <DistribuContainer
               key={distribu.id}
@@ -58,19 +77,27 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
  * @returns Link card for the distribu
  */
 function DistribuContainer({ distribu }: { distribu: Distribu }) {
+  const navigate = useNavigate();
+  const { setOptionsRevealed } = useOptions();
+
   return (
-    <Link
-      to={`/distribus/${createSlug(distribu.name)}`}
+    <div
+      onClick={() => navigate(`/distribus/${createSlug(distribu.name)}`)}
       {...style(
         reactiveElevation.low,
         lightReflection.ofColor(colors.secondaryBackground),
-        styles.item
+        styles.container
       )}
     >
       <PrimaryText styleProps={styles.name}>{distribu.name}</PrimaryText>
+
       <DistribuStatus distribu={distribu} />
-      <OptionsButton styleProps={styles.optionsButton} />
-    </Link>
+
+      <OptionsButton
+        onPress={() => setOptionsRevealed(true)}
+        styleProps={styles.optionsButton}
+      />
+    </div>
   );
 }
 
@@ -129,7 +156,7 @@ function CreateDistribuButton() {
     <button
       {...style(styles.createButton)}
       onClick={handleCreateClick}
-      aria-label='Create new distribu workspace'
+      aria-label="Create new distribu workspace"
     >
       Create New Distribu
     </button>
@@ -154,7 +181,6 @@ const styles = create({
     paddingLeft: fixedSizes.l2,
     paddingRight: fixedSizes.l2,
   },
-
   list: {
     display: 'flex',
     flexDirection: 'column',
@@ -162,7 +188,7 @@ const styles = create({
     maxWidth: fixedSizes.xl2,
     margin: '0 auto',
   },
-  item: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
     gap: fixedSizes.s2,
@@ -170,7 +196,12 @@ const styles = create({
     backgroundColor: colors.secondaryBackground,
     border: `1px solid ${colors.glassyBorder}`,
     borderRadius: borderRadius.l,
+    cursor: 'pointer',
   },
+  //   link: {
+  // 	position: 'absolute',
+
+  //   },
   optionsButton: {
     position: 'absolute',
     top: fixedSizes.s3,

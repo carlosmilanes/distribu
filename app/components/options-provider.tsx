@@ -4,19 +4,32 @@
  * - receiving the options array as props
  * - providing a context for the options to be consumed by any child component
  * - animating an 'options modal' with a lift and blur effect
- * 
- * USAGE: 
+ *
+ * OPTIONS DEFINITION EXAMPLE:
+ * const options = [
+ *   {
+ *     id: 'edit',
+ *     label: 'Edit',
+ *     onSelect: () => {
+ *       console.log('Edit option selected');
+ *     },
+ *   },
+ *   {
+ *     id: 'delete',
+ *     label: 'Delete',
+ *     onSelect: () => {
+ *       console.log('Delete option selected');
+ *     },
+ *   },
+ * ];
+ *
+ * USAGE:
  * <OptionsProvider options={options}>
  *   <YourComponent />
  * </OptionsProvider>
  */
 
-import {
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-} from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { create } from 'stylex';
 import { motionPresets } from '@/app/motion/presets';
@@ -56,7 +69,7 @@ export function OptionsProvider({
 }: OptionsProviderProps) {
   const [optionsRevealed, setOptionsRevealed] = useState(false);
 
-// TODO: custom functions necessary?
+  // TODO: custom functions necessary?
 
   const showOptions = () => {
     setOptionsRevealed(true);
@@ -71,24 +84,22 @@ export function OptionsProvider({
   };
 
   const contextValue = {
-    optionsRevealed,
-    showOptions,
-    hideOptions,
-    toggleOptions,
     options,
+    optionsRevealed,
+    setOptionsRevealed,
   };
 
   return (
     <OptionsContext.Provider value={contextValue}>
-      <div className='options-provider-container'> {/* TODO: why this class? */}
+      <div className="options-provider-container">
+        {' '}
+        {/* TODO: why this class? */}
         <AnimatePresence>
           {optionsRevealed && <BackgroundBlur />}
         </AnimatePresence>
-
         <ContentWrapper optionsRevealed={optionsRevealed}>
           {children}
         </ContentWrapper>
-
         <AnimatePresence>
           {optionsRevealed && <OptionsOverlay options={options} />}
         </AnimatePresence>
@@ -120,7 +131,7 @@ function BackgroundBlur() {
       onClick={() => {
         // Allow clicking backdrop to close options
         const context = useContext(OptionsContext);
-        context?.hideOptions();
+        context?.setOptionsRevealed(false);
       }}
     />
   );
@@ -150,7 +161,7 @@ function OptionsOverlay({
 }: {
   options: OptionsProviderProps['options'];
 }) {
-  const { hideOptions } = useOptions();
+  const { setOptionsRevealed } = useOptions();
 
   return (
     <motion.div
@@ -175,12 +186,12 @@ function OptionsOverlay({
         {Array.isArray(options) ? (
           <OptionsList
             options={options}
-            onOptionSelect={hideOptions}
+            onOptionSelect={() => setOptionsRevealed(false)}
           />
         ) : options ? (
           <OptionsObject
             options={options}
-            onOptionSelect={hideOptions}
+            onOptionSelect={() => setOptionsRevealed(false)}
           />
         ) : (
           <div>No options available</div>
@@ -301,11 +312,9 @@ type OptionsProviderProps = {
 };
 
 type OptionsContextValue = {
-  optionsRevealed: boolean;
-  showOptions: () => void;
-  hideOptions: () => void;
-  toggleOptions: () => void;
   options: OptionsProviderProps['options'];
+  optionsRevealed: boolean;
+  setOptionsRevealed: (value: boolean) => void;
 };
 
 type ContentWrapperProps = {
