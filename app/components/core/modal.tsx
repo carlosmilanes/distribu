@@ -4,7 +4,7 @@ import {
   Dialog,
   Heading,
 } from 'react-aria-components';
-import { create, props, type StyleXStyles } from 'stylex';
+import { create, props as style, type StyleXStyles } from 'stylex';
 import { colors, borderRadius, dynamicSizes } from '@/app/styles/vars.stylex';
 import { CloseButton } from '../buttons/close-button';
 import { elevation } from '@/app/styles/elevations.stylex';
@@ -23,13 +23,13 @@ export function Modal({
 }: ModalProps) {
   return (
     <ModalOverlay
-      {...props(styles.overlay, overlayStyling)}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       isDismissable
+      {...style(overlayStyling)}
     >
       <AriaModal
-        {...props(elevation.high, styles.modal, styleProps)}
+        {...style(elevation.high, styles.modal, styleProps)}
         {...otherProps}
       >
         <Dialog>
@@ -58,7 +58,6 @@ type ModalProps = {
 
 // Styles
 const styles = create({
-  overlay: {},
   modal: {
     position: 'relative',
     borderRadius: borderRadius.l,

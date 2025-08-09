@@ -36,6 +36,7 @@ import { MotionContainer } from '@/app/components/motion-container';
 import { motionPresets } from '@/app/motion/presets';
 import { MotionModal } from './modals/motion-modal';
 import { Button } from '@/app/components/core/button';
+import { colors } from '../styles/vars.stylex';
 
 /**
  * Wrapper component providing options context and animations
@@ -141,28 +142,38 @@ const contentVariants = {
  * Options overlay component that displays the actual options
  */
 function OptionsModal() {
-  const { options, setOptionsRevealed } = useOptionsContext();
+  const { options, optionsRevealed, setOptionsRevealed } = useOptionsContext();
 
   return (
     <MotionModal
+      isOpen={optionsRevealed}
+      onOpenChange={setOptionsRevealed}
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
       transition={motionPresets.springy}
+      // styleProps={styles.modal}
       {...style(styles.modal)}
     >
       {options.map((option) => (
-        <Option
+        <OptionButton
           key={option.id}
-          component={option.component}
+          option={option}
         />
       ))}
     </MotionModal>
   );
 }
 
-function Option({ component }: { component: ReactNode }) {
-  return <Button>{component}</Button>;
+function OptionButton({ option }: OptionButtonProps) {
+  return (
+    <Button
+      onPress={option.onSelect}
+      styleProps={styles.optionButton}
+    >
+      {option.component()}
+    </Button>
+  );
 }
 
 // /**
@@ -260,8 +271,12 @@ function Option({ component }: { component: ReactNode }) {
 // Type definitions
 type Option = {
   id: string | number;
-  component: ReactNode;
+  component: () => ReactNode;
   onSelect?: () => void;
+};
+
+type OptionButtonProps = {
+  option: Option;
 };
 
 // type OptionsObject = {
@@ -302,15 +317,22 @@ const styles = create({
     zIndex: optionsRevealed ? 20 : 1,
   }),
   modal: {
-    // position: 'fixed',
-    // top: '50%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)',
-    // zIndex: 30,
-    // background: 'white',
-    // borderRadius: '12px',
-    // padding: '20px',
-    // boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-    // minWidth: '200px',
+    // TODO: customize
+    width: '500px',
+    border: `1px solid ${colors.alert}`,
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 30,
+    background: 'white',
+    borderRadius: '12px',
+    padding: '20px',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+    minWidth: '200px',
+  },
+  optionButton: {
+    width: '100%',
+    border: `1px solid ${colors.alert}`,
   },
 });
