@@ -4,17 +4,14 @@ import { createSlug } from '@/app/utils/slug';
 import { PrimaryText } from '@/app/components/text/primary-text';
 import { StatusBar } from '@/app/components/status-bar';
 import { Money } from '@/app/components/money';
-import { TertiaryText } from '@/app/components/text/tertiary-text';
+import { Entity } from '@/app/components/core/entity';
 import {
   borderRadius,
   colors,
   fixedSizes,
   fontSizes,
-  fontWeights,
-  shadows,
 } from '@/app/styles/vars.stylex';
 import {
-  elevation,
   reactiveElevation,
   lightReflection,
 } from '@/app/styles/elevations.stylex';
@@ -81,13 +78,14 @@ function DistribuContainer({ distribu }: { distribu: Distribu }) {
   const { setOptionsRevealed } = useOptions();
 
   return (
-    <div
-      onClick={() => navigate(`/distribus/${createSlug(distribu.name)}`)}
-      {...style(
+    <Entity
+      onPress={() => navigate(`/distribus/${createSlug(distribu.name)}`)}
+      onLongPress={() => setOptionsRevealed(true)}
+      styleProps={[
         reactiveElevation.low,
         lightReflection.ofColor(colors.secondaryBackground),
-        styles.container
-      )}
+        styles.container,
+      ]}
     >
       <PrimaryText styleProps={styles.name}>{distribu.name}</PrimaryText>
 
@@ -97,7 +95,7 @@ function DistribuContainer({ distribu }: { distribu: Distribu }) {
         onPress={() => setOptionsRevealed(true)}
         styleProps={styles.optionsButton}
       />
-    </div>
+    </Entity>
   );
 }
 
@@ -194,14 +192,9 @@ const styles = create({
     gap: fixedSizes.s2,
     padding: fixedSizes.s3,
     backgroundColor: colors.secondaryBackground,
-    border: `1px solid ${colors.glassyBorder}`,
     borderRadius: borderRadius.l,
     cursor: 'pointer',
   },
-  //   link: {
-  // 	position: 'absolute',
-
-  //   },
   optionsButton: {
     position: 'absolute',
     top: fixedSizes.s3,

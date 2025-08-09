@@ -2,7 +2,7 @@
 
 - Use named imports.
 - Always import `props` as `style`.
-- Use only one `styles` variable at the end of each file, containing all the styles for the corresponding file.
+- **Use only one `styles` variable at the very end of each file**, containing all the styles for the corresponding file. The `styles` constant must be the last thing defined in the file, after all components, hooks, helper functions, and types.
 - **Always create styles using the available relevant variables defined in files inside mdc:app/styles/, especially from [vars.stylex.ts](mdc:app/styles/vars.stylex.ts) for color, spacing, typography, etc.. Do not use hardcoded values unless absolutely necessary and justified.**
 - For responsive styles, always use shared breakpoints/types from `@styles/breakpoints.stylex.ts`.
 - Define styles as atomic and reusable as possible (single responsibility per style key).
@@ -25,7 +25,13 @@ function Component() {
   );
 }
 
-// styles at the end of the file
+// All types defined here
+
+type ComponentProps = {
+  // component props
+};
+
+// styles must be the very last thing in the file
 const styles = create({
   base: {
     color: colors.text,
