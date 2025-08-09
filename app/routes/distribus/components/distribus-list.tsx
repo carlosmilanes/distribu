@@ -19,7 +19,7 @@ import { SecondaryText } from '@/app/components/text/secondary-text';
 import { Heading } from '@/app/components/text/heading';
 import { OptionsButton } from '@/app/components/buttons/options-button';
 import { OptionsProvider } from '@/app/components/options-provider';
-import { useOptions } from '@/app/components/options-provider';
+import { useOptionsContext } from '@/app/components/options-provider';
 import { useNavigate } from 'react-router';
 
 const testOptions = [
@@ -75,7 +75,7 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
  */
 function DistribuContainer({ distribu }: { distribu: Distribu }) {
   const navigate = useNavigate();
-  const { setOptionsRevealed } = useOptions();
+  const { setOptionsRevealed } = useOptionsContext();
 
   return (
     <Entity

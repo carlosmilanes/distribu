@@ -1,8 +1,8 @@
 /**
- * This file exports a wrapper component (OptionsProvider) that is meant for:
- * - wrapping any component that has options
- * - receiving the options array as props
- * - providing a context for the options to be consumed by any child component
+ * This file exports a wrapper component (OptionsProvider) meant for:
+ * - wrapping any component that handles options
+ * - receiving an options array as props
+ * - providing context (options, optionsRevealed, setOptionsRevealed) consumable by any child component
  * - animating an 'options modal' with a lift and blur effect
  *
  * OPTIONS DEFINITION EXAMPLE:
@@ -31,32 +31,12 @@
 
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { create } from 'stylex';
+import { create, props as style } from 'stylex';
+import { MotionContainer } from '@/app/components/motion-container';
 import { motionPresets } from '@/app/motion/presets';
 
 /**
- * Context for managing options visibility state and providing toggle functionality
- */
-const OptionsContext = createContext<OptionsContextValue | undefined>(
-  undefined
-);
-
-/**
- * Custom hook to access options context with error checking
- *
- * @returns Object containing options state and toggle functions
- * @throws Error if used outside of OptionsProvider
- */
-export function useOptions(): OptionsContextValue {
-  const context = useContext(OptionsContext);
-  if (!context) {
-    throw new Error('useOptions must be used within an OptionsProvider');
-  }
-  return context;
-}
-
-/**
- * Provider component that wraps children with Apple-like lift and blur animations
+ * Wrapper component providing options context and animations
  * When options are shown, the wrapped component is "lifted" and the background is blurred
  *
  * @param children - Content to be wrapped and animated
@@ -69,43 +49,44 @@ export function OptionsProvider({
 }: OptionsProviderProps) {
   const [optionsRevealed, setOptionsRevealed] = useState(false);
 
-  // TODO: custom functions necessary?
-
-  const showOptions = () => {
-    setOptionsRevealed(true);
-  };
-
-  const hideOptions = () => {
-    setOptionsRevealed(false);
-  };
-
-  const toggleOptions = () => {
-    setOptionsRevealed((prev) => !prev);
-  };
-
-  const contextValue = {
+  const context = {
     options,
     optionsRevealed,
     setOptionsRevealed,
   };
 
   return (
-    <OptionsContext.Provider value={contextValue}>
-      <div className="options-provider-container">
-        {' '}
-        {/* TODO: why this class? */}
-        <AnimatePresence>
-          {optionsRevealed && <BackgroundBlur />}
-        </AnimatePresence>
-        <ContentWrapper optionsRevealed={optionsRevealed}>
-          {children}
-        </ContentWrapper>
-        <AnimatePresence>
-          {optionsRevealed && <OptionsOverlay options={options} />}
-        </AnimatePresence>
-      </div>
-    </OptionsContext.Provider>
+    <OptionsContext value={context}>
+      <AnimatePresence>{optionsRevealed && <BackgroundBlur />}</AnimatePresence>
+      <ContentLifter optionsRevealed={optionsRevealed}>
+        {children}
+      </ContentLifter>
+      <AnimatePresence>
+        {optionsRevealed && <OptionsModal options={options} />}
+      </AnimatePresence>
+    </OptionsContext>
   );
+}
+
+/**
+ * Context for managing options visibility state and providing toggle functionality
+ */
+const OptionsContext = createContext<OptionsContextValue | undefined>(
+  undefined
+);
+
+/**
+ * Custom hook to access options context
+ *
+ * @returns Object containing options, options state and toggle function
+ * @throws Error if used outside of OptionsProvider
+ */
+export function useOptionsContext(): OptionsContextValue {
+  const context = useContext(OptionsContext);
+  if (!context) {
+    throw new Error('useOptionsContext must be used within an OptionsProvider');
+  }
+  return context;
 }
 
 /**
@@ -113,7 +94,7 @@ export function OptionsProvider({
  */
 function BackgroundBlur() {
   return (
-    <motion.div
+    <MotionContainer
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -121,18 +102,7 @@ function BackgroundBlur() {
         duration: 0.3,
         ease: 'easeInOut',
       }}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        backdropFilter: 'blur(8px)',
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        zIndex: 10,
-      }}
-      onClick={() => {
-        // Allow clicking backdrop to close options
-        const context = useContext(OptionsContext);
-        context?.setOptionsRevealed(false);
-      }}
+      {...style(styles.blur)}
     />
   );
 }
@@ -140,31 +110,45 @@ function BackgroundBlur() {
 /**
  * Wrapper component that animates the main content with lift effect
  */
-function ContentWrapper({ children, optionsRevealed }: ContentWrapperProps) {
+function ContentLifter({ children, optionsRevealed }: ContentWrapperProps) {
   return (
-    <motion.div
+    <MotionContainer
       animate={optionsRevealed ? 'lifted' : 'default'}
       variants={contentVariants}
       transition={motionPresets.springy}
-      style={{ position: 'relative', zIndex: optionsRevealed ? 20 : 1 }}
+      {...style(styles.lifter(optionsRevealed))}
     >
       {children}
-    </motion.div>
+    </MotionContainer>
   );
 }
+
+// Animation variants for the content lift effect
+const contentVariants = {
+  default: {
+    scale: 1,
+    y: 0,
+    filter: 'brightness(1)',
+  },
+  lifted: {
+    scale: 0.95,
+    y: -10,
+    filter: 'brightness(0.8)',
+  },
+};
 
 /**
  * Options overlay component that displays the actual options
  */
-function OptionsOverlay({
+function OptionsModal({
   options,
 }: {
   options: OptionsProviderProps['options'];
 }) {
-  const { setOptionsRevealed } = useOptions();
+  const { setOptionsRevealed } = useOptionsContext();
 
   return (
-    <motion.div
+    <MotionContainer
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -197,7 +181,7 @@ function OptionsOverlay({
           <div>No options available</div>
         )}
       </div>
-    </motion.div>
+    </MotionContainer>
   );
 }
 
@@ -322,23 +306,20 @@ type ContentWrapperProps = {
   optionsRevealed: boolean;
 };
 
-// Animation variants for the content lift effect
-const contentVariants = {
-  default: {
-    scale: 1,
-    y: 0,
-    filter: 'brightness(1)',
-  },
-  lifted: {
-    scale: 0.95,
-    y: -10,
-    filter: 'brightness(0.8)',
-  },
-};
-
 // Styles
 const styles = create({
   container: {
     position: 'relative',
   },
+  blur: {
+    position: 'fixed',
+    inset: 0,
+    backdropFilter: 'blur(8px)',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    zIndex: 10,
+  },
+  lifter: (optionsRevealed: boolean) => ({
+    position: 'relative',
+    zIndex: optionsRevealed ? 20 : 1,
+  }),
 });
