@@ -21,18 +21,13 @@ import { OptionsButton } from '@/app/components/buttons/options-button';
 import { OptionsProvider } from '@/app/components/options-provider';
 import { useOptionsContext } from '@/app/components/options-provider';
 import { useNavigate } from 'react-router';
+import { Component } from 'react';
+import { DeleteOption } from '@/app/components/options/delete';
 
 const testOptions = [
   {
-    id: 'edit',
-    label: 'Edit',
-    onSelect: () => {
-      console.log('Edit option selected');
-    },
-  },
-  {
     id: 'delete',
-    label: 'Delete',
+    component: <DeleteOption />,
     onSelect: () => {
       console.log('Delete option selected');
     },
@@ -75,7 +70,7 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
  */
 function DistribuContainer({ distribu }: { distribu: Distribu }) {
   const navigate = useNavigate();
-  const { setOptionsRevealed } = useOptionsContext();
+  const { optionsRevealed, setOptionsRevealed } = useOptionsContext();
 
   return (
     <Entity
@@ -91,10 +86,12 @@ function DistribuContainer({ distribu }: { distribu: Distribu }) {
 
       <DistribuStatus distribu={distribu} />
 
-      <OptionsButton
-        onPress={() => setOptionsRevealed(true)}
-        styleProps={styles.optionsButton}
-      />
+      {!optionsRevealed && (
+        <OptionsButton
+          onPress={() => setOptionsRevealed(true)}
+          styleProps={styles.optionsButton}
+        />
+      )}
     </Entity>
   );
 }
