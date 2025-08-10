@@ -22,22 +22,22 @@ import { OptionsProvider } from '@/app/components/options-provider';
 import { useOptionsContext } from '@/app/components/options-provider';
 import { useNavigate } from 'react-router';
 import { Component } from 'react';
-import { DeleteOption } from '@/app/components/options/delete';
-import { EditOption } from '@/app/components/options/edit';
+import { DeleteOption } from '@/app/components/options/delete-option';
+import { EditOption } from '@/app/components/options/edit-option';
 
 const testOptions = [
-  {
-    id: 'delete',
-    component: () => <DeleteOption />,
-    onSelect: () => {
-      console.log('Delete option selected');
-    },
-  },
   {
     id: 'edit',
     component: () => <EditOption />,
     onSelect: () => {
       console.log('Edit option selected');
+    },
+  },
+  {
+    id: 'delete',
+    component: () => <DeleteOption />,
+    onSelect: () => {
+      console.log('Delete option selected');
     },
   },
 ];

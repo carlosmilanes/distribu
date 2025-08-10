@@ -30,13 +30,21 @@
  */
 
 import { createContext, useContext, useState, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
 import { create, props as style } from 'stylex';
 import { MotionContainer } from '@/app/components/motion-container';
 import { motionPresets } from '@/app/motion/presets';
 import { MotionModal } from './modals/motion-modal';
 import { Button } from '@/app/components/core/button';
-import { colors } from '../styles/vars.stylex';
+import {
+  borderRadius,
+  colors,
+  dynamicSizes,
+  fixedSizes,
+} from '../styles/vars.stylex';
+import { elevation } from '../styles/elevations.stylex';
+import { glass } from '../styles/materials.stylex';
+import type { PressEvent } from 'react-aria';
 
 /**
  * Wrapper component providing options context and animations
@@ -152,8 +160,8 @@ function OptionsModal() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
       transition={motionPresets.springy}
-      // styleProps={styles.modal}
-      {...style(styles.modal)}
+      modalStyleProps={[glass.regular, elevation.high, styles.modal]}
+      dialogStyleProps={styles.dialog}
     >
       {options.map((option) => (
         <OptionButton
@@ -166,107 +174,23 @@ function OptionsModal() {
 }
 
 function OptionButton({ option }: OptionButtonProps) {
+  const { setOptionsRevealed } = useOptionsContext();
+
+  function handleOnPress(e: PressEvent) {
+    e.continuePropagation();
+    option.onSelect?.();
+    setOptionsRevealed(false);
+  }
+
   return (
     <Button
-      onPress={option.onSelect}
+      onPress={handleOnPress}
       styleProps={styles.optionButton}
     >
       {option.component()}
     </Button>
   );
 }
-
-// /**
-//  * Component to render array of options
-//  */
-// function OptionsList({
-//   options,
-//   onOptionSelect,
-// }: {
-//   options: OptionItem[];
-//   onOptionSelect: () => void;
-// }) {
-//   return (
-//     <div>
-//       <h3 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '600' }}>
-//         Options
-//       </h3>
-//       {options.map((option, index) => (
-//         <motion.button
-//           key={option.id || index}
-//           whileHover={{ scale: 1.02 }}
-//           whileTap={{ scale: 0.98 }}
-//           onClick={() => {
-//             option.onSelect?.();
-//             onOptionSelect();
-//           }}
-//           style={{
-//             display: 'block',
-//             width: '100%',
-//             padding: '8px 12px',
-//             margin: '4px 0',
-//             background: 'none',
-//             border: '1px solid #e5e5e5',
-//             borderRadius: '6px',
-//             cursor: 'pointer',
-//             textAlign: 'left',
-//           }}
-//         >
-//           {option.icon && (
-//             <span style={{ marginRight: '8px' }}>{option.icon}</span>
-//           )}
-//           {option.label}
-//         </motion.button>
-//       ))}
-//     </div>
-//   );
-// }
-
-// /**
-//  * Component to render options object
-//  */
-// function OptionsObject({
-//   options,
-//   onOptionSelect,
-// }: {
-//   options: OptionsObject;
-//   onOptionSelect: () => void;
-// }) {
-//   const { title = 'Options', items = [] } = options;
-
-//   return (
-//     <div>
-//       <h3 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '600' }}>
-//         {title}
-//       </h3>
-//       {items.map((item, index) => (
-//         <motion.button
-//           key={item.id || index}
-//           whileHover={{ scale: 1.02 }}
-//           whileTap={{ scale: 0.98 }}
-//           onClick={() => {
-//             item.onSelect?.();
-//             onOptionSelect();
-//           }}
-//           style={{
-//             display: 'block',
-//             width: '100%',
-//             padding: '8px 12px',
-//             margin: '4px 0',
-//             background: 'none',
-//             border: '1px solid #e5e5e5',
-//             borderRadius: '6px',
-//             cursor: 'pointer',
-//             textAlign: 'left',
-//           }}
-//         >
-//           {item.icon && <span style={{ marginRight: '8px' }}>{item.icon}</span>}
-//           {item.label}
-//         </motion.button>
-//       ))}
-//     </div>
-//   );
-// }
 
 // Type definitions
 type Option = {
@@ -278,11 +202,6 @@ type Option = {
 type OptionButtonProps = {
   option: Option;
 };
-
-// type OptionsObject = {
-//   title?: string;
-//   items: OptionItem[];
-// };
 
 type OptionsProviderProps = {
   children: ReactNode;
@@ -317,22 +236,35 @@ const styles = create({
     zIndex: optionsRevealed ? 20 : 1,
   }),
   modal: {
-    // TODO: customize
-    width: '500px',
-    border: `1px solid ${colors.alert}`,
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     zIndex: 30,
-    background: 'white',
-    borderRadius: '12px',
-    padding: '20px',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-    minWidth: '200px',
+    padding: fixedSizes.s2,
+    borderRadius: borderRadius.l,
+    minWidth: fixedSizes.l3,
+    transition: 'scale 0.2s ease-in-out',
+    ':active': {
+      scale: 0.98,
+    },
+  },
+  dialog: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: dynamicSizes.s2,
   },
   optionButton: {
-    width: '100%',
-    border: `1px solid ${colors.alert}`,
+    display: 'flex',
+    justifyContent: 'start',
+    padding: fixedSizes.s1,
+
+    ':hover': {
+      backgroundColor: colors.gray3,
+    },
+
+    ':active': {
+      backgroundColor: colors.gray2,
+    },
   },
 });

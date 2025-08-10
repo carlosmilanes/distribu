@@ -15,8 +15,9 @@ export function Modal({
   heading,
   withCloseButton,
   children,
-  styleProps,
-  overlayStyling,
+  modalStyleProps,
+  dialogStyleProps,
+  overlayStyleProps,
   isOpen,
   onOpenChange,
   ...otherProps
@@ -26,13 +27,13 @@ export function Modal({
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       isDismissable
-      {...style(overlayStyling)}
+      {...style(overlayStyleProps)}
     >
       <AriaModal
-        {...style(elevation.high, styles.modal, styleProps)}
+        {...style(elevation.high, styles.modal, modalStyleProps)}
         {...otherProps}
       >
-        <Dialog>
+        <Dialog {...style(dialogStyleProps)}>
           {({ close }) => (
             <>
               {heading && <Heading>{heading}</Heading>}
@@ -52,8 +53,9 @@ type ModalProps = {
   onOpenChange: (isOpen: boolean) => void;
   withCloseButton?: boolean;
   children: React.ReactNode;
-  styleProps?: StyleXStyles;
-  overlayStyling?: StyleXStyles;
+  modalStyleProps?: StyleXStyles;
+  dialogStyleProps?: StyleXStyles;
+  overlayStyleProps?: StyleXStyles;
 };
 
 // Styles
