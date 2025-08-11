@@ -1,7 +1,8 @@
 import { useState, useEffect, type RefObject } from 'react';
 
-export function useIsElementInScreenUpperHalf(elementRef: RefObject<HTMLElement>) {
+export function useIsElementInScreenUpperHalf(elementRef: RefObject<HTMLDivElement | null>) {
   const middlePoint = useElementMiddlePoint(elementRef);
+  console.log(`is in upper half: ${middlePoint && middlePoint.y < (typeof window !== 'undefined' ? window.innerHeight : 0) / 2}`); // TODO: delete
 
   return middlePoint ? middlePoint.y < (typeof window !== 'undefined' ? window.innerHeight : 0) / 2 : false;
 }
@@ -12,12 +13,12 @@ export function useIsElementInScreenUpperHalf(elementRef: RefObject<HTMLElement>
  * @param elementRef - React ref from the target element
  * @returns Object containing x and y coordinates of the element's middle point, or null if element not found
  */
-function useElementMiddlePoint(elementRef: RefObject<HTMLElement>) {
+function useElementMiddlePoint(elementRef: RefObject<HTMLDivElement | null>) {
   const [coordinates, setCoordinates] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     function updateCoordinates() {
-      if (!elementRef.current) {
+      if (!elementRef?.current) {
         setCoordinates(null);
         return;
       }

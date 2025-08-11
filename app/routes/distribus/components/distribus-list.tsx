@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { useRef } from 'react';
 import { create, props as style } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
 import { PrimaryText } from '@/app/components/text/primary-text';
@@ -71,12 +71,13 @@ function DistribuItemWithOptions({ distribu }: { distribu: Distribu }) {
  */
 function DistribuItem({ distribu }: { distribu: Distribu }) {
   const navigate = useNavigate();
-  const { optionsRevealed, setOptionsRevealed } = useOptionsContext();
+  const { contentRef, optionsRevealed, setOptionsRevealed } = useOptionsContext();
 
   return (
     <Entity
       onPress={() => navigate(`/distribus/${createSlug(distribu.name)}`)}
       onLongPress={() => setOptionsRevealed(true)}
+      ref={contentRef}
       styleProps={[
         reactiveElevation.low,
         lightReflection.ofColor(colors.secondaryBackground),

@@ -1,49 +1,25 @@
 /**
  * This file exports a wrapper component (OptionsProvider) meant for:
  * - wrapping any component that handles options
- * - receiving an options array as props
+ * - receiving options modal component as props
  * - providing context (options, optionsRevealed, setOptionsRevealed) consumable by any child component
  * - animating an 'options modal' with a lift and blur effect
- *
- * OPTIONS DEFINITION EXAMPLE:
- * const options = [
- *   {
- *     id: 'edit',
- *     label: 'Edit',
- *     onSelect: () => {
- *       console.log('Edit option selected');
- *     },
- *   },
- *   {
- *     id: 'delete',
- *     label: 'Delete',
- *     onSelect: () => {
- *       console.log('Delete option selected');
- *     },
- *   },
- * ];
- *
- * USAGE:
- * <OptionsProvider options={options}>
- *   <YourComponent />
- * </OptionsProvider>
  */
 
 import {
   createContext,
   useContext,
   useState,
+  useRef,
   type ComponentType,
   type ReactNode,
+  type RefObject,
 } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { create, props as style } from 'stylex';
 import { MotionContainer } from '@/app/components/motion-container';
 import { motionPresets } from '@/app/motion/presets';
-import { type OptionsModalProps } from './options-modal';
-import { Button } from '@/app/components/core/button';
-import { colors, fixedSizes } from '../../styles/vars.stylex';
-import type { PressEvent } from 'react-aria';
+import { useIsElementInScreenUpperHalf } from '@/app/hooks/use-is-element-in-screen-upper-half';
 
 /**
  * Wrapper component providing options context and animations
@@ -58,9 +34,12 @@ export function OptionsProvider({
   OptionsModal,
 }: OptionsProviderProps) {
   const [optionsRevealed, setOptionsRevealed] = useState(false);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const isContentInScreenUpperHalf = useIsElementInScreenUpperHalf(contentRef);
 
   const context = {
-    OptionsModal,
+    contentRef,
+    isContentInScreenUpperHalf,
     optionsRevealed,
     setOptionsRevealed,
   };
@@ -145,43 +124,15 @@ const contentVariants = {
   },
 };
 
-function OptionButton({ option }: OptionButtonProps) {
-  const { setOptionsRevealed } = useOptionsContext();
-
-  function handleOnPress(e: PressEvent) {
-    e.continuePropagation();
-    option.onSelect?.();
-    setOptionsRevealed(false);
-  }
-
-  return (
-    <Button
-      onPress={handleOnPress}
-      styleProps={styles.optionButton}
-    >
-      {option.component()}
-    </Button>
-  );
-}
-
 // Type definitions
-type Option = {
-  id: string | number;
-  component: () => ReactNode;
-  onSelect?: () => void;
-};
-
-type OptionButtonProps = {
-  option: Option;
-};
-
 type OptionsProviderProps = {
   children: ReactNode;
   OptionsModal: ComponentType;
 };
 
 type OptionsContextValue = {
-  OptionsModal: ComponentType;
+  contentRef: RefObject<HTMLDivElement | null>;
+  isContentInScreenUpperHalf: boolean;
   optionsRevealed: boolean;
   setOptionsRevealed: (value: boolean) => void;
 };
