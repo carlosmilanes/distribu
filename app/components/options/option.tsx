@@ -7,6 +7,7 @@ import {
   fixedSizes,
   fontSizes,
 } from '@/app/styles/vars.stylex';
+import { useOptionsContext } from '@/app/components/options/options-provider';
 
 // TODO: docs
 export function Option({
@@ -15,9 +16,16 @@ export function Option({
   onSelect,
   styleProps,
 }: OptionProps) {
+  const { setOptionsRevealed } = useOptionsContext();
+
+  function handleSelect() {
+    onSelect();
+    setOptionsRevealed(false);
+  }
+
   return (
     <Button
-      onPress={onSelect}
+      onPress={handleSelect}
       styleProps={[styles.base, styleProps]}
     >
       <IconComponent {...style(styles.icon)} /> {label}

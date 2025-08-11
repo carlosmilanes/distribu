@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { create, props } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
 import { EmptyManager } from './components/empty-manager';
-import { DistribusList } from './components/distribus-list';
+import { DistribusListPage } from './components/distribus-list';
 import type { Distribu } from './components/distribus-list';
 import {
   createDistribu,
@@ -47,7 +47,7 @@ export default function DistribusManager({ loaderData: distribus }: Route.Compon
       {distribus.length === 0 ? (
         <EmptyManager />
       ) : (
-        <DistribusList distribus={distribus} />
+        <DistribusListPage distribus={distribus} />
       )}
     </>
   );

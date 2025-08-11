@@ -26,31 +26,40 @@ import { EditOption } from '@/app/components/options/edit-option';
 import { OptionsModal } from '@/app/components/options/options-modal';
 import { OptionsSeparator } from '@/app/components/options/options-separator';
 
+export function DistribusListPage({ distribus }: { distribus: Distribu[] }) {
+  return (
+    <main {...style(styles.base)}>
+      <Heading>Distribus</Heading>
+      <DistribusList distribus={distribus} />
+      <CreateDistribuButton />
+    </main>
+  );
+}
+
 /**
- * DistribusList displays a list of DistribuItem components and a create button.
+ * DistribusList displays a list of Distribu Item components and a create button.
  *
  * @param distribus - Array of distribus to display
  * @returns Main section with list of distribus and create button
  */
-export function DistribusList({ distribus }: { distribus: Distribu[] }) {
+function DistribusList({ distribus }: { distribus: Distribu[] }) {
   return (
-    <main {...style(styles.base)}>
-      <Heading>Distribus</Heading>
-      <div {...style(styles.list)}>
-        {distribus.map((distribu) => (
-          <OptionsProvider
-            key={distribu.id}
-            OptionsModal={DistribuOptions}
-          >
-            <DistribuItem
-              key={distribu.id}
-              distribu={distribu}
-            />
-          </OptionsProvider>
-        ))}
-        <CreateDistribuButton />
-      </div>
-    </main>
+    <div {...style(styles.list)}>
+      {distribus.map((distribu) => (
+        <DistribuItemWithOptions
+          key={distribu.id}
+          distribu={distribu}
+        />
+      ))}
+    </div>
+  );
+}
+
+function DistribuItemWithOptions({ distribu }: { distribu: Distribu }) {
+  return (
+    <OptionsProvider OptionsModal={DistribuOptions}>
+      <DistribuItem distribu={distribu} />
+    </OptionsProvider>
   );
 }
 
