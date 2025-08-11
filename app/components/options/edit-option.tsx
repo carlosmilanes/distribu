@@ -1,13 +1,14 @@
-import { BaseOption } from './base-component';
+import { Option } from './option';
 import { EditIcon } from '@/app/components/icons';
 import { create } from 'stylex';
 import { colors } from '@/app/styles/vars.stylex';
 
-export function EditOption() {
+export function EditOption({ onSelect }: { onSelect: () => void }) {
   return (
-    <BaseOption
+    <Option
       IconComponent={EditIcon}
       label="Edit"
+      onSelect={onSelect}
       styleProps={styles.base}
     />
   );

@@ -29,21 +29,20 @@
  * </OptionsProvider>
  */
 
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  type ComponentType,
+  type ReactNode,
+} from 'react';
 import { AnimatePresence } from 'motion/react';
 import { create, props as style } from 'stylex';
 import { MotionContainer } from '@/app/components/motion-container';
 import { motionPresets } from '@/app/motion/presets';
-import { MotionModal } from './modals/motion-modal';
+import { type OptionsModalProps } from './options-modal';
 import { Button } from '@/app/components/core/button';
-import {
-  borderRadius,
-  colors,
-  dynamicSizes,
-  fixedSizes,
-} from '../styles/vars.stylex';
-import { elevation } from '../styles/elevations.stylex';
-import { glass } from '../styles/materials.stylex';
+import { colors, fixedSizes } from '../../styles/vars.stylex';
 import type { PressEvent } from 'react-aria';
 
 /**
@@ -56,12 +55,12 @@ import type { PressEvent } from 'react-aria';
  */
 export function OptionsProvider({
   children,
-  options = [],
+  OptionsModal,
 }: OptionsProviderProps) {
   const [optionsRevealed, setOptionsRevealed] = useState(false);
 
   const context = {
-    options,
+    OptionsModal,
     optionsRevealed,
     setOptionsRevealed,
   };
@@ -146,33 +145,6 @@ const contentVariants = {
   },
 };
 
-/**
- * Options overlay component that displays the actual options
- */
-function OptionsModal() {
-  const { options, optionsRevealed, setOptionsRevealed } = useOptionsContext();
-
-  return (
-    <MotionModal
-      isOpen={optionsRevealed}
-      onOpenChange={setOptionsRevealed}
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: 20 }}
-      transition={motionPresets.springy}
-      modalStyleProps={[glass.regular, elevation.high, styles.modal]}
-      dialogStyleProps={styles.dialog}
-    >
-      {options.map((option) => (
-        <OptionButton
-          key={option.id}
-          option={option}
-        />
-      ))}
-    </MotionModal>
-  );
-}
-
 function OptionButton({ option }: OptionButtonProps) {
   const { setOptionsRevealed } = useOptionsContext();
 
@@ -205,11 +177,11 @@ type OptionButtonProps = {
 
 type OptionsProviderProps = {
   children: ReactNode;
-  options?: Option[];
+  OptionsModal: ComponentType;
 };
 
 type OptionsContextValue = {
-  options: Option[];
+  OptionsModal: ComponentType;
   optionsRevealed: boolean;
   setOptionsRevealed: (value: boolean) => void;
 };
@@ -235,36 +207,5 @@ const styles = create({
     position: 'relative',
     zIndex: optionsRevealed ? 20 : 1,
   }),
-  modal: {
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 30,
-    padding: fixedSizes.s2,
-    borderRadius: borderRadius.l,
-    minWidth: fixedSizes.l3,
-    transition: 'scale 0.2s ease-in-out',
-    ':active': {
-      scale: 0.98,
-    },
-  },
-  dialog: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: dynamicSizes.s2,
-  },
-  optionButton: {
-    display: 'flex',
-    justifyContent: 'start',
-    padding: fixedSizes.s1,
-
-    ':hover': {
-      backgroundColor: colors.gray3,
-    },
-
-    ':active': {
-      backgroundColor: colors.gray2,
-    },
-  },
+  optionButton: {},
 });

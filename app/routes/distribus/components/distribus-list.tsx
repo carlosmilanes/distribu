@@ -18,35 +18,19 @@ import {
 import { SecondaryText } from '@/app/components/text/secondary-text';
 import { Heading } from '@/app/components/text/heading';
 import { OptionsButton } from '@/app/components/buttons/options-button';
-import { OptionsProvider } from '@/app/components/options-provider';
-import { useOptionsContext } from '@/app/components/options-provider';
+import { OptionsProvider } from '@/app/components/options/options-provider';
+import { useOptionsContext } from '@/app/components/options/options-provider';
 import { useNavigate } from 'react-router';
-import { Component } from 'react';
 import { DeleteOption } from '@/app/components/options/delete-option';
 import { EditOption } from '@/app/components/options/edit-option';
-
-const testOptions = [
-  {
-    id: 'edit',
-    component: () => <EditOption />,
-    onSelect: () => {
-      console.log('Edit option selected');
-    },
-  },
-  {
-    id: 'delete',
-    component: () => <DeleteOption />,
-    onSelect: () => {
-      console.log('Delete option selected');
-    },
-  },
-];
+import { OptionsModal } from '@/app/components/options/options-modal';
+import { OptionsSeparator } from '@/app/components/options/options-separator';
 
 /**
- * DistribusGrid displays a grid of DistribuCard components and a create button.
+ * DistribusList displays a list of DistribuItem components and a create button.
  *
  * @param distribus - Array of distribus to display
- * @returns Main section with grid of distribus and create button
+ * @returns Main section with list of distribus and create button
  */
 export function DistribusList({ distribus }: { distribus: Distribu[] }) {
   return (
@@ -56,9 +40,9 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
         {distribus.map((distribu) => (
           <OptionsProvider
             key={distribu.id}
-            options={testOptions}
+            OptionsModal={DistribuOptions}
           >
-            <DistribuContainer
+            <DistribuItem
               key={distribu.id}
               distribu={distribu}
             />
@@ -71,12 +55,12 @@ export function DistribusList({ distribus }: { distribus: Distribu[] }) {
 }
 
 /**
- * DistribuCard displays a single distribu as a clickable card.
+ * DistribuItem displays a single distribu as a clickable item.
  *
  * @param distribu - Distribu object
- * @returns Link card for the distribu
+ * @returns Link item for the distribu
  */
-function DistribuContainer({ distribu }: { distribu: Distribu }) {
+function DistribuItem({ distribu }: { distribu: Distribu }) {
   const navigate = useNavigate();
   const { optionsRevealed, setOptionsRevealed } = useOptionsContext();
 
@@ -143,6 +127,16 @@ function FundAvailability({ distribu }: { distribu: Distribu }) {
         />
       </div>
     </div>
+  );
+}
+
+function DistribuOptions() {
+  return (
+    <OptionsModal>
+      <EditOption onSelect={() => {}} />
+      <OptionsSeparator />
+      <DeleteOption onSelect={() => {}} />
+    </OptionsModal>
   );
 }
 
