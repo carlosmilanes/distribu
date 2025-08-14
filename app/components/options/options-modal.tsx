@@ -1,4 +1,5 @@
 import { useOptionsContext } from './options-provider';
+import type { Offset } from '@/app/hooks/event-listeners/use-element-offsets';
 import { MotionModal } from '../modals/motion-modal';
 import { motionPresets } from '../../motion/presets';
 import { glass } from '../../styles/materials.stylex';
@@ -15,7 +16,12 @@ import type { ReactNode } from 'react';
  * Options overlay component that displays the actual options
  */
 export function OptionsModal({ children }: OptionsModalProps) {
-  const { optionsRevealed, setOptionsRevealed } = useOptionsContext();
+  const {
+    isContentInScreenUpperHalf,
+    contentOffset,
+    optionsRevealed,
+    setOptionsRevealed,
+  } = useOptionsContext();
 
   return (
     <MotionModal
@@ -26,7 +32,19 @@ export function OptionsModal({ children }: OptionsModalProps) {
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
       transition={motionPresets.springy}
       modalStyleProps={[glass.regular, elevation.high, styles.modal]}
-      dialogStyleProps={styles.dialog}
+      style={{
+        position: 'fixed',
+        top:
+          isContentInScreenUpperHalf && contentOffset
+            ? contentOffset.bottom + 5
+            : undefined,
+        bottom:
+          !isContentInScreenUpperHalf && contentOffset
+            ? contentOffset.top + 15
+            : undefined,
+        right: contentOffset ? contentOffset.right : undefined,
+      }}
+      dialogStyleProps={[styles.dialog]}
     >
       {children}
     </MotionModal>
@@ -39,10 +57,6 @@ export type OptionsModalProps = {
 
 const styles = create({
   modal: {
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
     zIndex: 30,
     padding: fixedSizes.s2,
     borderRadius: borderRadius.l,

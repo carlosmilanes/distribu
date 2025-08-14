@@ -20,6 +20,10 @@ import { create, props as style } from 'stylex';
 import { MotionContainer } from '@/app/components/motion-container';
 import { motionPresets } from '@/app/motion/presets';
 import { useIsElementInScreenUpperHalf } from '@/app/hooks/use-is-element-in-screen-upper-half';
+import {
+  useElementOffsets,
+  type Offset,
+} from '@/app/hooks/event-listeners/use-element-offsets';
 
 /**
  * Wrapper component providing options context and animations
@@ -33,12 +37,14 @@ export function OptionsProvider({
   children,
   OptionsModal,
 }: OptionsProviderProps) {
-  const [optionsRevealed, setOptionsRevealed] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isContentInScreenUpperHalf = useIsElementInScreenUpperHalf(contentRef);
+  const contentOffset = useElementOffsets(contentRef);
+  const [optionsRevealed, setOptionsRevealed] = useState(false);
 
   const context = {
     contentRef,
+    contentOffset,
     isContentInScreenUpperHalf,
     optionsRevealed,
     setOptionsRevealed,
@@ -133,6 +139,7 @@ type OptionsProviderProps = {
 type OptionsContextValue = {
   contentRef: RefObject<HTMLDivElement | null>;
   isContentInScreenUpperHalf: boolean;
+  contentOffset: Offset | null;
   optionsRevealed: boolean;
   setOptionsRevealed: (value: boolean) => void;
 };
