@@ -1,9 +1,7 @@
 import { useOptionsContext } from './options-provider';
-import type { Offset } from '@/app/hooks/use-element-offsets';
 import { MotionModal } from '../modals/motion-modal';
 import { motionPresets } from '../../motion/presets';
 import { glass } from '../../styles/materials.stylex';
-import { elevation } from '../../styles/elevations.stylex';
 import { create } from 'stylex';
 import {
   dynamicSizes,
@@ -31,7 +29,7 @@ export function OptionsModal({ children }: OptionsModalProps) {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
       transition={motionPresets.springy}
-      modalStyleProps={[glass.regular, elevation.high, styles.modal]}
+      modalStyleProps={[glass.regular, styles.modal]}
       style={{
         position: 'fixed',
         top:
@@ -44,7 +42,7 @@ export function OptionsModal({ children }: OptionsModalProps) {
             : undefined,
         right: contentOffset ? contentOffset.right : undefined,
       }}
-      dialogStyleProps={[styles.dialog]}
+      dialogStyleProps={styles.dialog}
     >
       {children}
     </MotionModal>

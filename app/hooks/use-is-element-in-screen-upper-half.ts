@@ -2,7 +2,6 @@ import { useState, useEffect, type RefObject } from 'react';
 
 export function useIsElementInScreenUpperHalf(elementRef: RefObject<HTMLDivElement | null>) {
   const middlePoint = useElementMiddlePoint(elementRef);
-  console.log(`is in upper half: ${middlePoint && middlePoint.y < (typeof window !== 'undefined' ? window.innerHeight : 0) / 2}`); // TODO: delete
 
   return middlePoint ? middlePoint.y < (typeof window !== 'undefined' ? window.innerHeight : 0) / 2 : false;
 }
