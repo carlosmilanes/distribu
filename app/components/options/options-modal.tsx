@@ -1,5 +1,5 @@
 import { useOptionsContext } from './options-provider';
-import type { Offset } from '@/app/hooks/event-listeners/use-element-offsets';
+import type { Offset } from '@/app/hooks/use-element-offsets';
 import { MotionModal } from '../modals/motion-modal';
 import { motionPresets } from '../../motion/presets';
 import { glass } from '../../styles/materials.stylex';

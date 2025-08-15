@@ -23,7 +23,7 @@ import { useIsElementInScreenUpperHalf } from '@/app/hooks/use-is-element-in-scr
 import {
   useElementOffsets,
   type Offset,
-} from '@/app/hooks/event-listeners/use-element-offsets';
+} from '@/app/hooks/use-element-offsets';
 
 /**
  * Wrapper component providing options context and animations

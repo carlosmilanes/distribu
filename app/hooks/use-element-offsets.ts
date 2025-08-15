@@ -29,7 +29,7 @@ export function useElementOffsets(ref: React.RefObject<HTMLElement | null>): Off
 
     updateOffsets();
 
-    window.addEventListener('scroll', updateOffsets, true); // TODO: need this? getBoundingClientRect accouts for scroll
+    window.addEventListener('scroll', updateOffsets, true);
     window.addEventListener('resize', updateOffsets);
 
     return () => {
