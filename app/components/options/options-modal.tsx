@@ -40,7 +40,7 @@ export function OptionsModal({ children }: OptionsModalProps) {
             : undefined,
         bottom:
           !isContentInScreenUpperHalf && contentOffset
-            ? contentOffset.top + 15
+            ? contentOffset.top + 5
             : undefined,
         right: contentOffset ? contentOffset.right : undefined,
       }}

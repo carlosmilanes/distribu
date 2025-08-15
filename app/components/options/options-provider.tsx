@@ -104,9 +104,19 @@ function BackgroundBlur() {
  * Wrapper component that animates the main content with lift effect
  */
 function ContentLifter({ children, optionsRevealed }: ContentLifterProps) {
+  const { isContentInScreenUpperHalf } = useOptionsContext();
+
+  function setLiftVariant() {
+    if (isContentInScreenUpperHalf) {
+      return 'liftedUp';
+    } else {
+      return 'liftedDown';
+    }
+  }
+
   return (
     <MotionContainer
-      animate={optionsRevealed ? 'lifted' : 'default'}
+      animate={optionsRevealed ? setLiftVariant() : 'default'}
       variants={contentVariants}
       transition={motionPresets.springy}
       {...style(styles.lifter(optionsRevealed))}
@@ -123,9 +133,14 @@ const contentVariants = {
     y: 0,
     filter: 'brightness(1)',
   },
-  lifted: {
+  liftedUp: {
     scale: 0.95,
     y: -10,
+    filter: 'brightness(0.8)',
+  },
+  liftedDown: {
+    scale: 0.95,
+    y: 10,
     filter: 'brightness(0.8)',
   },
 };
