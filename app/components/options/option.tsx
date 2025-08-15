@@ -6,6 +6,7 @@ import {
   dynamicSizes,
   fixedSizes,
   fontSizes,
+  borderRadius,
 } from '@/app/styles/vars.stylex';
 import { useOptionsContext } from '@/app/components/options/options-provider';
 
@@ -44,17 +45,14 @@ const styles = create({
   base: {
     display: 'flex',
     color: colors.text,
-    fontSize: fontSizes.l,
+    fontSize: fontSizes.m,
     gap: dynamicSizes.s2,
     justifyContent: 'start',
     padding: fixedSizes.s1,
+    borderRadius: borderRadius.l,
 
     ':hover': {
-      backgroundColor: colors.gray3,
-    },
-
-    ':active': {
-      backgroundColor: colors.gray2,
+      backgroundColor: colors.glassHover,
     },
   },
   icon: {

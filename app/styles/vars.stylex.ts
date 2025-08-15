@@ -18,9 +18,24 @@ export const colors = defineVars({
   assignedIncome: { default: '#FF9500', [DARK]: '#FF9F0A' },
   usedIncome: { default: '#FF3B30', [DARK]: '#FF453A' },
 
-  glassyBackground: {
+  thinGlass: {
+    default: 'rgba(255, 255, 255, 0.05)',
+    [DARK]: 'rgba(0, 0, 0, 0.05)',
+  },
+
+  regularGlass: {
     default: 'rgba(255, 255, 255, 0.1)',
     [DARK]: 'rgba(0, 0, 0, 0.1)',
+  },
+
+  glassHover: {
+    default: 'rgba(255, 255, 255, 0.3)',
+    [DARK]: 'rgba(255, 255, 255, 0.1)',
+  },
+
+  thickGlass: {
+    default: 'rgba(255, 255, 255, 0.2)',
+    [DARK]: 'rgba(0, 0, 0, 0.2)',
   },
 
   glassyBorder: {

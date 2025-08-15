@@ -3,8 +3,8 @@ import { colors } from './vars.stylex';
 
 export const glass = create({
   regular: {
-    backgroundColor: colors.glassyBackground,
+    backgroundColor: colors.regularGlass,
     backdropFilter: 'blur(20px)',
-    border: `1px solid ${colors.glassyBorder}`,
+    border: `0.5px solid ${colors.gray3}`,
   },
 });

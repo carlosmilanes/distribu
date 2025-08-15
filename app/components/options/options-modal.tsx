@@ -21,24 +21,43 @@ export function OptionsModal({ children }: OptionsModalProps) {
     setOptionsRevealed,
   } = useOptionsContext();
 
+  const variants = {
+    appearAbove: {
+      opacity: 0,
+      scale: 0.9,
+      y: 20,
+    },
+    appearBelow: {
+      opacity: 0,
+      scale: 0.9,
+      y: -20,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+    },
+  };
+
   return (
     <MotionModal
       isOpen={optionsRevealed}
       onOpenChange={setOptionsRevealed}
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: 20 }}
+      initial={isContentInScreenUpperHalf ? 'appearAbove' : 'appearBelow'}
+      animate="visible"
+      exit={isContentInScreenUpperHalf ? 'appearAbove' : 'appearBelow'}
+      variants={variants}
       transition={motionPresets.springy}
       modalStyleProps={[glass.regular, styles.modal]}
       style={{
         position: 'fixed',
         top:
           isContentInScreenUpperHalf && contentOffset
-            ? contentOffset.bottom + 5
+            ? contentOffset.bottom
             : undefined,
         bottom:
           !isContentInScreenUpperHalf && contentOffset
-            ? contentOffset.top + 5
+            ? contentOffset.top
             : undefined,
         right: contentOffset ? contentOffset.right : undefined,
       }}
@@ -57,7 +76,7 @@ const styles = create({
   modal: {
     zIndex: 30,
     padding: fixedSizes.s2,
-    borderRadius: borderRadius.l,
+    borderRadius: borderRadius.xl,
     minWidth: fixedSizes.l3,
     transition: 'scale 0.2s ease-in-out',
     ':active': {

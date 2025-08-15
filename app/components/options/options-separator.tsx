@@ -7,7 +7,7 @@ export function OptionsSeparator() {
 
 const styles = create({
   separator: {
-    color: colors.gray3,
+    color: colors.gray2,
     height: '0.5px',
     width: '90%',
     margin: '0 auto',
