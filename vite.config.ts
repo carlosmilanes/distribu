@@ -17,7 +17,17 @@ export default defineConfig({
       ],
     },
   }),],
+  build: {
+    target: 'es2022', // Support modern JavaScript features including top-level await
+    minify: 'esbuild',
+  },
+  esbuild: {
+    target: 'es2022', // Ensure esbuild also uses modern target
+  },
   optimizeDeps: {
     exclude: ['@electric-sql/pglite'],
+    esbuildOptions: {
+      target: 'es2022', // Modern target for dependency optimization
+    },
   },
 });
