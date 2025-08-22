@@ -10,7 +10,20 @@ import {
 } from '@/app/styles/vars.stylex';
 import { useOptionsContext } from '@/app/components/options/options-provider';
 
-// TODO: docs
+/**
+ * Base option component that serves as the common denominator for all individual option components
+ * Provides standardized styling, behavior, and auto-dismissal functionality for options menus
+ * 
+ * This component automatically closes the options modal when selected and handles the standard
+ * option layout with icon + label. Individual option components (EditOption, DeleteOption, etc.)
+ * should use this as their foundation and be wrapped by the OptionsModal component.
+ *
+ * @param IconComponent - SVG icon component to display alongside the label
+ * @param label - Text label for the option
+ * @param onSelect - Callback function executed when the option is selected
+ * @param styleProps - Optional additional StyleX styles to apply
+ * @returns Clickable option button with icon and label
+ */
 export function Option({
   IconComponent,
   label,

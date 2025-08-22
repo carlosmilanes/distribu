@@ -24,8 +24,7 @@ import { useNavigate } from 'react-router';
 import { DeleteOption } from '@/app/components/options/delete-option';
 import { EditOption } from '@/app/components/options/edit-option';
 import { OptionsModal } from '@/app/components/options/options-modal';
-import { OptionsSeparator } from '@/app/components/options/options-separator';
-import { Picture } from '@/app/routes/distribus_.$distribuName/funds-manager/components/picture';
+import { OptionsSeparator } from '@/app/components/options/options-separator';import { Picture } from '@/app/routes/distribus_.$distribuName/funds-manager/components/picture';
 
 export function DistribusListPage({ distribus }: { distribus: Distribu[] }) {
   return (
@@ -46,16 +45,12 @@ export function DistribusListPage({ distribus }: { distribus: Distribu[] }) {
 function DistribusList({ distribus }: { distribus: Distribu[] }) {
   return (
     <div {...style(styles.list)}>
-      <Picture />
-      <Picture />
       {distribus.map((distribu) => (
         <DistribuItemWithOptions
           key={distribu.id}
           distribu={distribu}
         />
       ))}
-      <Picture />
-      <Picture />
     </div>
   );
 }

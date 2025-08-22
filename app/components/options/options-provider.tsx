@@ -1,9 +1,30 @@
 /**
- * This file exports a wrapper component (OptionsProvider) meant for:
- * - wrapping any component that handles options
- * - receiving options modal component as props
- * - providing context (options, optionsRevealed, setOptionsRevealed) consumable by any child component
- * - animating an 'options modal' with a lift and blur effect
+ * This file exports a wrapper component (OptionsProvider) that standardizes the way options are displayed throughout the app. This component:
+ * - is meant for wrapping content that handles options
+ * - shows or hides the component received as the `OptionsModal` prop based on the `optionsRevealed` state variable
+ * - animates the wrapped content with a lift effect and the background with a blur effect when options are shown
+ * - provides context for managing options state, content positioning, and screen position detection
+ * - tracks element offsets and screen positioning to properly place the options modal
+ * - handles z-index layering to ensure proper stacking order during animations
+ *
+ * USAGE PATTERN:
+ * This component must be used together with OptionsModal. Individual option components 
+ * (delete-option, edit-option, options-separator, etc.) should be wrapped inside OptionsModal.
+ *
+ * Example:
+ * <OptionsProvider OptionsModal={MyOptionsModal}>
+ *   <ContentWithOptions />
+ * </OptionsProvider>
+ *
+ * function MyOptionsModal() {
+ *   return (
+ *     <OptionsModal>
+ *       <EditOption onSelect={() => {}} />
+ *       <OptionsSeparator />
+ *       <DeleteOption onSelect={() => {}} />
+ *     </OptionsModal>
+ *   );
+ * }
  */
 
 import {
@@ -30,7 +51,7 @@ import {
  * When options are shown, the wrapped component is "lifted" and the background is blurred
  *
  * @param children - Content to be wrapped and animated
- * @param options - Array of option objects or configuration object for options
+ * @param OptionsModal - Component to render as the options modal when revealed
  * @returns JSX element with animated wrapper and context provider
  */
 export function OptionsProvider({
@@ -62,7 +83,8 @@ export function OptionsProvider({
 }
 
 /**
- * Context for managing options visibility state and providing toggle functionality
+ * Context for managing options visibility state, content positioning, and screen detection
+ * Provides access to content refs, offsets, screen position, and options reveal state
  */
 const OptionsContext = createContext<OptionsContextValue | undefined>(
   undefined
@@ -71,7 +93,7 @@ const OptionsContext = createContext<OptionsContextValue | undefined>(
 /**
  * Custom hook to access options context
  *
- * @returns Object containing options, options state and toggle function
+ * @returns Object containing content ref, offsets, screen position, options state and toggle function
  * @throws Error if used outside of OptionsProvider
  */
 export function useOptionsContext(): OptionsContextValue {
@@ -102,6 +124,11 @@ function BackgroundBlur() {
 
 /**
  * Wrapper component that animates the main content with lift effect
+ * Applies different lift directions based on screen position (up/down) and adjusts z-index
+ *
+ * @param children - Content to be animated
+ * @param optionsRevealed - Whether options are currently revealed
+ * @returns Animated container with lift effect
  */
 function ContentLifter({ children, optionsRevealed }: ContentLifterProps) {
   const { isContentInScreenUpperHalf } = useOptionsContext();

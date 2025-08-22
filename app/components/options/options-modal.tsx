@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useOptionsContext } from './options-provider';
 import { MotionModal } from '../modals/motion-modal';
 import { motionPresets } from '../../motion/presets';
@@ -8,10 +9,17 @@ import {
   fixedSizes,
   borderRadius,
 } from '@/app/styles/vars.stylex';
-import type { ReactNode } from 'react';
 
 /**
- * Options overlay component that displays the actual options
+ * Options modal component that displays the actual options
+ * This component is passed as a prop to OptionsProvider and should wrap individual option components
+ * (EditOption, DeleteOption, OptionsSeparator, etc.)
+ *
+ * Blocks interaction with other screen elements while displayed and handles positioning
+ * based on screen location with animated entrance/exit
+ *
+ * @param children - Individual option components to display in the modal
+ * @returns Positioned and animated modal containing the options
  */
 export function OptionsModal({ children }: OptionsModalProps) {
   const {
@@ -21,34 +29,16 @@ export function OptionsModal({ children }: OptionsModalProps) {
     setOptionsRevealed,
   } = useOptionsContext();
 
-  const variants = {
-    appearAbove: {
-      opacity: 0,
-      scale: 0.9,
-      y: 20,
-    },
-    appearBelow: {
-      opacity: 0,
-      scale: 0.9,
-      y: -20,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-    },
-  };
-
   return (
     <MotionModal
       isOpen={optionsRevealed}
       onOpenChange={setOptionsRevealed}
-      initial={isContentInScreenUpperHalf ? 'appearAbove' : 'appearBelow'}
+      variants={animationVariants}
+      initial={isContentInScreenUpperHalf ? 'fadeInUp' : 'fadeInDown'}
       animate="visible"
-      exit={isContentInScreenUpperHalf ? 'appearAbove' : 'appearBelow'}
-      variants={variants}
       transition={motionPresets.springy}
       modalStyleProps={[glass.regular, styles.modal]}
+      dialogStyleProps={styles.dialog}
       style={{
         position: 'fixed',
         top:
@@ -61,12 +51,29 @@ export function OptionsModal({ children }: OptionsModalProps) {
             : undefined,
         right: contentOffset ? contentOffset.right : undefined,
       }}
-      dialogStyleProps={styles.dialog}
     >
       {children}
     </MotionModal>
   );
 }
+
+const animationVariants = {
+  fadeInUp: {
+    opacity: 0,
+    scale: 0.9,
+    y: 20,
+  },
+  fadeInDown: {
+    opacity: 0,
+    scale: 0.9,
+    y: -20,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+  },
+};
 
 export type OptionsModalProps = {
   children: ReactNode;
