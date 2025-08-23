@@ -6,10 +6,8 @@ import { createSlug } from '@/app/utils/slug';
 import { EmptyManager } from './components/empty-manager';
 import { DistribusListPage } from './components/distribus-list';
 import type { Distribu } from './components/distribus-list';
-import {
-  createDistribu,
-  getDistribus,
-} from '@/data/database/queries/distribus';
+import { createDistribu } from '@/data/database/mutations/distribus';
+import { getDistribus } from '@/data/database/queries/distribus';
 
 export function meta({}: Route.MetaArgs) {
   return [

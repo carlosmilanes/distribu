@@ -1,6 +1,6 @@
 import { db } from '../../entry';
 import { incomes } from '../../schema';
-import { deleteIncome } from '../../queries/funds';
+import { deleteIncome } from '../../mutations/funds';
 import { sql } from 'drizzle-orm';
 
 async function resetIncomesTable() {

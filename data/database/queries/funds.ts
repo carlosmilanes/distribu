@@ -1,46 +1,15 @@
 import { db } from '../entry';
 import { incomes, uses, reserves } from '../schema';
-import type { Income, NewIncome, FundsData, Reserve } from '../../types';
+import type { Income, FundsData, Reserve } from '../../types';
 import { eq, sum } from 'drizzle-orm';
 import { getDistribuReserves } from './reserves';
 
-export async function addIncome(income: NewIncome) {
-  try {
-    const { id, ...rest } = income;
-    return await db.insert(incomes).values(rest);
-  } catch (error) {
-    console.error('Failed to add income:', error);
-    throw new Error(
-      'Failed to add income: ' +
-        (error instanceof Error ? error.message : String(error))
-    );
-  }
-}
-
-export async function updateIncome(id: number, income: NewIncome) {
-  try {
-    return await db.update(incomes).set(income).where(eq(incomes.id, id));
-  } catch (error) {
-    console.error('Failed to update income:', error);
-    throw new Error(
-      'Failed to update income: ' +
-        (error instanceof Error ? error.message : String(error))
-    );
-  }
-}
-
-export async function deleteIncome(id: number) {
-  try {
-    return await db.delete(incomes).where(eq(incomes.id, id));
-  } catch (error) {
-    console.error('Failed to delete income:', error);
-    throw new Error(
-      'Failed to delete income: ' +
-        (error instanceof Error ? error.message : String(error))
-    );
-  }
-}
-
+/**
+ * Gets comprehensive funds data for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns Complete funds data including totals and income list
+ */
 export async function getDistribuFundsData(
   distribuId: number
 ): Promise<FundsData> {
@@ -69,6 +38,12 @@ export async function getDistribuFundsData(
   }
 }
 
+/**
+ * Gets the total funds amount for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns The total funds amount
+ */
 async function getDistribuTotalFunds(distribuId: number): Promise<number> {
   const incomeRows = await getDistribuIncomes(distribuId);
   return incomeRows.reduce(
@@ -77,6 +52,12 @@ async function getDistribuTotalFunds(distribuId: number): Promise<number> {
   );
 }
 
+/**
+ * Gets the total assigned funds for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns The total assigned funds amount
+ */
 async function getDistribuAssignedFunds(distribuId: number): Promise<number> {
   const reserveRows = await getDistribuReserves(distribuId);
   return reserveRows.reduce(
@@ -85,6 +66,12 @@ async function getDistribuAssignedFunds(distribuId: number): Promise<number> {
   );
 }
 
+/**
+ * Gets all incomes for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns Array of incomes for the distribu
+ */
 async function getDistribuIncomes(distribuId: number): Promise<Income[]> {
   try {
     return await db
@@ -100,6 +87,12 @@ async function getDistribuIncomes(distribuId: number): Promise<Income[]> {
   }
 }
 
+/**
+ * Gets the total used funds for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns The total used funds amount
+ */
 async function getDistribuUsedFunds(distribuId: number): Promise<number> {
   try {
     const [{ totalUsed }] = await db

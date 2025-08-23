@@ -6,7 +6,7 @@ import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { useRef, useEffect, useState } from 'react';
 import { createSlug } from '@/app/utils/slug';
 import { Form } from 'react-router';
-import { createDistribu } from '@/data/database/queries/distribus';
+import { createDistribu } from '@/data/database/mutations/distribus';
 
 /**
  * React Router form for creating a new distribu

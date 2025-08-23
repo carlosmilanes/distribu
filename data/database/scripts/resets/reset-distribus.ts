@@ -1,6 +1,6 @@
 import { db } from '../../entry';
 import { distribus } from '../../schema';
-import { deleteDistribu } from '../../queries/distribus';
+import { deleteDistribu } from '../../mutations/distribus';
 import { sql } from 'drizzle-orm';
 
 async function resetDistribusTable() {

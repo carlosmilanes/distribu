@@ -2,33 +2,11 @@ import { db } from '../entry';
 import { distribus, incomes, reserves, uses } from '../schema';
 import { eq, sum } from 'drizzle-orm';
 
-export async function createDistribu(name: string) {
-  try {
-    return await db
-      .insert(distribus)
-      .values({ name })
-      .returning({ id: distribus.id });
-  } catch (error) {
-    console.error('Error creating distribu:', error);
-    throw new Error(
-      'Failed to create distribu: ' +
-        (error instanceof Error ? error.message : String(error))
-    );
-  }
-}
-
-export async function deleteDistribu(id: number) {
-  try {
-    return await db.delete(distribus).where(eq(distribus.id, id));
-  } catch (error) {
-    console.error('Error deleting distribu:', error);
-    throw new Error(
-      'Failed to delete distribu: ' +
-        (error instanceof Error ? error.message : String(error))
-    );
-  }
-}
-
+/**
+ * Retrieves all distribus with their calculated amounts
+ *
+ * @returns Array of distribus with total, assigned, used, and available amounts
+ */
 export async function getDistribus() {
   try {
     const allDistribus = await db.select().from(distribus);
@@ -69,6 +47,12 @@ export async function getDistribus() {
   }
 }
 
+/**
+ * Gets the total incomes for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns The total income amount
+ */
 async function getDistribuTotalIncomes(distribuId: number): Promise<number> {
   try {
     const [{ total }] = await db
@@ -85,6 +69,12 @@ async function getDistribuTotalIncomes(distribuId: number): Promise<number> {
   }
 }
 
+/**
+ * Gets the total assigned amount for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns The total assigned amount
+ */
 async function getDistribuTotalAssigned(distribuId: number): Promise<number> {
   try {
     const [{ total }] = await db
@@ -101,6 +91,12 @@ async function getDistribuTotalAssigned(distribuId: number): Promise<number> {
   }
 }
 
+/**
+ * Gets the total used amount for a distribu
+ *
+ * @param distribuId - The ID of the distribu
+ * @returns The total used amount
+ */
 async function getDistribuTotalUsed(distribuId: number): Promise<number> {
   try {
     const [{ total }] = await db

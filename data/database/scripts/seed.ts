@@ -6,9 +6,9 @@ import {
   recurringUses,
   distribus,
 } from '../schema';
-import { addIncome } from '../queries/funds';
-import { addReserve, addUse, addTag, deleteTag } from '../queries/reserves';
-import { createDistribu, deleteDistribu } from '../queries/distribus';
+import { addIncome } from '../mutations/funds';
+import { addReserve, addUse, addTag, deleteTag } from '../mutations/reserves';
+import { createDistribu, deleteDistribu } from '../mutations/distribus';
 import {
   mockTags,
   mockReserves,

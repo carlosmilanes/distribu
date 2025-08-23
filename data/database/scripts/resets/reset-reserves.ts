@@ -1,6 +1,6 @@
 import { db } from '../../entry';
 import { reserves } from '../../schema';
-import { deleteReserve } from '../../queries/reserves';
+import { deleteReserve } from '../../mutations/reserves';
 import { sql } from 'drizzle-orm';
 
 async function resetReservesTable() {
