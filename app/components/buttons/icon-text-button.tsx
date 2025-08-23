@@ -1,32 +1,65 @@
 import { Button, type ButtonProps } from '../core/button';
-import { create, props } from 'stylex';
-import { borderRadius, fixedSizes } from '@/app/styles/vars.stylex';
+import { create, props as style } from 'stylex';
+import {
+  borderRadius,
+  fixedSizes,
+  fontSizes,
+  dynamicSizes,
+  colors,
+} from '@/app/styles/vars.stylex';
+import {
+  lightReflection,
+  reactiveElevation,
+} from '@/app/styles/elevations.stylex';
 
 export function IconTextButton({
   children,
   onPress,
+  IconComponent,
+  styleProps,
   ...otherProps
-}: ButtonProps) {
+}: IconTextButtonProps) {
   return (
     <Button
       onPress={onPress}
-      {...props(styles.base)}
+      styleProps={[
+        lightReflection.ofColor(colors.primary),
+        reactiveElevation.low,
+        styles.base,
+        styleProps,
+      ]}
       {...otherProps}
     >
+      <IconComponent {...style(styles.icon)} />
       {children}
     </Button>
   );
 }
 
+type IconTextButtonProps = ButtonProps & {
+  IconComponent: React.ComponentType;
+};
+
+const iconSize = fixedSizes.m2;
+
 const styles = create({
   base: {
-    fontWeight: '600',
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    width: dynamicSizes.l3,
     gap: fixedSizes.s1,
     borderRadius: borderRadius.full,
     paddingLeft: fixedSizes.s4,
     paddingRight: fixedSizes.s4,
     paddingTop: fixedSizes.s1,
     paddingBottom: fixedSizes.s1,
-    fontSize: '18px',
+    fontSize: fontSizes.l,
+    whiteSpace: 'nowrap',
+  },
+  icon: {
+    width: iconSize,
+    height: iconSize,
+    flexShrink: 0,
   },
 });

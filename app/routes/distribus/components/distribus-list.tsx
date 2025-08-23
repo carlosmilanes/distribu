@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { create, props as style } from 'stylex';
 import { createSlug } from '@/app/utils/slug';
 import { PrimaryText } from '@/app/components/text/primary-text';
@@ -8,6 +7,7 @@ import { Entity } from '@/app/components/core/entity';
 import {
   borderRadius,
   colors,
+  dynamicSizes,
   fixedSizes,
   fontSizes,
 } from '@/app/styles/vars.stylex';
@@ -24,14 +24,16 @@ import { useNavigate } from 'react-router';
 import { DeleteOption } from '@/app/components/options/delete-option';
 import { EditOption } from '@/app/components/options/edit-option';
 import { OptionsModal } from '@/app/components/options/options-modal';
-import { OptionsSeparator } from '@/app/components/options/options-separator';import { Picture } from '@/app/routes/distribus_.$distribuName/funds-manager/components/picture';
+import { OptionsSeparator } from '@/app/components/options/options-separator';
+import { IconTextButton } from '@/app/components/buttons/icon-text-button';
+import { AddIcon } from '@/app/components/icons';
 
 export function DistribusListPage({ distribus }: { distribus: Distribu[] }) {
   return (
     <main {...style(styles.base)}>
       <Heading>Distribus</Heading>
-      <DistribusList distribus={distribus} />
       <CreateDistribuButton />
+      <DistribusList distribus={distribus} />
     </main>
   );
 }
@@ -161,13 +163,14 @@ function CreateDistribuButton() {
     // TODO: Implement create distribu modal/form
   };
   return (
-    <button
-      {...style(styles.createButton)}
-      onClick={handleCreateClick}
+    <IconTextButton
+      onPress={handleCreateClick}
       aria-label="Create new distribu workspace"
+      IconComponent={AddIcon}
+      styleProps={styles.createButton}
     >
-      Create New Distribu
-    </button>
+      New Distribu
+    </IconTextButton>
   );
 }
 
@@ -242,22 +245,5 @@ const styles = create({
     rotate: '15deg',
   },
   createButton: {
-    marginTop: '2rem',
-    padding: '0.5rem 1rem',
-    backgroundColor: '#3b82f6',
-    color: '#ffffff',
-    borderRadius: '0.5rem',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: '0.875rem',
-    fontWeight: '500',
-    transition: 'background-color 0.2s ease',
-    ':hover': {
-      backgroundColor: '#2563eb',
-    },
-    ':focus': {
-      outline: '2px solid #3b82f6',
-      outlineOffset: '2px',
-    },
   },
 });
