@@ -28,7 +28,7 @@ export type Use = BaseUse & {
 export type Reserve = BaseReserve & {
   tags?: BaseTag[];
   uses?: Use[];
-  amountUsed: number;
+  usedAmount: string;
 };
 
 export type Tag = BaseTag;
@@ -46,7 +46,7 @@ export type FundsData = {
 };
 
 export type FundsStatus = {
-  total: number;
-  assigned: number;
-  used: number;
+  total: string;
+  assigned: string;
+  used: string;
 };

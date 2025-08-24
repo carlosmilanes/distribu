@@ -75,7 +75,7 @@ async function seed() {
             : reserve.distribuId,
       };
 
-      const { tags, uses, amountUsed, ...reserveToAdd } = reserveData;
+      const { tags, uses, usedAmount, ...reserveToAdd } = reserveData;
 
       // Add the reserve
       const result = await addReserve(reserveToAdd);

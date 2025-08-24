@@ -9,6 +9,6 @@ export function PrimaryText({ children, styleProps }: TextProps) {
 const styles = create({
   base: {
     color: colors.text,
-    fontSize: fontSizes.xl,
+    fontSize: fontSizes.l,
   },
 });

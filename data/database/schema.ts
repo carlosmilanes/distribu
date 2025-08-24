@@ -69,7 +69,7 @@ export const reserves = pgTable(
       .references(() => distribus.id, { onDelete: 'cascade' }),
     name: text('name').notNull().unique(),
     position: integer('position').notNull(),
-    amountAssigned: decimal('amount_assigned', {
+    assignedAmount: decimal('assigned_amount', {
       precision: 12,
       scale: 2,
     }).notNull(),

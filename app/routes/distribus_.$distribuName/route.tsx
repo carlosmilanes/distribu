@@ -1,8 +1,9 @@
 import type { Route } from './+types/route';
 import { FundsManager } from './funds-manager';
 import { slugToDisplayName } from '@/app/utils/slug';
-import { mockFundsData } from '@/data/mockData';
-// import { Picture } from '@/distribu/funds-manager/components/picture';
+import { mockFundsData, mockReserves } from '@/data/mockData';
+import { ReservesList } from './reserves-list';
+import { FundsProvider } from '@/app/contexts/funds-context';
 
 export function meta({ params }: Route.MetaArgs) {
   const displayName = slugToDisplayName(params.distribuName);
@@ -18,6 +19,7 @@ export function meta({ params }: Route.MetaArgs) {
 export async function clientLoader({ params }: Route.LoaderArgs) {
   return {
     fundsData: mockFundsData,
+    reserves: mockReserves,
     distribuName: params.distribuName,
     displayName: slugToDisplayName(params.distribuName),
   };
@@ -25,9 +27,9 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
 
 export default function Distribu({ loaderData }: Route.ComponentProps) {
   return (
-    <>
-      {/* <Picture /> */}
+    <FundsProvider fundsStatus={loaderData.fundsData.status}>
+      <ReservesList reserves={loaderData.reserves} />
       <FundsManager fundsData={loaderData.fundsData} />
-    </>
+    </FundsProvider>
   );
 }

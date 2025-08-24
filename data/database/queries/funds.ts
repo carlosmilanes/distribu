@@ -44,12 +44,13 @@ export async function getDistribuFundsData(
  * @param distribuId - The ID of the distribu
  * @returns The total funds amount
  */
-async function getDistribuTotalFunds(distribuId: number): Promise<number> {
+async function getDistribuTotalFunds(distribuId: number): Promise<string> {
   const incomeRows = await getDistribuIncomes(distribuId);
-  return incomeRows.reduce(
+  const total = incomeRows.reduce(
     (sum: number, income: Income) => sum + Number(income.amount),
     0
   );
+  return total.toFixed(2);
 }
 
 /**
@@ -58,12 +59,13 @@ async function getDistribuTotalFunds(distribuId: number): Promise<number> {
  * @param distribuId - The ID of the distribu
  * @returns The total assigned funds amount
  */
-async function getDistribuAssignedFunds(distribuId: number): Promise<number> {
+async function getDistribuAssignedFunds(distribuId: number): Promise<string> {
   const reserveRows = await getDistribuReserves(distribuId);
-  return reserveRows.reduce(
-    (sum: number, reserve: Reserve) => sum + Number(reserve.amountAssigned),
+  const total = reserveRows.reduce(
+    (sum: number, reserve: Reserve) => sum + Number(reserve.assignedAmount),
     0
   );
+  return total.toFixed(2);
 }
 
 /**
@@ -93,17 +95,17 @@ async function getDistribuIncomes(distribuId: number): Promise<Income[]> {
  * @param distribuId - The ID of the distribu
  * @returns The total used funds amount
  */
-async function getDistribuUsedFunds(distribuId: number): Promise<number> {
+async function getDistribuUsedFunds(distribuId: number): Promise<string> {
   try {
     const [{ totalUsed }] = await db
       .select({
-        totalUsed: sum(uses.amount).mapWith(Number),
+        totalUsed: sum(uses.amount),
       })
       .from(uses)
       .innerJoin(reserves, eq(uses.reserveId, reserves.id))
       .where(eq(reserves.distribuId, distribuId));
 
-    return totalUsed || 0;
+    return totalUsed || '0.00';
   } catch (error) {
     console.error('Failed to get used funds:', error);
     throw new Error(

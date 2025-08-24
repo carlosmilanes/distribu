@@ -24,13 +24,13 @@ export async function getDistribuReserves(
 
     const reserveObjects = await Promise.all(
       reserveRows.map(async (reserve) => {
-        const amountUsed = await getReserveUsedAmount(reserve.id);
+        const usedAmount = await getReserveUsedAmount(reserve.id);
         const tags = await getReserveTags(reserve.id);
         const uses = await getReserveUses(reserve.id);
 
         return {
           ...reserve,
-          amountUsed,
+          usedAmount,
           tags,
           uses,
         };
@@ -53,16 +53,16 @@ export async function getDistribuReserves(
  * @param reserveId - The ID of the reserve
  * @returns The total used amount for the reserve
  */
-async function getReserveUsedAmount(reserveId: number): Promise<number> {
+async function getReserveUsedAmount(reserveId: number): Promise<string> {
   try {
     const [{ usedAmount }] = await db
       .select({
-        usedAmount: sum(uses.amount).mapWith(Number),
+        usedAmount: sum(uses.amount),
       })
       .from(uses)
       .where(eq(uses.reserveId, reserveId));
 
-    return usedAmount ?? 0;
+    return usedAmount ?? '0.00';
   } catch (error) {
     console.error(
       `Failed to get used amount for reserve ID ${reserveId}:`,

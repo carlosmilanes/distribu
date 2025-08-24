@@ -23,13 +23,14 @@ import { create, props as style, type StyleXStyles } from 'stylex';
  */
 
 export function Money({ amount, styleProps }: MoneyProps) {
-  const formattedAmount = Number.isInteger(amount)
-    ? amount.toString()
-    : amount.toFixed(2);
+  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+  const formattedAmount = Number.isInteger(numAmount)
+    ? numAmount.toString()
+    : numAmount.toFixed(2);
   return <div {...style(styleProps)}>{formattedAmount}</div>;
 }
 
 type MoneyProps = {
-  amount: number;
+  amount: string | number;
   styleProps?: StyleXStyles;
 };

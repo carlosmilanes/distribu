@@ -79,7 +79,7 @@ async function getDistribuTotalAssigned(distribuId: number): Promise<number> {
   try {
     const [{ total }] = await db
       .select({
-        total: sum(reserves.amountAssigned).mapWith(Number),
+        total: sum(reserves.assignedAmount).mapWith(Number),
       })
       .from(reserves)
       .where(eq(reserves.distribuId, distribuId));

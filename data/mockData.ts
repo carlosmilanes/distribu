@@ -49,65 +49,65 @@ export const mockReserves: Reserve[] = [
     distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Housing',
     position: 1,
-    amountAssigned: '1000.00',
+    assignedAmount: '1000.00',
     isMonthly: true,
     isActive: true,
     notes: 'Rent and utilities',
     tags: [mockTags[0]],
     uses: [mockUses[0]],
-    amountUsed: 250.0,
+    usedAmount: '250.00',
   },
   {
     id: 2,
     distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Groceries',
     position: 2,
-    amountAssigned: '400.00',
+    assignedAmount: '400.00',
     isMonthly: true,
     isActive: true,
     notes: 'Food and household items',
     tags: [mockTags[1]],
     uses: [mockUses[1]],
-    amountUsed: 75.5,
+    usedAmount: '75.50',
   },
   {
     id: 3,
     distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Transportation',
     position: 3,
-    amountAssigned: '200.00',
+    assignedAmount: '200.00',
     isMonthly: true,
     isActive: true,
     notes: 'Gas, car maintenance, public transport',
     tags: [mockTags[2]],
     uses: [mockUses[2]],
-    amountUsed: 45.0,
+    usedAmount: '45.00',
   },
   {
     id: 4,
     distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Entertainment',
     position: 4,
-    amountAssigned: '150.00',
+    assignedAmount: '150.00',
     isMonthly: false,
     isActive: true,
     notes: 'Movies, dining out, hobbies',
     tags: [mockTags[3]],
     uses: [],
-    amountUsed: 0,
+    usedAmount: '0.00',
   },
   {
     id: 5,
     distribuId: DISTRIBU_PLACEHOLDER_ID,
     name: 'Emergency Fund',
     position: 5,
-    amountAssigned: '500.00',
+    assignedAmount: '500.00',
     isMonthly: true,
     isActive: true,
     notes: 'Savings for unexpected expenses',
     tags: [mockTags[4]],
     uses: [],
-    amountUsed: 0,
+    usedAmount: '0.00',
   },
 ];
 
@@ -140,9 +140,9 @@ export const mockIncomes: Income[] = [
 // Complete mock funds data
 export const mockFundsData: FundsData = {
   status: {
-    total: 2850.0, // Sum of all incomes
-    assigned: 2250.0, // Sum of all assigned amounts
-    used: 370.5, // Sum of all used amounts
+    total: '2850.00', // Sum of all incomes
+    assigned: '2250.00', // Sum of all assigned amounts
+    used: '370.50', // Sum of all used amounts
   },
   incomes: mockIncomes,
 };

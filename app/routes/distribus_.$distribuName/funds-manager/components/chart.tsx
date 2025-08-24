@@ -70,7 +70,7 @@ function Legend({ status, hidden }: LegendProps) {
     <div {...style(styles.legend, hidden && styles.legendHidden)}>
       <LegendItem
         label='Disponible'
-        amount={status.total - status.assigned}
+        amount={(parseFloat(status.total) - parseFloat(status.assigned)).toFixed(2)}
         total={status.total}
         color={colors.income}
       />
@@ -129,7 +129,7 @@ function DottedDivider() {
 }
 
 type TotalHeaderProps = {
-  total: number;
+  total: string;
   collapsed: boolean;
 };
 
@@ -140,8 +140,8 @@ type LegendProps = {
 
 type LegendItemProps = {
   label: string;
-  amount: number;
-  total: number;
+  amount: string;
+  total: string;
   color: string;
 };
 

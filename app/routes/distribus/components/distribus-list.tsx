@@ -115,9 +115,9 @@ function DistribuStatus({ distribu }: { distribu: Distribu }) {
       <FundAvailability distribu={distribu} />
       <StatusBar
         status={{
-          total: distribu.totalAmount,
-          assigned: distribu.assignedAmount,
-          used: distribu.usedAmount,
+          total: distribu.totalAmount.toString(),
+          assigned: distribu.assignedAmount.toString(),
+          used: distribu.usedAmount.toString(),
         }}
       />
     </div>

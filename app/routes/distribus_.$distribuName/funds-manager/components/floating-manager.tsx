@@ -48,7 +48,7 @@ export function FloatingManager({ fundsData }: { fundsData: FundsData }) {
       </SecondaryText>
 
       <Money
-        amount={fundsData.status.total - fundsData.status.assigned}
+        amount={(parseFloat(fundsData.status.total) - parseFloat(fundsData.status.assigned)).toFixed(2)}
         styleProps={styles.money}
       />
 
