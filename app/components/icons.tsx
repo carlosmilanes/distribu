@@ -5,4 +5,5 @@ export {
   MagnifyingGlassIcon as SearchIcon,
   EllipsisHorizontalIcon as OptionsIcon,
   PencilIcon as EditIcon,
+  ArrowRightIcon as UseIcon,
 } from '@heroicons/react/24/outline';
