@@ -85,7 +85,9 @@ function WeightBar({ reserve }: { reserve: Reserve }) {
 
   return (
     <div {...style(styles.weightBarContainer(barWidth))}>
-      <div {...style(styles.weightBarUsed(usagePercentage))} />
+      {usagePercentage > 0 && (
+        <div {...style(styles.weightBarUsed(usagePercentage))} />
+      )}
     </div>
   );
 }
@@ -124,7 +126,6 @@ const styles = create({
     width: `${width}%`,
     borderRadius: borderRadius.full,
     position: 'relative',
-    overflow: 'hidden',
     marginTop: fixedSizes.s2,
     transition: 'width 300ms ease-in-out',
   }),
@@ -134,5 +135,7 @@ const styles = create({
     width: `${width}%`,
     borderRadius: borderRadius.full,
     transition: 'width 300ms ease-in-out',
+    borderRight: `0.5px solid ${colors.gray4}`,
+    boxShadow: '4px 0 4px rgba(0, 0, 0, 0.1)',
   }),
 });
