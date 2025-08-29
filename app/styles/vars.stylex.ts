@@ -2,6 +2,12 @@ import { defineVars } from 'stylex';
 
 const DARK = '@media (prefers-color-scheme: dark)';
 
+export const breakpoints = defineVars({
+  medium: '@media (min-width: 48rem)',
+  wide: '@media (min-width: 78.75rem)',
+});
+
+
 export const colors = defineVars({
   // base
   '--primary': { default: '#34C759', [DARK]: '#30D158' },
