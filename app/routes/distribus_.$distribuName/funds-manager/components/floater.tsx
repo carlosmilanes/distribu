@@ -5,6 +5,7 @@ import {
   borderRadius,
   dynamicSizes,
   fixedSizes,
+  zIndices,
 } from '@/app/styles/vars.stylex';
 import { reactiveElevation } from '@/app/styles/elevations.stylex';
 import type { Medium } from '@/app/styles/breakpoints.stylex';
@@ -79,5 +80,7 @@ const styles = create({
     // others
     borderRadius: borderRadius.xl,
     cursor: 'pointer',
+
+    zIndex: zIndices.elevated,
   },
 });

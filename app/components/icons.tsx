@@ -6,4 +6,5 @@ export {
   EllipsisHorizontalIcon as OptionsIcon,
   PencilIcon as EditIcon,
   ArrowRightIcon as UseIcon,
+  Cog6ToothIcon as SettingsIcon,
 } from '@heroicons/react/24/outline';

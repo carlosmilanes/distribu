@@ -1,7 +1,7 @@
 import { Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { motion, type PanInfo, useDragControls } from 'motion/react';
 import { create, props as style } from 'stylex';
-import { colors, borderRadius } from '@/app/styles/vars.stylex';
+import { colors, borderRadius, zIndices } from '@/app/styles/vars.stylex';
 import { CloseButton } from '@/app/components/buttons/close-button';
 import { PrimaryText } from '@/app/components/text/primary-text';
 
@@ -30,8 +30,8 @@ export function ExpandedFloater({
       <MotionModal
         {...style(styles.modal)}
         layoutDependency={isExpanded}
-        layoutId='income-manager-floater'
-        drag='y'
+        layoutId="income-manager-floater"
+        drag="y"
         dragListener={false}
         dragControls={dragControls}
         dragTransition={{
@@ -110,6 +110,7 @@ const styles = create({
     border: `1px solid ${colors.gray4}`,
     borderTopLeftRadius: borderRadius.xl,
     borderTopRightRadius: borderRadius.xl,
+    zIndex: zIndices.elevated,
   },
   dialog: {
     outline: 'none',

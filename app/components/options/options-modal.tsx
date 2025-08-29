@@ -8,6 +8,7 @@ import {
   dynamicSizes,
   fixedSizes,
   borderRadius,
+  zIndices,
 } from '@/app/styles/vars.stylex';
 
 /**
@@ -79,12 +80,14 @@ export type OptionsModalProps = {
   children: ReactNode;
 };
 
+// Number(zIndices.top)
+
 const styles = create({
   modal: {
-    zIndex: 30,
     padding: fixedSizes.s2,
     borderRadius: borderRadius.xl,
     minWidth: fixedSizes.l3,
+    zIndex: 30,
     transition: 'scale 0.2s ease-in-out',
     ':active': {
       scale: 0.98,

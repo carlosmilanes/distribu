@@ -171,6 +171,14 @@ export const borderRadius = defineVars({
   full: 'calc(infinity * 1px)',
 });
 
+export const zIndices = defineVars({
+  behind: '-1',
+  base: '0',
+  elevated: '10',
+  modal: '100',
+  top: '1000',
+});
+
 export const shadows = defineVars({
   s: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
   m: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
