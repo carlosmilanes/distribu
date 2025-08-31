@@ -151,7 +151,7 @@ const styles = create({
     bottom: '-1px',
     zIndex: 10,
     width: '100%',
-    borderTop: `2px solid ${colors.glassyBorder}`,
+    // borderTop: `2px solid ${colors.glassyBorder}`,
     paddingBottom: fixedSizes.s3,
   },
   stackedBar: {

@@ -130,12 +130,12 @@ function FundAvailability({ distribu }: { distribu: Distribu }) {
       <SecondaryText>Unassigned from Total</SecondaryText>
       <div {...style(styles.amounts)}>
         <Money
-          amount={distribu.availableAmount}
+          amount={distribu.availableAmount.toString()}
           styleProps={styles.unassigned}
         />
         <div {...style(styles.separator)} />
         <Money
-          amount={distribu.totalAmount}
+          amount={distribu.totalAmount.toString()}
           styleProps={styles.total}
         />
       </div>

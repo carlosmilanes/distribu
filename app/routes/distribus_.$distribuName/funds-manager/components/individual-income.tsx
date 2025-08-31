@@ -262,7 +262,7 @@ const IndividualIncomeStyles = create({
     transitionDuration: '300ms',
   },
   futureDate: {
-    border: `2px dashed ${colors.income}`,
+    // border: `2px dashed ${colors.income}`,
     color: colors.income,
   },
   deleting: {
@@ -305,7 +305,7 @@ const IndividualIncomeStyles = create({
     },
   },
   sourceError: {
-    border: `2px solid ${colors.alert}`,
+    // border: `2px solid ${colors.alert}`,
   },
   notes: {
     color: colors.secondaryText,
@@ -400,7 +400,7 @@ const IndividualIncomeStyles = create({
     transition: 'background-color 200ms',
   },
   divider: {
-    borderColor: colors.income,
+    // borderColor: colors.income,
     width: '100%',
     marginBottom: '16px',
   },

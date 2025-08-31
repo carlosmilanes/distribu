@@ -107,17 +107,17 @@ const styles = create({
     backgroundColor: colors.background,
 
     // border
-    border: `1px solid ${colors.gray4}`,
-    borderTopLeftRadius: borderRadius.xl,
-    borderTopRightRadius: borderRadius.xl,
+    // border: `1px solid ${colors.gray4}`,
+    // borderTopLeftRadius: borderRadius.xl,
+    // borderTopRightRadius: borderRadius.xl,
     zIndex: zIndices.elevated,
   },
   dialog: {
     outline: 'none',
   },
   header: {
-    borderTopLeftRadius: borderRadius.xl,
-    borderTopRightRadius: borderRadius.xl,
+    // borderTopLeftRadius: borderRadius.xl,
+    // borderTopRightRadius: borderRadius.xl,
     padding: '4px 12px',
   },
 });

@@ -142,7 +142,7 @@ const greenLightAnimation = keyframes({
 // Styles
 const shared = {
   backgroundColor: colors.secondaryBackground,
-  border: `0.5px solid ${colors.glassyBorder}`,
+  // border: `0.5px solid ${colors.glassyBorder}`,
   borderRadius: borderRadius.l,
   padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
 };
@@ -154,7 +154,7 @@ const styles = create({
     fontSize: fontSizes.xl,
     borderRadius: shared.borderRadius,
     padding: shared.padding,
-    border: shared.border,
+    // border: shared.border,
     ':focus': {
       outline: `1px solid ${colors.income}`,
     },

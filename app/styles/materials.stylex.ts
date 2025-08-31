@@ -5,6 +5,6 @@ export const glass = create({
   regular: {
     backgroundColor: colors.regularGlass,
     backdropFilter: 'blur(20px)',
-    border: `0.5px solid ${colors.gray3}`,
+    // border: `0.5px solid ${colors.gray3}`,
   },
 });

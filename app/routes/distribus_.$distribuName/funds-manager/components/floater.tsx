@@ -66,7 +66,7 @@ const styles = create({
 
     // colors
     backgroundColor: colors.secondaryBackground,
-    border: `1px solid ${colors.gray4}`,
+    // border: `1px solid ${colors.gray4}`,
 
     // dimensions
     width: {

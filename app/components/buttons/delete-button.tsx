@@ -27,7 +27,7 @@ const DeleteButtonStyles = create({
     width: fixedSizes.m3,
     height: fixedSizes.m3,
     borderRadius: borderRadius.full,
-    border: '1px solid',
+    // border: '1px solid',
     padding: fixedSizes.s2,
     transitionProperty: 'background-color, color',
     transitionDuration: '200ms',

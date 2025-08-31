@@ -29,9 +29,9 @@ const styles = create({
   spinner: {
     width: '40px',
     height: '40px',
-    border: '4px solid',
-    borderColor: `${colors.gray3} transparent ${colors.gray3} transparent`,
-    borderTop: `4px solid ${colors.income}`,
+    // border: '4px solid',
+    // borderColor: `${colors.gray3} transparent ${colors.gray3} transparent`,
+    // borderTop: `4px solid ${colors.income}`,
     borderRadius: '50%',
     animationName: spin,
     animationDuration: '1s',

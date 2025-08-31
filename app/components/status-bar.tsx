@@ -42,7 +42,7 @@ const styles = create({
     width: `${width}%`,
     borderRadius: borderRadius.full,
     transition: 'width 300ms ease-in-out',
-    borderRight: `0.5px solid ${colors.barBorder}`,
+    // borderRight: `0.5px solid ${colors.barBorder}`,
     boxShadow: '4px 0 4px rgba(0, 0, 0, 0.1)',
   }),
   assigned: {
