@@ -34,7 +34,7 @@ export function StartButton() {
 function CreationButton({ pressHandler }: { pressHandler: () => void }) {
   return (
     <MotionButton
-      layoutId='start'
+      layoutId="start"
       styleProps={[reactiveElevation.low, styles.button]}
       onPress={pressHandler}
       transition={layoutTransitions.springy}
@@ -54,13 +54,13 @@ function ButtonContent() {
   );
 }
 
-function CreationForm({ dismissHandler }: CreationFormProps) {
+function CreationForm({ dismissHandler }: { dismissHandler: () => void }) {
   const ref = useDismiss<HTMLDivElement>(dismissHandler);
 
   return (
     <MotionContainer
       {...props(elevation.medium, styles.formContainer)}
-      layoutId='start'
+      layoutId="start"
       ref={ref}
       transition={layoutTransitions.springy}
     >
@@ -80,11 +80,7 @@ function DancingLights() {
   );
 }
 
-type CreationFormProps = {
-  dismissHandler: () => void;
-};
-
-// Define the keyframes animations for each light
+// animations for each light
 const redLightAnimation = keyframes({
   '0%': {
     transform: 'translate(140%, -10%) scale(1.0)',
@@ -178,7 +174,7 @@ const styles = create({
   formContainer: {
     position: 'relative',
     backgroundColor: shared.backgroundColor,
-    border: shared.border,
+    // border: shared.border,
     borderRadius: shared.borderRadius,
     padding: shared.padding,
   },

@@ -12,7 +12,7 @@ export function Entity({
   onLongPress,
   children,
   styleProps,
-  ...props
+  ...otherProps
 }: EntityProps) {
   const { pressProps } = usePress({
     onPress: onPress,
@@ -25,7 +25,7 @@ export function Entity({
 
   return (
     <div
-      {...props}
+      {...otherProps}
       {...mergeProps(longPressProps, pressProps)}
       {...style(styles.base, styleProps)}
     >

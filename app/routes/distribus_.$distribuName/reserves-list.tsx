@@ -30,13 +30,13 @@ export function ReservesList({ reserves }: { reserves: Reserve[] }) {
   return (
     <div {...style(styles.reservesList)}>
       {reserves.map((reserve) => (
-        <ReserveComplex reserve={reserve} />
+        <ReserveComponent reserve={reserve} />
       ))}
     </div>
   );
 }
 
-function ReserveComplex({ reserve }: { reserve: Reserve }) {
+function ReserveComponent({ reserve }: { reserve: Reserve }) {
   return (
     <OptionsProvider OptionsModal={ReserveOptions}>
       <ReserveEntity reserve={reserve} />
@@ -106,7 +106,7 @@ function WeightBar({ reserve }: { reserve: Reserve }) {
   return (
     <div {...style(styles.weightBarContainer(barWidth))}>
       {usagePercentage > 0 && (
-        <div {...style(styles.weightBarUsed(usagePercentage))} />
+        <div {...style(styles.usageBar(usagePercentage))} />
       )}
     </div>
   );
@@ -169,13 +169,12 @@ const styles = create({
     marginTop: fixedSizes.s2,
     transition: 'width 300ms ease-in-out',
   }),
-  weightBarUsed: (width: number) => ({
+  usageBar: (width: number) => ({
     backgroundColor: colors.usedIncome,
     height: '100%',
     width: `${width}%`,
     borderRadius: borderRadius.full,
     transition: 'width 300ms ease-in-out',
-    // borderRight: `0.5px solid ${colors.barBorder}`,
     boxShadow: '4px 0 4px rgba(0, 0, 0, 0.1)',
   }),
   remainingAmount: {

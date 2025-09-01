@@ -14,7 +14,7 @@ const config = {
           '@/*': [path.join(process.cwd(), './*')], // maps "@/..." to "<projectRoot>/...",
         },
         // Required for this plugin
-        runtimeInjection: false,
+        runtimeInjection: true,
         dev: true,
         // Set this to true for snapshot testing
         // default: false
