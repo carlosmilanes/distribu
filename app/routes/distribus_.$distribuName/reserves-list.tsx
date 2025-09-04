@@ -30,7 +30,7 @@ export function ReservesList({ reserves }: { reserves: Reserve[] }) {
   return (
     <div {...style(styles.reservesList)}>
       {reserves.map((reserve) => (
-        <ReserveComponent reserve={reserve} />
+        <ReserveComponent key={reserve.id} reserve={reserve} />
       ))}
     </div>
   );

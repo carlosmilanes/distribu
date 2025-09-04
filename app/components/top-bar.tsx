@@ -31,7 +31,7 @@ export function TopBar({
 
 const TopBarStyles = create({
   base: {
-    borderBottom: `1px solid ${colors.gray4}80`,
+    // borderBottom: `1px solid ${colors.gray4}80`,
     backgroundColor: `${colors.background}99`,
     display: 'flex',
     height: fixedSizes.m3,

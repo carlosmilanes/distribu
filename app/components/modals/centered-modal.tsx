@@ -29,7 +29,7 @@ const styles = create({
   modal: {
     backgroundColor: colors.background,
     borderRadius: borderRadius.l,
-    border: `1px solid ${colors.gray4}`,
+    // border: `1px solid ${colors.gray4}`,
     outline: 'none',
     maxHeight: '90vh',
     maxWidth: '90vw',

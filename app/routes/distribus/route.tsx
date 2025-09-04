@@ -8,7 +8,6 @@ import { DistribusListPage } from './components/distribus-list';
 import type { Distribu } from './components/distribus-list';
 import { createDistribu } from '@/data/database/mutations/distribus';
 import { getDistribus } from '@/data/database/queries/distribus';
-
 export function meta({}: Route.MetaArgs) {
   return [
     { title: 'Distribus' },

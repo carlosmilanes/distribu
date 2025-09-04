@@ -186,7 +186,7 @@ const styles = create({
 
   // Dancing lights
   lightsContainer: {
-    border: 'inherit',
+    // border: 'inherit',
     position: 'absolute',
     inset: 0,
     borderRadius: 'inherit',
@@ -197,7 +197,7 @@ const styles = create({
     width: '80px',
     height: '80px',
     borderRadius: '50%',
-    background: colors.assignedIncome,
+    // background: colors.assignedIncome,
     filter: 'blur(20px)',
     animationName: orangeLightAnimation,
     animationDuration: '6s',
@@ -211,7 +211,7 @@ const styles = create({
     width: '60px',
     height: '60px',
     borderRadius: '50%',
-    background: colors.usedIncome,
+    // background: colors.usedIncome,
     filter: 'blur(15px)',
     animationName: redLightAnimation,
     animationDuration: '8s',
@@ -225,7 +225,7 @@ const styles = create({
     width: '70px',
     height: '70px',
     borderRadius: '50%',
-    background: colors.income,
+    // background: colors.income,
     filter: 'blur(18px)',
     animationName: greenLightAnimation,
     animationDuration: '7s',

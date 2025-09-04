@@ -8,6 +8,7 @@ import {
 } from 'react-router';
 import type { Route } from './+types/root';
 import './app.css';
+import './stylex.css';
 import { MotionConfig } from 'motion/react';
 import { LoadingScreen } from '@/app/components/loading-screen';
 

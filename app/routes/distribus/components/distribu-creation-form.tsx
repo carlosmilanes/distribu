@@ -93,7 +93,7 @@ const styles = create({
     width: '100%',
     marginBottom: dynamicSizes.m1,
     padding: `${dynamicSizes.s1} 0`,
-    borderBottom: `1px solid ${colors.gray4}`,
+    // borderBottom: `1px solid ${colors.gray4}`,
     fontSize: fontSizes.l,
     ':focus': {
       outline: 'none',
