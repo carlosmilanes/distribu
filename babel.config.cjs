@@ -13,12 +13,9 @@ module.exports = {
           '@/*': [path.join(process.cwd(), './*')],
         },
         runtimeInjection: false,
-
         treeshakeCompensation: true,
-
         dev: process.env.NODE_ENV === "development",
         test: process.env.NODE_ENV === "test",
-
         unstable_moduleResolution: {
           type: 'commonJS',
         },
