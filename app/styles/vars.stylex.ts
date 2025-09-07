@@ -1,8 +1,8 @@
-import { defineVars } from 'stylex';
+import { defineVars, defineConsts } from 'stylex';
 
 const DARK = '@media (prefers-color-scheme: dark)';
 
-export const breakpoints = defineVars({
+export const breakpoints = defineConsts({
   medium: '@media (min-width: 48rem)',
   wide: '@media (min-width: 78.75rem)',
 });
@@ -111,7 +111,7 @@ export const colors = defineVars({
   gray4: { default: '#D1D1D6', [DARK]: '#3A3A3C' },
 });
 
-export const fixedSizes = defineVars({
+export const fixedSizes = defineConsts({
   s1: '4px',
   s2: '8px',
   s3: '12px',
@@ -133,7 +133,7 @@ export const fixedSizes = defineVars({
   xl4: '768px',
 });
 
-export const dynamicSizes = defineVars({
+export const dynamicSizes = defineConsts({
   s1: '0.25rem', // 4px
   s2: '0.5rem', // 8px
   s3: '0.75rem', // 12px
@@ -155,7 +155,7 @@ export const dynamicSizes = defineVars({
   xl4: '48rem', // 768px
 });
 
-export const fontSizes = defineVars({
+export const fontSizes = defineConsts({
   s: '0.875rem', // 14px
   m: '1rem', // 16px
   l: '1.25rem', // 20px
@@ -163,13 +163,13 @@ export const fontSizes = defineVars({
   xxl: '2.5rem', // 40px
 });
 
-export const fontWeights = defineVars({
+export const fontWeights = defineConsts({
   regular: '400',
   medium: '500',
   bold: '700',
 });
 
-export const borderRadius = defineVars({
+export const borderRadius = defineConsts({
   s: '4px',
   m: '8px',
   l: '16px',
@@ -177,7 +177,7 @@ export const borderRadius = defineVars({
   full: 'calc(infinity * 1px)',
 });
 
-export const zIndices = defineVars({
+export const zIndices = defineConsts({
   behind: '-1',
   base: '0',
   elevated: '10',
@@ -185,7 +185,7 @@ export const zIndices = defineVars({
   top: '1000',
 });
 
-export const shadows = defineVars({
+export const shadows = defineConsts({
   s: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
   m: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
   l: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
