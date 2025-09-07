@@ -32,7 +32,7 @@ const styles = create({
     justifyContent: 'space-between',
     alignItems: 'center',
     zIndex: zIndices.elevated,
-    // background: `linear-gradient(to bottom, ${colors.background} 60%, transparent)`, // TODO: UNDERSTAND
+    backgroundImage: `linear-gradient(to bottom, ${colors.background} 60%, transparent)`,
   },
   settingsButton: {
     color: colors.gray,

@@ -22,7 +22,7 @@ import {
  * @param children - Individual option components to display in the modal
  * @returns Positioned and animated modal containing the options
  */
-export function OptionsModal({ children }: OptionsModalProps) {
+export function OptionsModal({ children }: { children: ReactNode }) {
   const {
     isContentInScreenUpperHalf,
     contentOffset,
@@ -76,18 +76,19 @@ const animationVariants = {
   },
 };
 
-export type OptionsModalProps = {
-  children: ReactNode;
-};
-
-// Number(zIndices.top)
-
 const styles = create({
   modal: {
+    // size
+    minWidth: fixedSizes.l3,
+
+    // box
     padding: fixedSizes.s2,
     borderRadius: borderRadius.xl,
-    minWidth: fixedSizes.l3,
-    zIndex: 30,
+
+    // layout
+    zIndex: 100,
+
+    // effects
     transition: 'scale 0.2s ease-in-out',
     ':active': {
       scale: 0.98,

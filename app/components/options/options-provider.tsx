@@ -45,6 +45,7 @@ import {
   useElementOffsets,
   type Offset,
 } from '@/app/hooks/use-element-offsets';
+import { zIndices } from '@/app/styles/vars.stylex';
 
 /**
  * Wrapper component providing options context and animations
@@ -201,11 +202,11 @@ const styles = create({
     inset: 0,
     backdropFilter: 'blur(8px)',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    zIndex: 10,
+    zIndex: 99,
   },
   lifter: (optionsRevealed: boolean) => ({
     position: 'relative',
-    zIndex: optionsRevealed ? 20 : 1,
+    zIndex: optionsRevealed ? zIndices.modal : zIndices.base,
   }),
   optionButton: {},
 });

@@ -12,7 +12,7 @@ export function CenteredModal({
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      overlayStyling={styles.overlay}
+      overlayStyleProps={styles.overlay}
     >
       {children}
     </Modal>
