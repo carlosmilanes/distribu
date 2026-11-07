@@ -6,7 +6,7 @@ import babel from "vite-plugin-babel";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), babel({
-    filter: /\.[jt]sx?$/,
+    include: /\.[jt]sx?$/, // vite-plugin-babel >=1.7 defaults to js/jsx only, which skips StyleX in .ts/.tsx
     exclude: [/node_modules/],
     babelConfig: {
       configFile: true,
