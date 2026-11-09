@@ -1,13 +1,31 @@
 import { PGlite } from '@electric-sql/pglite';
 import { live } from '@electric-sql/pglite/live';
 import { drizzle } from 'drizzle-orm/pglite';
+import initialSchemaSql from './migrations/0000_rich_vision.sql?raw';
 
 export const pglite = await PGlite.create('idb://distribu-pglite', {
   relaxedDurability: true,
   extensions: { live },
 });
 
+await applyInitialSchemaIfMissing();
+
 export const db = drizzle(pglite);
+
+/**
+ * Creates the database tables the first time the app runs in a browser,
+ * detected by the absence of the "distribus" table. Does nothing otherwise.
+ *
+ * @returns Promise that resolves once the schema is guaranteed to exist
+ */
+async function applyInitialSchemaIfMissing(): Promise<void> {
+  const { rows } = await pglite.query<{ table_name: string | null }>(
+    `select to_regclass('public.distribus') as table_name`,
+  );
+  if (rows[0]?.table_name) return;
+
+  await pglite.exec(initialSchemaSql);
+}
 
 // TODO: Apply migrations automatically on startup using Drizzle. You have a Note describing how
 // It might be a good idea to implement this conditionally using a local storage variable (initialize the database if it has not being initiailized yet)
