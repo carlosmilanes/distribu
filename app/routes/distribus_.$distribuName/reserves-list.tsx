@@ -1,7 +1,6 @@
 import { OptionsProvider } from '@/app/components/options/options-provider';
 import { OptionsModal } from '@/app/components/options/options-modal';
 import { DeleteOption } from '@/app/components/options/delete-option';
-import { Entity } from '@/app/components/core/entity';
 import { type Reserve } from '@/data/types';
 import { PrimaryText } from '@/app/components/text/primary-text';
 import { OptionsButton } from '@/app/components/buttons/options-button';
@@ -25,6 +24,9 @@ import { Money } from '@/app/components/money';
 import { Button } from '@/app/components/core/button';
 import { subtractMoney } from '@/app/utils/monetary';
 import { UseIcon } from '@/app/components/icons';
+import { MotionContainer } from '@/app/components/motion-container';
+import { usePress, useLongPress, useDrag, mergeProps } from 'react-aria';
+import { type MotionProps } from 'motion/react';
 
 export function ReservesList({ reserves }: { reserves: Reserve[] }) {
   return (
@@ -40,9 +42,13 @@ export function ReservesList({ reserves }: { reserves: Reserve[] }) {
 }
 
 function ReserveComponent({ reserve }: { reserve: Reserve }) {
+  return <CompactReserve reserve={reserve} />;
+}
+
+function CompactReserve({ reserve }: { reserve: Reserve }) {
   return (
     <OptionsProvider OptionsModal={ReserveOptions}>
-      <ReserveEntity reserve={reserve} />
+      <CompactReserveBody reserve={reserve} />
     </OptionsProvider>
   );
 }
@@ -55,14 +61,35 @@ function ReserveOptions() {
   );
 }
 
-function ReserveEntity({ reserve }: { reserve: Reserve }) {
+function CompactReserveBody({ reserve }: { reserve: Reserve }) {
   const { contentRef, optionsRevealed, setOptionsRevealed } =
     useOptionsContext();
 
+  const { pressProps } = usePress({
+    onPress: () => {},
+  });
+
+  const { longPressProps } = useLongPress({
+    accessibilityDescription: 'Long press to show options',
+    onLongPress: () => setOptionsRevealed(true),
+  });
+
+  const { dragProps } = useDrag({
+    getItems() {
+      return [];
+    },
+  });
+
+  const combinedProps = mergeProps(longPressProps, pressProps, dragProps);
+
+  // In case of conflict with Motion, filter out conflicting event handlers coming from React Aria
+  // const { onAnimationStart, onDragStart, onDragEnd, onDrag, ...filteredProps } =
+  //   combinedProps;
+
   return (
-    <Entity
+    <MotionContainer
       ref={contentRef}
-      onLongPress={() => setOptionsRevealed(true)}
+      {...(combinedProps as React.HTMLAttributes<HTMLDivElement> & MotionProps)}
       styleProps={[
         reactiveElevation.low,
         lightReflection.ofColor(colors.secondaryBackground),
@@ -82,7 +109,15 @@ function ReserveEntity({ reserve }: { reserve: Reserve }) {
       )}
 
       {!optionsRevealed && <UseButton />}
-    </Entity>
+    </MotionContainer>
+  );
+}
+
+function ExpandedReserve({ reserve }: { reserve: Reserve }) {
+  return (
+    <MotionContainer>
+      <PrimaryText>{reserve.name}</PrimaryText>
+    </MotionContainer>
   );
 }
 
@@ -145,6 +180,11 @@ function UseButton() {
   );
 }
 
+// #region Styles
+const commonReserveStyles = [
+  lightReflection.ofColor(colors.secondaryBackground),
+];
+
 const styles = create({
   reservesList: {
     display: 'flex',
@@ -202,3 +242,4 @@ const styles = create({
     strokeWidth: '3',
   },
 });
+// #endregion
