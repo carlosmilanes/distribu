@@ -1,0 +1,1 @@
+Be extremely concise in all interactions, including explanations and commit messages.

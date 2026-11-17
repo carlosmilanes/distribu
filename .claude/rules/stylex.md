@@ -1,3 +1,9 @@
+---
+paths:
+  - "**/*.tsx"
+  - "**/*.stylex.ts"
+---
+
 # StyleX Styles Generation Rules
 
 - Use named imports.

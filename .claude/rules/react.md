@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.tsx"
+---
+
 # React Code Generation Rules
 
 ## General Principles
@@ -7,42 +12,46 @@
 
 ## Documentation
 
-- **All components, hooks, and functions must have docstrings** using TSDoc format.
-- Whenever you make changes to a component, hook, or function, make sure to update its docstring to reflect the changes.
-- Include brief description of purpose, parameters, and return values.
+- **All components, hooks, and functions must have a docstring** in TSDoc format, placed directly above the declaration (not inside the body).
+- Write the block as plain prose with no leading `*` on each line. Put `/**` and `*/` on their own lines.
+- Keep it short: 1-3 lines on purpose. Don't restate what the name or types already say.
+- Don't use `@param` or `@returns` by default, since TypeScript types already cover them. Mention parameters or return values in the prose only when the meaning isn't obvious from the name and type (units, formats, side effects, constraints).
 - For components, describe what they render and key props.
-- For hooks, describe the state/logic they manage and return values.
+- For hooks, describe the state/logic they manage and what they return.
 - For helper functions, describe their purpose and transformation logic.
+- Document props in the props type, with a single-line `/** ... */` above each non-obvious field. Skip obvious ones.
+- Whenever you make changes to a component, hook, or function, update its docstring (and prop comments) to reflect the changes.
 
 ### Documentation Examples:
 
 ```typescript
 /**
- * Main distribu selection component that allows users to choose or create workspaces
- *
- * @param loaderData - Contains the list of available distribus from the loader
- * @returns JSX element with distribu selection interface
- */
-export default function DistribusHub({ loaderData }: Route.ComponentProps) {
+Shows a transaction row with amount, category and status.
+
+Used in lists only. Don't use it in the detail view.
+Selection is controlled by the parent via onSelect, not by this component.
+*/
+export function TransactionRow({ tx, onSelect }: TransactionRowProps) {
   // component logic
 }
 
+type TransactionRowProps = {
+  tx: Transaction;
+  /** Fires on row click, not on the menu button */
+  onSelect?: (id: string) => void;
+};
+
 /**
- * Custom hook for managing distribu data state and loading states
- *
- * @param initialDistribu - Initial list of distribus from server
- * @returns Object containing distribus array, loading state, and error state
- */
+Manages distribu list state and loading/error flags.
+Returns the distribus array, loading state, and error state.
+*/
 function useDistribusData(initialDistribu: Distribu[]): UseDistribusDataReturn {
   // hook logic
 }
 
 /**
- * Converts a distribu name to a URL-safe slug format
- *
- * @param name - The distribu name (e.g., "Family Budget")
- * @returns URL-safe slug (e.g., "family-budget")
- */
+Converts a distribu name to a URL-safe slug, e.g. "Family Budget" becomes "family-budget".
+*/
 function createSlug(name: string): string {
   // helper logic
 }
