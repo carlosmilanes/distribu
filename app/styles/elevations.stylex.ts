@@ -3,6 +3,9 @@ import { shadows } from './vars.stylex';
 
 export const elevation = create({
   low: {
+    // anchors the absolutely positioned ::before shadow to this element
+    position: 'relative',
+
     '::before': {
       content: '',
       boxShadow: shadows.s,
