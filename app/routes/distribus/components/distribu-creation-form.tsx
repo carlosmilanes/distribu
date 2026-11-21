@@ -1,110 +1,119 @@
 import { PrimaryButton } from '@/app/components/buttons/primary-button';
-import { type PressEvent } from 'react-aria-components';
-import { create, props, type StyleXStyles } from 'stylex';
-import { useFetcher, useNavigate } from 'react-router';
-import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
+import { create, props as style, type StyleXStyles } from 'stylex';
+import { useFetcher } from 'react-router';
+import { dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { useRef, useEffect, useState } from 'react';
-import { createSlug } from '@/app/utils/slug';
-import { Form } from 'react-router';
-import { createDistribu } from '@/data/database/mutations/distribus';
 
 /**
- * React Router form for creating a new distribu
- *
- * @returns Form element for entering distribu name
- */
+React Router form for creating a new distribu: a name input and a submit button.
+The button is disabled while the name is blank.
+*/
 export function DistribuCreationForm({
   styleProps,
-}: {
-  styleProps?: StyleXStyles;
-}) {
+}: DistribuCreationFormProps) {
   const fetcher = useFetcher();
   const [inputValue, setInputValue] = useState('');
 
   return (
-    <fetcher.Form
-      {...props(styleProps)}
-      method='post'
-    >
-      <NameInput
-        value={inputValue}
-        onChange={setInputValue}
-      />
+    <fetcher.Form method="post" {...style(styleProps)}>
+      <NameInput value={inputValue} onChange={setInputValue} />
       <SubmitButton disabled={inputValue.trim() === ''} />
     </fetcher.Form>
   );
 }
 
+/**
+Controlled text input for the distribu name. Focuses itself on mount.
+*/
 function NameInput({ value, onChange }: NameInputProps) {
   const inputRef = useAutoFocus();
 
   return (
     <input
-      {...props(styles.input)}
       ref={inputRef}
-      type='text'
-      id='name'
-      name='name'
+      type="text"
+      id="name"
+      name="name"
       value={value}
       onChange={(e) => onChange(e.target.value)}
       required
-      placeholder='Pick a name...'
-      aria-label='New distribu name'
+      placeholder="Pick a name..."
+      aria-label="New distribu name"
+      {...style(styles.input)}
     />
   );
 }
 
 /**
- * Custom hook for automatically focusing an input element
- *
- * @returns Ref object to be attached to an input element
- */
+Focuses the input it's attached to when the component mounts.
+Returns the ref to attach to the input.
+*/
 function useAutoFocus() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    inputRef.current?.focus();
   }, []);
 
   return inputRef;
 }
 
-function SubmitButton({ disabled }: { disabled: boolean }) {
+/**
+Submit button of the form, labeled "Let's go!".
+*/
+function SubmitButton({ disabled }: SubmitButtonProps) {
   return (
     <PrimaryButton
-      styleProps={styles.button}
-      type='submit'
+      type="submit"
       isDisabled={disabled}
+      styleProps={styles.button}
     >
       Let's go!
     </PrimaryButton>
   );
 }
 
+type DistribuCreationFormProps = {
+  /** Styles applied to the form element */
+  styleProps?: StyleXStyles;
+};
+
 type NameInputProps = {
   value: string;
   onChange: (value: string) => void;
 };
 
+type SubmitButtonProps = {
+  disabled: boolean;
+};
+
 const styles = create({
   input: {
+    // size
     width: '100%',
-    marginBottom: dynamicSizes.m1,
-    padding: `${dynamicSizes.s1} 0`,
-    // borderBottom: `1px solid ${colors.gray4}`,
+
+    // content
     fontSize: fontSizes.l,
-    ':focus': {
-      outline: 'none',
-    },
     '::placeholder': {
       fontStyle: 'italic',
+    },
+
+    // box
+    paddingBlock: dynamicSizes.s1,
+    paddingInline: 0,
+    marginBottom: dynamicSizes.m1,
+    outlineStyle: {
+      default: null,
+      ':focus': 'none',
     },
   },
 
   button: {
-    margin: '0 auto',
+    // content
     fontSize: fontSizes.l,
+
+    // box
+    marginBlock: 0,
+    marginInline: 'auto',
   },
 });

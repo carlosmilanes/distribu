@@ -45,13 +45,10 @@ function Component() {
   );
 }
 
-// All types defined here
-
 type ComponentProps = {
   // component props
 };
 
-// styles must be the very last thing in the file
 const styles = create({
   base: {
     // size

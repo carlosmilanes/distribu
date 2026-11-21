@@ -1,7 +1,11 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
-import { borderRadius } from '@/app/styles/vars.stylex';
-import { create, props, keyframes } from 'stylex';
+import {
+  borderRadius,
+  colors,
+  dynamicSizes,
+  fontSizes,
+} from '@/app/styles/vars.stylex';
+import { create, props as style, keyframes } from 'stylex';
 import { elevation, reactiveElevation } from '@/app/styles/elevations.stylex';
 import { useState } from 'react';
 import { DistribuCreationForm } from './distribu-creation-form';
@@ -11,27 +15,39 @@ import { MotionContainer } from '@/app/components/motion-container';
 import { layoutTransitions } from '@/app/motion/presets';
 
 /**
- * Large, prominent button for creating a new distribu with fancy animations.
- * Features animated moving lights background using income-related colors.
- * Wraps the simple DistribuCreationButton with decorative effects.
- *
- * @returns Enhanced button element with animated background
- */
+Large, prominent button for creating a new distribu.
+Morphs into the creation form when pressed, and back when dismissed.
+Both states share the animated "dancing lights" background.
+*/
 export function StartButton() {
-  const [isPressed, setIsPressed] = useState(false);
+  const { isPressed, handlePress, handleDismiss } = useStartButton();
 
-  return (
-    <>
-      {isPressed ? (
-        <CreationForm dismissHandler={() => setIsPressed(false)} />
-      ) : (
-        <CreationButton pressHandler={() => setIsPressed(true)} />
-      )}
-    </>
+  return isPressed ? (
+    <CreationForm dismissHandler={handleDismiss} />
+  ) : (
+    <CreationButton pressHandler={handlePress} />
   );
 }
 
-function CreationButton({ pressHandler }: { pressHandler: () => void }) {
+/**
+Tracks whether the creation form is open.
+Returns the state plus handlers to open and close it.
+*/
+function useStartButton() {
+  const [isPressed, setIsPressed] = useState(false);
+
+  return {
+    isPressed,
+    handlePress: () => setIsPressed(true),
+    handleDismiss: () => setIsPressed(false),
+  };
+}
+
+/**
+Button state: the "Create Distribu" button over the dancing lights.
+Shares `layoutId` with the form so they morph into each other.
+*/
+function CreationButton({ pressHandler }: CreationButtonProps) {
   return (
     <MotionButton
       layoutId="start"
@@ -45,24 +61,45 @@ function CreationButton({ pressHandler }: { pressHandler: () => void }) {
   );
 }
 
+/**
+Decorative background of three blurred, drifting colored lights.
+Must sit inside a positioned parent, which it fills and clips.
+*/
+function DancingLights() {
+  return (
+    <div aria-hidden {...style(styles.lightsContainer)}>
+      <div {...style(styles.light, styles.redLight)} />
+      <div {...style(styles.light, styles.orangeLight)} />
+      <div {...style(styles.light, styles.greenLight)} />
+    </div>
+  );
+}
+
+/**
+Plus icon and label of the creation button.
+*/
 function ButtonContent() {
   return (
-    <div {...props(styles.buttonContent)}>
-      <PlusIcon {...props(styles.plusIcon)} />
+    <div {...style(styles.buttonContent)}>
+      <PlusIcon aria-hidden {...style(styles.plusIcon)} />
       Create Distribu
     </div>
   );
 }
 
-function CreationForm({ dismissHandler }: { dismissHandler: () => void }) {
+/**
+Form state: the distribu creation form over the dancing lights.
+Closes on outside press or Escape.
+*/
+function CreationForm({ dismissHandler }: CreationFormProps) {
   const ref = useDismiss<HTMLDivElement>(dismissHandler);
 
   return (
     <MotionContainer
-      {...props(elevation.medium, styles.formContainer)}
       layoutId="start"
       ref={ref}
       transition={layoutTransitions.springy}
+      {...style(elevation.medium, styles.formContainer)}
     >
       <DancingLights />
       <DistribuCreationForm styleProps={styles.form} />
@@ -70,17 +107,17 @@ function CreationForm({ dismissHandler }: { dismissHandler: () => void }) {
   );
 }
 
-function DancingLights() {
-  return (
-    <div {...props(styles.lightsContainer)}>
-      <div {...props(styles.redLight)} />
-      <div {...props(styles.orangeLight)} />
-      <div {...props(styles.greenLight)} />
-    </div>
-  );
-}
+type CreationButtonProps = {
+  /** Fires when the button is pressed, to open the form */
+  pressHandler: () => void;
+};
 
-// animations for each light
+type CreationFormProps = {
+  /** Fires on outside press or Escape, to close the form */
+  dismissHandler: () => void;
+};
+
+// Light paths. Percentages are relative to each light's own size.
 const redLightAnimation = keyframes({
   '0%': {
     transform: 'translate(140%, -10%) scale(1.0)',
@@ -135,105 +172,133 @@ const greenLightAnimation = keyframes({
   },
 });
 
-// Styles
-const shared = {
-  backgroundColor: colors.secondaryBackground,
-  // border: `0.5px solid ${colors.glassyBorder}`,
-  borderRadius: borderRadius.l,
-  padding: `${dynamicSizes.m1} ${dynamicSizes.m3}`,
-};
-
 const styles = create({
   button: {
-    backgroundColor: shared.backgroundColor,
+    // content
     color: colors.income,
     fontSize: fontSizes.xl,
-    borderRadius: shared.borderRadius,
-    padding: shared.padding,
-    // border: shared.border,
-    ':focus': {
-      outline: `1px solid ${colors.income}`,
+
+    // box
+    backgroundColor: colors.secondaryBackground,
+    paddingBlock: dynamicSizes.m1,
+    paddingInline: dynamicSizes.m3,
+    borderRadius: borderRadius.l,
+    outlineStyle: {
+      default: 'none',
+      ':focus': 'solid',
+      ':active': 'none',
     },
-    ':active': {
-      outline: 'none',
-    },
+    outlineWidth: '1px',
+    outlineColor: colors.income,
+
+    // layout
+    // positioned so the absolutely placed lights are anchored to the button
+    position: 'relative',
   },
 
   buttonContent: {
+    // layout
     display: 'flex',
     alignItems: 'center',
     gap: dynamicSizes.s1,
+    position: 'relative',
     zIndex: 2,
   },
 
   plusIcon: {
+    // size
     width: fontSizes.xxl,
     height: fontSizes.xxl,
   },
 
   formContainer: {
+    // box
+    backgroundColor: colors.secondaryBackground,
+    paddingBlock: dynamicSizes.m1,
+    paddingInline: dynamicSizes.m3,
+    borderRadius: borderRadius.l,
+
+    // layout
     position: 'relative',
-    backgroundColor: shared.backgroundColor,
-    // border: shared.border,
-    borderRadius: shared.borderRadius,
-    padding: shared.padding,
   },
 
   form: {
+    // layout
     position: 'relative',
     zIndex: 2,
   },
 
-  // Dancing lights
   lightsContainer: {
-    // border: 'inherit',
-    position: 'absolute',
-    inset: 0,
+    // box
     borderRadius: 'inherit',
     overflow: 'hidden',
-  },
-  orangeLight: {
+
+    // layout
     position: 'absolute',
-    width: '80px',
-    height: '80px',
+    inset: 0,
+  },
+
+  // shared by all lights; color, size, blur and path are set per light
+  light: {
+    // box
     borderRadius: '50%',
-    // background: colors.assignedIncome,
-    filter: 'blur(20px)',
-    animationName: orangeLightAnimation,
-    animationDuration: '6s',
+
+    // layout
+    position: 'absolute',
+    zIndex: 1,
+
+    // effects
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: 'infinite',
-    opacity: 0.5,
-    zIndex: 1,
   },
+
+  // light sizes and blur are decorative, so they are hardcoded
   redLight: {
-    position: 'absolute',
+    // size
     width: '60px',
     height: '60px',
-    borderRadius: '50%',
-    // background: colors.usedIncome,
-    filter: 'blur(15px)',
+
+    // box
+    backgroundColor: colors.usedIncome,
+
+    // effects
+    opacity: 0.25,
     animationName: redLightAnimation,
     animationDuration: '8s',
-    animationTimingFunction: 'ease-in-out',
-    animationIterationCount: 'infinite',
-    opacity: 0.4,
-    zIndex: 1,
+    filter: 'blur(15px)',
   },
+
+  orangeLight: {
+    // size
+    width: '80px',
+    height: '80px',
+
+    // box
+    backgroundColor: colors.assignedIncome,
+
+    // effects
+    opacity: 0.3,
+    animationName: orangeLightAnimation,
+    animationDuration: '6s',
+    filter: 'blur(20px)',
+  },
+
   greenLight: {
-    position: 'absolute',
+    // size
     width: '70px',
     height: '70px',
-    borderRadius: '50%',
-    // background: colors.income,
-    filter: 'blur(18px)',
+
+    // box
+    backgroundColor: colors.income,
+
+    // layout
+    top: 10,
+    right: -20,
+
+    // effects
+    opacity: 0.12,
     animationName: greenLightAnimation,
     animationDuration: '7s',
-    animationTimingFunction: 'ease-in-out',
-    animationIterationCount: 'infinite',
-    opacity: 0.2,
-    right: -20,
-    top: 10,
-    zIndex: 1,
+    filter: 'blur(18px)',
   },
 });
