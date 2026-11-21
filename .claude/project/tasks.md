@@ -3,7 +3,7 @@
 Open tasks, highest priority first. Delete a task when it's done.
 
 - [ ] **Fix the issues in the empty-state view** ("No Distribus Here" / "Create Distribu"): Carlos to list what's wrong. Pressing Enter in the name field doesn't submit the form (only the "Let's go!" button does); check whether that's one of them. To see this view again after creating a distribu, use an empty browser profile or clear the site's data.
-  - [ ] **Review the dancing lights animation in `start-button.tsx`**: make it more subtle (slower, smaller movement, softer colors/opacity).
+  - [ ] **Review the button-to-form morph in `start-button.tsx`**: make the transformation more subtle (`layoutId="start"` with `layoutTransitions.springy`).
   - [ ] **Overhaul the whole `distribus` UI**: open the last opened distribu directly, skipping the distribu manager. No manager view; the open distribu gets a dropdown to switch to another one when the user has more than one.
   - [ ] **Settle the `ComponentNameUI.tsx` naming idea** (revisit before wrapping up this branch): first-level components get a `UI` suffix so the component name doesn't clash with the type of the object it receives. Example: `function ReserveUI({ reserve }: { reserve: Reserve }) { return <OptionsProvider OptionsModal={ReserveOptions}><ReserveEntity reserve={reserve} /></OptionsProvider>; }`
 
