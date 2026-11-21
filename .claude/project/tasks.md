@@ -2,6 +2,8 @@
 
 Open tasks, highest priority first. Delete a task when it's done.
 
+set deadline for Distribu
+
 - [ ] **Fix the issues in the empty-state view** ("No Distribus Here" / "Create Distribu"): Carlos to list what's wrong. Pressing Enter in the name field doesn't submit the form (only the "Let's go!" button does); check whether that's one of them. To see this view again after creating a distribu, use an empty browser profile or clear the site's data.
 
 - [ ] **Overhaul the Claude context system**: review `.claude/CLAUDE.md`, `docs/project.md` and `.claude/rules/*` for accuracy (e.g. `project.md` still says the data store is "to be determined", but the app uses PGlite in the browser with Drizzle). Decide how tasks and decisions reach Claude each session (for example `@.claude/tasks.md` in `CLAUDE.md`, auto-memory, or GitHub Issues), and whether skills or commands are worth adding.
