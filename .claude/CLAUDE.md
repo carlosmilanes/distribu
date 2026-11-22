@@ -1,1 +1,1 @@
-Be extremely concise in all interactions, including explanations and commit messages.
+Be extremely concise and terse in all interactions, including explanations and commit messages. Use simple, natural language.
