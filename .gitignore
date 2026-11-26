@@ -6,3 +6,6 @@
 /build/
 
 local-storage/
+
+.env
+.env.*
