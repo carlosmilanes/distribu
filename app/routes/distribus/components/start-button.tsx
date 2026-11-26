@@ -12,20 +12,21 @@ import { DistribuCreationForm } from './distribu-creation-form';
 import { useDismiss } from '@/app/hooks/event-listeners/use-dismiss';
 import { MotionButton } from '@/app/components/buttons/motion-button';
 import { MotionContainer } from '@/app/components/motion-container';
-import { layoutTransitions } from '@/app/motion/presets';
+import { useMorph, type MorphProps } from '@/app/motion/use-morph';
 
 /**
 Large, prominent button for creating a new distribu.
 Morphs into the creation form when pressed, and back when dismissed.
-Both states share the animated "dancing lights" background.
+Both states share the animated "dancing lights" background and the morph props from `useMorph`.
 */
 export function StartButton() {
   const { isPressed, handlePress, handleDismiss } = useStartButton();
+  const morph = useMorph();
 
   return isPressed ? (
-    <CreationForm dismissHandler={handleDismiss} />
+    <CreationForm {...morph} dismissHandler={handleDismiss} />
   ) : (
-    <CreationButton pressHandler={handlePress} />
+    <CreationButton {...morph} pressHandler={handlePress} />
   );
 }
 
@@ -45,15 +46,14 @@ function useStartButton() {
 
 /**
 Button state: the "Create Distribu" button over the dancing lights.
-Shares `layoutId` with the form so they morph into each other.
+Forwards the morph props, so it and the form morph into each other.
 */
-function CreationButton({ pressHandler }: CreationButtonProps) {
+function CreationButton({ pressHandler, ...morph }: CreationButtonProps) {
   return (
     <MotionButton
-      layoutId="start"
-      styleProps={[reactiveElevation.low, styles.button]}
+      {...morph}
+      styleProps={[reactiveElevation.low, styles.sharedContainer, styles.button]}
       onPress={pressHandler}
-      transition={layoutTransitions.springy}
     >
       <DancingLights />
       <ButtonContent />
@@ -89,17 +89,17 @@ function ButtonContent() {
 
 /**
 Form state: the distribu creation form over the dancing lights.
+Forwards the morph props, so it and the button morph into each other.
 Closes on outside press or Escape.
 */
-function CreationForm({ dismissHandler }: CreationFormProps) {
+function CreationForm({ dismissHandler, ...morph }: CreationFormProps) {
   const ref = useDismiss<HTMLDivElement>(dismissHandler);
 
   return (
     <MotionContainer
-      layoutId="start"
+      {...morph}
       ref={ref}
-      transition={layoutTransitions.springy}
-      {...style(elevation.medium, styles.formContainer)}
+      {...style(elevation.medium, styles.sharedContainer)}
     >
       <DancingLights />
       <DistribuCreationForm styleProps={styles.form} />
@@ -107,12 +107,12 @@ function CreationForm({ dismissHandler }: CreationFormProps) {
   );
 }
 
-type CreationButtonProps = {
+type CreationButtonProps = MorphProps & {
   /** Fires when the button is pressed, to open the form */
   pressHandler: () => void;
 };
 
-type CreationFormProps = {
+type CreationFormProps = MorphProps & {
   /** Fires on outside press or Escape, to close the form */
   dismissHandler: () => void;
 };
@@ -173,16 +173,25 @@ const greenLightAnimation = keyframes({
 });
 
 const styles = create({
+  // container shared by the button and the form, so they morph into each other
+  sharedContainer: {
+    // box
+    backgroundColor: colors.secondaryBackground,
+    paddingBlock: dynamicSizes.m1,
+    paddingInline: dynamicSizes.m3,
+    borderRadius: borderRadius.l,
+
+    // layout
+    // positioned so the absolutely placed lights are anchored to the box
+    position: 'relative',
+  },
+
   button: {
     // content
     color: colors.income,
     fontSize: fontSizes.xl,
 
     // box
-    backgroundColor: colors.secondaryBackground,
-    paddingBlock: dynamicSizes.m1,
-    paddingInline: dynamicSizes.m3,
-    borderRadius: borderRadius.l,
     outlineStyle: {
       default: 'none',
       ':focus': 'solid',
@@ -190,10 +199,6 @@ const styles = create({
     },
     outlineWidth: '1px',
     outlineColor: colors.income,
-
-    // layout
-    // positioned so the absolutely placed lights are anchored to the button
-    position: 'relative',
   },
 
   buttonContent: {
@@ -209,17 +214,6 @@ const styles = create({
     // size
     width: fontSizes.xxl,
     height: fontSizes.xxl,
-  },
-
-  formContainer: {
-    // box
-    backgroundColor: colors.secondaryBackground,
-    paddingBlock: dynamicSizes.m1,
-    paddingInline: dynamicSizes.m3,
-    borderRadius: borderRadius.l,
-
-    // layout
-    position: 'relative',
   },
 
   form: {

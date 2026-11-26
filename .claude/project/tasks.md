@@ -3,15 +3,20 @@
 Open tasks, highest priority first. Delete a task when it's done.
 
 - [ ] **Fix the issues in the empty-state view** ("No Distribus Here" / "Create Distribu"): Carlos to list what's wrong. Pressing Enter in the name field doesn't submit the form (only the "Let's go!" button does); check whether that's one of them. To see this view again after creating a distribu, use an empty browser profile or clear the site's data.
-  - [ ] **Review the button-to-form morph in `start-button.tsx`**: make the transformation more subtle (`layoutId="start"` with `layoutTransitions.springy`).
+  - [ ] **Finish and adopt `useMorph`** (`app/motion/use-morph.ts`, branch `container-morph`): hook returning `{ layoutId, layoutCrossfade, transition }` (generated id, preset from `app/motion/presets.ts`), spread onto both components' Motion elements. `StartButton` already uses it. The `ComponentMorpher` idea is archived (`archive/component-morpher`, see `archive.md`). The unfinished version on the local-only `reserve-morph` branch (WIP commit `24f4691`, never pushed) is the second use case: the reserve card expand in `reserves-list.tsx` (press/long-press/drag). Once salvaged, delete `reserve-morph`.
+    - [ ] Review the hook with Carlos (options, defaults, `MorphProps` type).
+    - [ ] Morph the reserve card into its expanded view with it.
+    - [ ] Add `AnimatePresence` for the form's inner content fade-out on close, and test it.
+    - [ ] Test `isCrossfaded: false` (`layoutCrossfade`) as the way to make the morph subtler.
+    - [ ] Tests: `useMorph` defaults and overrides; both states of `StartButton` get the same `layoutId`.
+    - [ ] Clean-ups: update docstrings once the API settles; delete `reserve-morph`.
+  - [ ] **Review the button-to-form morph in `start-button.tsx`**: make the transformation more subtle (now via `useMorph` with `layoutTransitions.springy`).
   - [ ] **Overhaul the whole `distribus` UI**: open the last opened distribu directly, skipping the distribu manager. No manager view; the open distribu gets a dropdown to switch to another one when the user has more than one.
   - [ ] **Settle the `ComponentNameUI.tsx` naming idea** (revisit before wrapping up this branch): first-level components get a `UI` suffix so the component name doesn't clash with the type of the object it receives. Example: `function ReserveUI({ reserve }: { reserve: Reserve }) { return <OptionsProvider OptionsModal={ReserveOptions}><ReserveEntity reserve={reserve} /></OptionsProvider>; }`
 
 - [ ] **VITAL: Install Code intelligence** ([docs](https://code.claude.com/docs/en/discover-plugins#code-intelligence)): gives Claude jump-to-definition, find-references and type errors right after each edit, so it stops guessing from grep and catches mistakes without a separate `pnpm typecheck` run. Install the TypeScript language-server plugin (and its binary) and check it works in this project.
 
 - [ ] **Add a real migration strategy for the in-browser database**: `data/database/entry.ts` creates the tables only if `distribus` is missing, and only from migration `0000_rich_vision.sql`. Future schema changes won't be applied to existing browsers. Replace with versioned migrations that run on startup.
-
-- [ ] **Decide what to do with the `reserve-morph` experiment**: unfinished work from about a year ago, saved as a WIP commit (`24f4691`) on the local-only `reserve-morph` branch, which sits on top of `main` and has not been pushed to GitHub (so it exists only on this machine; push it if you want a backup). It tries to morph a reserve card into an expanded view (`ComponentMorpher`, `MotionContainer` `styleProps`, press/long-press/drag in `reserves-list.tsx`). Look at it, then finish it or delete the branch.
 
 - [ ] **Recheck the remaining security advisory**: `pnpm audit` still shows 1 moderate `minimatch` finding via `@react-router/fs-routes` (build-time only). Forcing `minimatch` 11 breaks `fs-routes` (`makeRe` is gone), so wait for a React Router release that fixes it. The fix needs `minimatch` 11 or later; `@react-router/fs-routes` 8.5.1 (the latest, React Router 8) depends on `minimatch ^10.2.5`, so upgrading to React Router 8 alone does NOT clear GitHub alert #118. Wait for an `fs-routes` release that depends on `minimatch` 11 or later. Practical risk is very low (build-time only, on your own route file names); dismissing the alert on GitHub as "tolerable risk" is also an option.
 
