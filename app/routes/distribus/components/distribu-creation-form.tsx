@@ -1,7 +1,7 @@
 import { PrimaryButton } from '@/app/components/buttons/primary-button';
 import { create, props as style, type StyleXStyles } from 'stylex';
 import { useFetcher } from 'react-router';
-import { dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
+import { colors, dynamicSizes, fontSizes } from '@/app/styles/vars.stylex';
 import { useRef, useEffect, useState } from 'react';
 
 /**
@@ -39,7 +39,7 @@ function NameInput({ value, onChange }: NameInputProps) {
       required
       placeholder="Pick a name..."
       aria-label="New distribu name"
-      {...style(styles.input)}
+      {...style(styles.input, value !== '' && styles.inputTyping)}
     />
   );
 }
@@ -89,11 +89,14 @@ type SubmitButtonProps = {
 
 const styles = create({
   input: {
+
     // size
     width: '100%',
 
     // content
     fontSize: fontSizes.l,
+    textAlign: 'center',
+    caretColor: colors.gray,
     '::placeholder': {
       fontStyle: 'italic',
     },
@@ -106,6 +109,11 @@ const styles = create({
       default: null,
       ':focus': 'none',
     },
+  },
+
+  // once the user has typed something: center the text, and switch the caret from dim to full color
+  inputTyping: {
+    caretColor: colors.text,
   },
 
   button: {

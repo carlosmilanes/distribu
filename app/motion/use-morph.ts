@@ -10,21 +10,16 @@ Only one component with these props should be rendered at a time.
 */
 export function useMorph({
   transition = layoutTransitions.springy,
-  isCrossfaded = true,
 }: UseMorphOptions = {}): MorphProps {
   const layoutId = useId();
 
-  return { layoutId, layoutCrossfade: isCrossfaded, transition };
+  return { layoutId, transition };
 }
 
 type UseMorphOptions = {
   /** Layout transition preset from `@/app/motion/presets` */
   transition?: MotionProps['transition'];
-  /** Set false to keep opacity constant during the morph */
-  isCrossfaded?: boolean;
 };
 
 /** Props returned by `useMorph`. Components to be morphed should accept and forward them. */
-export type MorphProps = Required<
-  Pick<MotionProps, 'layoutId' | 'layoutCrossfade' | 'transition'>
->;
+export type MorphProps = Required<Pick<MotionProps, 'layoutId' | 'transition'>>;

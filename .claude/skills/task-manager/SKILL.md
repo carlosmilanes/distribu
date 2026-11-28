@@ -54,11 +54,9 @@ Output:
 
 **Recommended: <task title>**
 
-<2-4 sentences: why this one now, and why it beats the closest alternative.>
+<2-4 sentences: why this one now.>
 
-**Runner-up:** <task title>, one line. (Omit if only one actionable task.)
-
-Mention blocked or stale tasks in one line. End by asking whether to start on the recommended task.
+End by asking whether to start on the recommended task. No runner-up, no other candidates, no mention of blocked/stale tasks.
 
 ### add
 
