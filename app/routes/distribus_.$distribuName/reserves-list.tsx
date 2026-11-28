@@ -1,7 +1,7 @@
 import { OptionsProvider } from '@/app/components/options/options-provider';
 import { OptionsModal } from '@/app/components/options/options-modal';
 import { DeleteOption } from '@/app/components/options/delete-option';
-import { Entity } from '@/app/components/core/entity';
+import { usePress, useLongPress, useDrag, mergeProps } from 'react-aria';
 import { type Reserve } from '@/data/types';
 import { PrimaryText } from '@/app/components/text/primary-text';
 import { OptionsButton } from '@/app/components/buttons/options-button';
@@ -58,16 +58,17 @@ function ReserveOptions() {
 function ReserveEntity({ reserve }: { reserve: Reserve }) {
   const { contentRef, optionsRevealed, setOptionsRevealed } =
     useOptionsContext();
+  const gestureProps = useReserveGestures(() => setOptionsRevealed(true));
 
   return (
-    <Entity
+    <div
       ref={contentRef}
-      onLongPress={() => setOptionsRevealed(true)}
-      styleProps={[
+      {...gestureProps}
+      {...style(
         reactiveElevation.low,
         lightReflection.ofColor(colors.secondaryBackground),
-        styles.reserve,
-      ]}
+        styles.reserve
+      )}
     >
       <PrimaryText>{reserve.name}</PrimaryText>
       <WeightBar reserve={reserve} />
@@ -82,8 +83,30 @@ function ReserveEntity({ reserve }: { reserve: Reserve }) {
       )}
 
       {!optionsRevealed && <UseButton />}
-    </Entity>
+    </div>
   );
+}
+
+/**
+Merges press, long-press and drag gesture handlers for the reserve card into a single props object.
+*/
+function useReserveGestures(onLongPress: () => void) {
+  const { pressProps } = usePress({
+    onPress: () => {},
+  });
+
+  const { longPressProps } = useLongPress({
+    accessibilityDescription: 'Long press to show options',
+    onLongPress,
+  });
+
+  const { dragProps } = useDrag({
+    getItems() {
+      return [];
+    },
+  });
+
+  return mergeProps(longPressProps, pressProps, dragProps);
 }
 
 /**
@@ -157,6 +180,8 @@ const styles = create({
     margin: '0 auto',
     borderRadius: borderRadius.l,
     padding: fixedSizes.s3,
+    cursor: 'pointer',
+    userSelect: 'none',
   },
   optionsButton: {
     position: 'absolute',
