@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { DistribuCreationForm } from './distribu-creation-form';
 import { useDismiss } from '@/app/hooks/event-listeners/use-dismiss';
 import { MotionButton } from '@/app/components/buttons/motion-button';
-import { MotionContainer } from '@/app/components/motion-container';
+import { motion } from 'motion/react';
 import { useMorph, type MorphProps } from '@/app/motion/use-morph';
 
 /**
@@ -96,14 +96,14 @@ function CreationForm({ dismissHandler, ...morph }: CreationFormProps) {
   const ref = useDismiss<HTMLDivElement>(dismissHandler);
 
   return (
-    <MotionContainer
+    <motion.div
       {...morph}
       ref={ref}
       {...style(elevation.medium, styles.sharedContainer)}
     >
       <DancingLights />
       <DistribuCreationForm styleProps={styles.form} />
-    </MotionContainer>
+    </motion.div>
   );
 }
 

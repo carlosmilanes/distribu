@@ -6,9 +6,8 @@ import {
 } from '@/app/styles/vars.stylex';
 import { create, props } from 'stylex';
 import { StartButton } from '@/app/routes/distribus/components/start-button';
-import { MotionContainer } from '@/app/components/motion-container';
 import { layoutTransitions } from '@/app/motion/presets';
-import { LayoutGroup } from 'motion/react';
+import { LayoutGroup, motion } from 'motion/react';
 
 /**
  * EmptyHub displays a full-page empty state when no distribus exist.
@@ -32,13 +31,13 @@ export function EmptyManager() {
 
 function StartText() {
   return (
-    <MotionContainer
+    <motion.div
       layout
       transition={layoutTransitions.springy}
     >
       <h1 {...props(styles.emptyTitle)}>No Distribus Here</h1>
       <p {...props(styles.emptyDescription)}>Get started by creating one</p>
-    </MotionContainer>
+    </motion.div>
   );
 }
 

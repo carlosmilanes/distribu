@@ -36,9 +36,8 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { create, props as style } from 'stylex';
-import { MotionContainer } from '@/app/components/motion-container';
 import { motionPresets } from '@/app/motion/presets';
 import { useIsElementInScreenUpperHalf } from '@/app/hooks/use-is-element-in-screen-upper-half';
 import {
@@ -110,7 +109,7 @@ export function useOptionsContext(): OptionsContextValue {
  */
 function BackgroundBlur() {
   return (
-    <MotionContainer
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -143,14 +142,14 @@ function ContentLifter({ children, optionsRevealed }: ContentLifterProps) {
   }
 
   return (
-    <MotionContainer
+    <motion.div
       animate={optionsRevealed ? setLiftVariant() : 'default'}
       variants={contentVariants}
       transition={motionPresets.springy}
       {...style(styles.lifter(optionsRevealed))}
     >
       {children}
-    </MotionContainer>
+    </motion.div>
   );
 }
 
